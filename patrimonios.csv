@@ -1,0 +1,398 @@
+PAT,Em Uso,,Observação,Senha Windows,Anydesk,.bat utilizado,Tipo,Modelo,SoftPhone,Zimbra,Conta Google,Email Secundário,Conta Google 2,Hostname,,Senha BIOS,BitLocker,VPN,Senha VPN,"GIX Remoto
+10.1.1.134/135","Duapi
+10.1.1.122","Domínio
+10.1.1.129","PAT 
+Software 1",Software 1,"PAT 
+Software 2",Software 2,"PAT 
+Software 3",Software 3,Centro de Custo Filial
+000786,São Paulo (Osasco) - Balcão [1] - FABIANA FERNANDES,,,,1 615 646 911,,Desktop,Optiplex 3080,,,,,,BALC001DESK002,,,,,,,,,,,,,,,São Paulo (Osasco)
+000777,São Paulo (Guarulhos) - Balcão [1] - KAWANY CAETANO,,,,1 520 625 635,UpGix-SaoPaulo-Guarulhos-Loja.bat,Desktop,Optiplex 3080,,,,,,PC-PAT-000777,,,,,,,,,,,,,,,São Paulo (Guarulhos)
+000871,Matriz - Caixa [1],,,,910 224 364,,Desktop,Optiplex 3000,,,,,,CAIX001DESK001,,,,,,,,,,,,,,,Matriz
+001545,Matriz - Garantia - GABRIEL FERREIRA,,,171097,1 237 603 737,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3584,,garantia4@refricril.com.br,garantia4@refricril.com.br,,,DESKTOP-TQ46B5I,,254254,,,,,,,,,,,,,Matriz
+001539,Matriz - Auxiliar Televendas,,,,1 259 625 211,,Notebook,Vostro 3584,296,,auxiliarvendas3@refricril.com.br,,,DESKTOP-87MO1SK,,212212,,,,,,,,,,,,,Matriz
+001440,Matriz - Auxiliar Televendas,,,,1 913 224 078,,Notebook,Vostro 3584,,,auxiliarvendas@refricril.com.br,,,DESKTOP-M9AAR56,,212212,,,,,,,,,,,,,Matriz
+000335,CD Içara - Conferência [1],,,,580 702 149,,Desktop,Optiplex 3080,,,,,,conf007desk001,,212212,,,,,,,,,,,,,CD Içara
+000762,CD Içara - Conferência [2],,,,549 605 494,,Desktop,Optiplex 3080,,,,,,conf007desk002,,212212,,,,,,,,,,,,,CD Içara
+000788,CD Içara - Conferência [3],,,,331 979 147,,Desktop,Optiplex 3080,,,,,,conf007desk003,,212212,,,,,,,,,,,,,CD Içara
+000776,CD Içara - Conferência [4],,,,399 238 448,,Desktop,Optiplex 3080,,,,,,conf007desk004,,244244,,,,,,,,,,,,,CD Içara
+000778,CD Içara - Conferência [5],,,,909 511 718,,Desktop,Optiplex 3080,,,,,,conf007desk005,,212212,,,,,,,,,,,,,CD Içara
+000794,CD Paraíba - Faturamento [1] - ANA SILVEIRA,,,,666 730 453,,Desktop,Optiplex 3090,,cdparaiba@refricril.com.br,cdparaiba@refricril.com.br,,,CONF014DESK001,,,,cdpb.conf1,%2Nk-4El'4Ga1Ko,,,,,,,,,,CD Paraíba
+001534,Matriz - Contabil / Fiscal - MICHELE DAMAZIO,,,,243 467 999,,Notebook,Vostro 3584,,contabil3@refricril.com.br,contabil3@refricril.com.br,,,CONT001NOTE002,,,,,,,,,,,,,,,Matriz
+002191,Matriz - Contabil / Fiscal - BRUNA CREASTE,,,,1 057 032 942,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3584,,contabil1@refricril.com.br,contabil1@refricril.com.br,,,CONT001NOTE003,,,,bruna.creaste,%2Nk-4El'4Ga7%Tr,matriz.cont2,matriz14,CONTABIL1,900308,Office 365 Licença Anual,,,,,Matriz
+000767,Joinville - Vendas Ar,,,,741 196 355,,Desktop,Optiplex 3080,,joinville@refricril.com.br,joinville@refricril.com.br,,,TELV001DESK013,,212212,,joinville.balcao2,Uytj745,joinville.balcao2,,,,,,,,,Joinville
+001523,Sucata |,,,,,,Notebook,Notebook Vostro 3510,,,,,,,,,,,,,,,,,,,,,
+001019,Matriz - Financeiro - JULIANE GONÇALVES,,,550614,1 753 968 867,,Notebook,Notebook Vostro 3510,,financeiro@refricril.com.br,financeiro@refricril.com.br,recebimentort@refricril.com.br,,DESKTOP-QOIKJGD,,212212,8342C3CC: 131021-007172-176550-573815-586663-533962-014630-618519,rafaela.francisco,vp49@qDF$tT2,matriz.fina1,matriz06,,900230,Office 365 Licença Anual,,,,,Matriz
+001428,Matriz - Controle de Estoque - TIAGO MARQUES,,,654161,1 992 605 719,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3584,,controleestoque@refricril.com.br,controleestoque@refricril.com.br,,,PC-PAT-001428,,254254,,tiago.marques,3Zh+7Qz'5Gu7Kt,matriz.projeto2,,,900252,Office 365 Licença Anual,,,,,Matriz
+000795,Porto Alegre - Vendas WhatsApp - CAROLINE SANTOS,,,,1 281 551 410,UpGix-PortoAlegre-Loja.bat,Desktop,Optiplex 3090,,pecasportoalegre@refricril.com.br,pecasportoalegre@refricril.com.br,,,DESKTOP-B516GKK,,212212,,,,,,,,,,,,,Porto Alegre
+000796,Teresina - Balcão [1],,,,1693 977 679,,Desktop,Optiplex 3090,,vendasarteresina@refricril.com.br,,,,TER-VEAR-001,,244244,,,,teresina.vendasar1,,,,,,,,,Teresina
+000517,Belo Horizonte - Televendas Loja [2] - MARIANA MACIEL,,,,1 425 523 130,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3080,18205,vendas11@refricril.com.br,vendas11@refricril.com.br,,,DESKTOP-HDD9365,,212212,,,,,,,,,,,,,Belo Horizonte
+000775,Porto Alegre - Faturamento - NAIANE SANTOS,,,,768 629 251,UpGix-Estoque-PortoAlegre.bat,Desktop,Optiplex 3080,,,,,,VEAR008DESK001,,212212,,,,,,,,,,,,,Porto Alegre
+001215,Matriz - Financeiro - FABIANA FERREIRA,,,,584 484 045,,Notebook,Vostro 3584,,refricril@refricril.com.br,,fabiana.daminelli@refricril.com.br,,DIRE001NOTE002,,,,,,,,,,,,,,,Matriz
+001015,Matriz - Projeto - RICARDO JUNIOR,,,,159 704 388,,Notebook,Notebook Lenovo 81TR,,engenharia@refricril.com.br,engenharia@refricril.com.br,,,,,,,,,,,,,,,,,,Matriz
+000059,Floripa - Estoque [1] - DHONYFER MOTTA,,,,989 568 056,,Desktop,Optiplex 3070,,,,,,ESTQ006DESK001,,,,,,,,,,,,,,,Floripa
+000458,CD Paraíba - Faturamento,,,,,,Desktop,Optiplex 3080,,,,,,FATU014DESK001,,,,,,,,,,,,,,,CD Paraíba
+001567,Matriz - Compras - GILMAR CARDOSO,,,,273 939 368,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Vostro 3510,,compras7@refricril.com.br,compras7@refricril.com.br,,,DESKTOP-H4HG3QI,,254254,,PAT001567,2Dh(3Ek!3Tt5Qt,matriz.compras1,,,900170,Office 365 Licença Anual,,,,,Matriz
+001018,Matriz - Financeiro - LUANA MAAS,,,,435 138 055,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Dell Inspiron 3501,,financeiro1@refricril.com.br,financeiro1@refricril.com.br,,,FINA001NOTE003,,212212,,,,matriz.fina2,,,,,,,,,Matriz
+001512,Matriz - Televendas,,,,1 528 282 393,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,217,vendas65@refricril.com.br,vendas65@refricril.com.br,,,PC-PAT-001512,,254254,,,,,,,,,,,,,Matriz
+001563,CD Vila Velha - Garantia - DIEGO SILVA,,,,1 500 394 561,UpGix-CDES-Garantia.bat,Notebook,Vostro 3584,,garantia.es@refricril.com.br,garantia.es@refricril.com.br,,,PC-PAT-001563,,212212,,,,,,,,,,,,,CD Vila Velha
+002144,Itajaí - Gerente - ELIZIANE SILVA,,,,1 370 340 659,,Notebook,Vostro 3584,,itajai@refricril.com.br,itajai@refricril.com.br,,,PC-PAT-002144,,212212,,eliziane.silva,i@Ty12#12fGf4$,itajai.gerente1,,,,,,,,,Itajaí
+000025,CD Paraíba - Organização [1] - EDNALDO FILHO,,,,276 574 270,,Notebook,Vostro 3584,,organizacao.cdes@refricril.com.br,organizacao.cdes@refricril.com.br,,,GFIL014NOTE001,,,,,,,,,,,,,,,CD Paraíba
+001031,CD SÃO PAULO - Organização [2] - EMERSON MICHELOTTI,,,,1 080 354 018,UpGix-CDSP-Setores.bat,Notebook,Vostro 3583,,organização.cdsp@refricril.com.br,organização.cdsp@refricril.com.br,,,DESKTOP-L9U8JNH,,212212,,,,,,,,,,,,,CD São Paulo
+001001,Sem info.,,,U875A,932 810 633,UpGix-Ti-Matriz.bat,Notebook,Notebook Vostro 3510,,informatica@refricril.com.br,andre.refricril@gmail.com,,,PC-PAT-001001,,,,,,,,,,,,,,,
+002484,CD Vila Velha - Organização [1] - JOSE JUNIOR,,,,1 065 265 207,UpGix-CDES-Organizacao.bat,Notebook,Vostro 3584,,organizacao.cdes@refricril.com.br,organizacao.cdes@refricril.com.br,,,PAT-PC-002484,,212212,,organizacao.cdes,",3Qc*8Hr)0Mf0Bt",,,,,,,,,,CD Vila Velha
+002828,Matriz - Controladoria - LARA JOSE,,,,1 395 499 572,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3584,,assistentecontroladoria@refricril.com.br,assistentecontroladoria@refricril.com.br,,,LOGI001NOTE003,,254254,,,,,,,,,,,,,Matriz
+001003,Matriz - Análise de Crédito - LUCIANA BATISTA,,,,1 768 001 644,,Notebook,Notebook Dell Inspiron 3501,207,analisenova@refricril.com.br,credito2@refricril.com.br,linkpagamento@refricril.com.br,,LOGI001NOTE005,,212212,,,,,,,900236,Office 365 Licença Anual,,,,,Matriz
+001517,Matriz - Marketing,,,,1 152 736 403,,Notebook,Notebook Dell G15 5511,,marketing2@refricril.com.br,marketing2@refricril.com.br,,,DESKTOP-U7TN12D,,212212,,,,,,,900357,Licença Adobe Creative Cloud Pro Anual,900223,Corel,900205,Office 365 Licença Anual,Matriz
+001011,CD Içara - Organização [2] - DIOGO CARVALHO,,,,664 431 765,,Notebook,Notebook Lenovo 81FN,,,,,,ORGA007note002,,212212,,,,,,,,,,,,,CD Içara
+001095,Belo Horizonte - Balcão [2] - JULIANA CARMO,,,,430 914 614,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3080,,pecasbh@refricril.com.br,pecasbh@refricril.com.br,,,DESKTOP-5BR50PR,,212212,,,,,,,,,,,,,Belo Horizonte
+002182,Londrina - Gerente [1] - MONICA FERREIRA,,,,1 549 835 534,,Notebook,Vostro 3583,,londrina@refricril.com.br,,,,DESKTOP-UV3FLGE,,212212,,,,,,,,,,,,,Londrina
+002177,Matriz - Liberação de Pedido / Depósito - ANA TEIXEIRA,,,,1 259 625 211,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3583,,financeiro5@refricril.com.br,financeiro5@refricril.com.br,,,,,,,,,matriz.fina10,,,,,,,,,Matriz
+001060,Porto Alegre - Balcão [1],,,,1 640 892 788,UpGix-PortoAlegre-Loja.bat,Desktop,Optiplex 3080,,pecasportoalegre@refricril.com.br,pecasportoalegre@refricril.com.br,,,DESKTOP-7D7FI2T,,212212,,,,,,,,,,,,,Porto Alegre
+001228,CD Vila Velha - Assistente Inventário [1],,,,1 436 943 088,UpGix-CDES-Organizacao.bat,Notebook,Vostro 3584,,inventario.es@refricril.com.br,inventario.es@refricril.com.br,,,DESKTOP-BHM0PPL,,212212,,,,,,,,,,,,,CD Vila Velha
+001014,CD Içara - Organização [1],,,,259 305 486,,Notebook,Notebook Lenovo 81FN,,,,,,orga007note001,,,,,,,,,,,,,,,CD Içara
+000341,CD Içara - Recebimento [2] - DOUGLAS OLIVEIRA,,,,805 581 398,,Desktop,Optiplex 3080,,recebimento@refricril.com.br,,,,recb007desk002,,,,,,,,,,,,,,,CD Içara
+000893,Estoque TI Principal | Matriz,,"Precisa regravar a BIOS, erro fatal",,1 043 308 155,,Desktop,Optiplex 3080,,,,,,RECB014DESK001,,,,,,,,,,,,,,,Matriz
+001510,Matriz - Compras - DANIEL SILVA,,,compras5,605 271 725,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Dell Inspiron 3501,,compras5@refricril.com.br,compras5@refricril.com.br,,,REF-01COM0492,,,,daniel.silva,tT65$3edoYgM,,,,,,,,,,Matriz
+000456,Belo Horizonte - Conferência [1],,,,1 390 088 655,UpGix-Estoque-BeloHorizonte.bat,Desktop,Optiplex 3080,,,,,,DESKTOP-LE9E8T2,,212212,,,,,,,,,,,,,Belo Horizonte
+002512,Floripa - Gerente [1] - MARCOS NERY,,,141125,466 907 483,,Notebook,Notebook Lenovo 81FD,,florianopolis@refricril.com.br,florianopolis@refricril.com.br,,,PC-PAT-002512,,254254,,floripa.gerente,GDdpuo%478#hn,floripa.gerente1,,,,,,,,,Floripa
+000774,Matriz - Vendas WhatsApp - HÉLIA SARTOR,,,,1 313 934 302,UpGix-Loja-Matriz.bat,Desktop,Optiplex 3080,248,pecasmtz1@refricril.com.br,pecasmtz1@refricril.com.br,,,DESKTOP-DDTQ2JM,,254254,,,,,,,,,,,,,Matriz
+000800,Teresina - Vendas WhatsApp [1] - CAIO ARAUJO,,,,115 549 737,,Desktop,Optiplex 3090,,pecasteresina@refricril.com.br,pecasteresina@refricril.com.br,,,TER-WHAT-001,,244244,,,,teresina.whatsapp,,,,,,,,,Teresina
+000797,Belo Horizonte - Balcão [1] - EDMAR VIANA,,,,1 837 745 605,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3090,,pecasbh@refricril.com.br,pecasbh@refricril.com.br,,,DESKTOP-S6TNCDC,,254254,,,,,,,,,,,,,Belo Horizonte
+000799,Porto Alegre - Vendas Ar [1] - LUISA SANTOS,,,,1 976 623 424,,Desktop,Optiplex 3090,,vendasarpoa@refricril.com.br,vendasarpoa@refricril.com.br,,,DESKTOP-PQSDMI5,,244244,,,,,,,,,,,,,Porto Alegre
+001575,CD Içara - Faturamento [1] - RICARDO FILHO,,,,1818 232 989,,Desktop,Optiplex 3080,,faturamento@refricril.com.br,faturamento@refricril.com.br,,,DESKTOP-JTOJ705,,212212,,,,,,,,,,,,,CD Içara
+000798,Teresina - Vendas Ar [1] - ANDRÉ GONZAGA,,,,1908 473 860,,Desktop,Optiplex 3090,,pecasteresina@refricril.com.br,pecasteresina@refricril.com.br,,,TER-BALC-001,,244244,,,,teresina.balcao1,,,,,,,,,Teresina
+001220,Teresina - Faturamento [1],,,,1713 834 980,UpGix-Estoque-Teresina.bat,Desktop,Optiplex 3090,,faturamentoteresina@refricril.com.br,faturamentoteresina@refricril.com.br,,,TER-FATU-001,,244244,,teresina.faturamento,2G'4C+cF5G,,,,,,,,,,Teresina
+000045,Joinville - Estoque - VICTOR DULZ,,,,,,Desktop,Optiplex 3070,,,,,,,,,,,,,,,,,,,,,Joinville
+001214,Teresina - Balcão [2],,,,1681 958 589,,Desktop,Optiplex 3090,,pecasteresina@refricril.com.br,pecasteresina@refricril.com.br,,,ESTQ003DESK001,,244244,,,,teresina.balcao2,,,,,,,,,Teresina
+000519,Porto Alegre - Balcão [4] - BRUNA SCHWARCZ,,,,1 288 641 322,UpGix-PortoAlegre-Loja.bat,Desktop,Optiplex 3080,,pecasportoalegre@refricril.com.br,pecasportoalegre@refricril.com.br,,,TER-BALC-002,,212212,,,,,,,,,,,,,Porto Alegre
+001388,Belo Horizonte - Servidor [Rádio],,,,1 135 483 178,,Desktop,ALDO PC TOP,,,,,,DESKTOP-JPC653L,,212212,,,,,,,,,,,,,Belo Horizonte
+000053,Sem info.,,,,,,Desktop,Optiplex 3070,,,,,,,,,,,,,,,,,,,,,
+001062,Matriz - Televendas Loja - YASMIM JOSÉ,,,,889 623 034,UpGix-Loja-Matriz.bat,Desktop,Optiplex 3090,302,vendas51@refricril.com.br,vendas51@refricril.com.br,,,MTZ-VWA-001,,212212,EDEDF166: 651640-103411-180587-496815-475365-529573-412577-603438,,,,,,,,,,,,Matriz
+000061,Matriz - Estoque [2],,,,1470 566 667,,Desktop,Optiplex 3070,,,,,,ESTQ001DESK001,,,,,,,,,,,,,,,Matriz
+000345,Matriz - Vendas Ar - NICOLE RIBEIRO,,,,192 903 580,,Desktop,Optiplex 3080,249,vendasarmtz1@refricril.com.br,vendasarmtz1@refricril.com.br,,,vear001desk001,,,,,,,,,,,,,,,Matriz
+000043,Blumenau - Vendas Ar [1],,,,301 548 472,,Desktop,Optiplex 3070,,vendasarblumenau@refricril.com.br,vendasarblumenau@refricril.com.br,,,VEAR004DESK001,,,,,,,,,,,,,,,Blumenau
+000764,Belo Horizonte - Faturamento [1] - JOÃO SILVA,,,,912 794 182,UpGix-Estoque-BeloHorizonte.bat,Desktop,Optiplex 3080,,faturamentobh@refricril.com.br,faturamentobh@refricril.com.br,,,telv001desk010,,212212,98C5BE86: 083369-246697-242891-212157-259985-390357-399443-125092,,,,,,,,,,,,Belo Horizonte
+001395,Matriz - Comercial - JESSICA BUDEL,,,camargo123,1 541 674 630,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,288,jessica.budel@refricril.com.br,jessica.budel@refricril.com.br,,,PAT1395,,,,PAT001395,J$k99.TkFl@cF5G,matriz.comercial,,,900232,Office 365 Licença Anual,,,,,Matriz
+001074,Matriz - Televendas - EVELIN OLIVEIRA,,,,1 554 021 651,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,314,vendas61@refricril.com.br,vendas61@refricril.com.br,,,DESKTOP-K5415MB,,212212,,,,,,,,,,,,,Matriz
+001068,Matriz - Dep. Pessoal - CÍNTIA BARBOSA,,,cintia25,1 554 021 651,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Vostro 3510,,departamentopessoal1@refricril.com.br,departamentopessoal1@refricril.com.br,,,DEPP001NOTE002,,212212,,thayssa.ramos,OU7%4_loKjseF,matriz.deppessoal2,,matriz42,,,,,,,Matriz
+001081,Vila Velha - Televendas - ADAM REGATIERI,,,,967 047 691,,Notebook,Notebook Vostro 3510,11210,vendas53@refricril.com.br,vendas53@refricril.com.br,,,TELV013NOTE003,,212212,C1B0B6A4: 211750-221221-602855-063800-513920-279400-167178-431882,,,vilavelha.tele3,,,,,,,,,Vila Velha
+001072,Vila Velha - Televendas - FERNANDO MAESTRI,,,,640 689 095,,Notebook,Notebook Vostro 3510,11211,vendas54@refricril.com.br,vendas54@refricril.com.br,,,TELV013NOTE004,,212212,2FA28F88: 394691-267069-476839-711722-224642-327426-369072-461527,,,vilavelha.tele4,,,,,,,,,Vila Velha
+001079,Vila Velha - Gerente - RAISSA PEREIRA,,,rsp0331,747 436 901,,Notebook,Notebook Vostro 3510,,vilavelha@refricril.com.br,vilavelha@refricril.com.br,,,,,212212,,,,,,,,,,,,,Vila Velha
+001554,Matriz - Compras - EVANDRO GUIMARAES,,,,653 579 815,,Notebook,Notebook Vostro 3510,,evandro.guimaraes@refricril.com.br,,,,COMP001NOTE001,,212212,9E471C49: 651662-319660-652872-269390-630817-542146-553124-566863,evandro.guimaraes,Ref@1931#!1@hB,matriz.compras2,matriz69,,,,,,,,Matriz
+001524,Matriz - Televendas - DINIFFER ABREU,,,,1 931 339 820,,Notebook,Notebook Vostro 3510,276,vendas44@refricril.com.br,vendas44@refricril.com.br,,,DESKTOP-DQV55CC,,212212,,,,,,,,,,,,,Matriz
+002329,Matriz - Compras - RENATA SILVA,,,,1 566 910 025,,Notebook,Notebook Vostro 3510,,compras@refricril.com.br,compras@refricril.com.br,,,COMP001NOTE007,,212212,,renata.silva,5Fr%7Gx'9Ip1Lg,,,,,,,,,,Matriz
+001553,Matriz - Televendas - MARIANE SOARES,,,,1 346 091 731,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,236,vendas52@refricril.com.br,vendas52@refricril.com.br,,,CONT001NOTE005,,212212,,,,,,,,,,,,,Matriz
+000782,Sem info.,,,,497 356 117,,Desktop,Optiplex 3080,,recebimento@refricril.com.br,,,,RECB007DESK001,,212212,50176D48: 719125-430859-075108-692461-511170-533687-459272-072336,,,,,,,,,,,,
+001030,CD Içara - Assistente Inventário - MICHELE COSTA,,,,1 764 498 655,UpGix-Conf-Fat-CDSC.bat,Notebook,Notebook Lenovo 81FE,,inventario@refricril.com.br,inventario@refricril.com.br,,,PAT-PC-001030,,212212,,,,,,,,,,,,,CD Içara
+000041,CD Paraíba - Recebimento [1] - EDIMUNDO CORREIA,,,,,,Desktop,Optiplex 3070,,,,,,,,,,,,,,,,,,,,,CD Paraíba
+001200,Matriz - Garantia - AMANDA SOUZA,,,,1496 399 069,,Notebook,Notebook Dell Inspiron 3501,,garantia@refricril.com.br,garantia@refricril.com.br,,,DESKTOP-5B7IAUK,,212212,,amanda.augusto,Ituy&49_5%4Yt,,matriz08,,900238,Office 365 Licença Anual,,,,,Matriz
+001530,Matriz - Contabil / Fiscal - THAYSE GUGLIELMI,,,,873 637 112,,Notebook,Notebook Dell Inspiron 3501,,contabil4@refricril.com.br,contabil4@refricril.com.br,,,CONT001NOTE006,,212212,D569DAB4: 576191-138963-488664-339196-168509-698621-594440-538989,PAT001530,9Ov$0Ji#9Mt2Ub,matriz.cont3,,matriz20,,,,,,,Matriz
+001098,Teresina - Balcão [3] -,,,,1 880 457 215,,Desktop,Optiplex 3080,,pecasteresina@refricril.com.br,pecasteresina@refricril.com.br,,,PC-PAT-001098,,244244,,,,,,,,,,,,,Teresina
+001216,Sem info.,,,,,,Desktop,Optiplex 3080,,,,,,,,,,,,,,,,,,,,,
+001100,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+000709,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+000506,Belo Horizonte - Balcão [3] - EMANUELA BUENO,,,,1 577 960 039,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3080,,pecasbh@refricril.com.br,pecasbh@refricril.com.br,,,DESKTOP-59FJ2G1,,212212,,,,,,,,,,,,,Belo Horizonte
+000110,São Paulo - Servidor [Rádio],,,,367 409 299,,Desktop,ALDO PC TOP,,,,,,RADI009DESK001,,212212,,,,,,,,,,,,,São Paulo
+000019,Matriz - TI [Srv. Painel Monitoramento],,,,1 616 790 119,,Desktop,CPU Genérica,,,,,,DESKTOP-M2JH4HB,,212212,,,,,,,,,,,,,Matriz
+001024,Matriz - Televendas - ANA SILVA,,,,1 288 199 941,,Notebook,Notebook Vostro 3510,275,vendas3@refricril.com.br,vendas3@refricril.com.br,,,DESKTOP-194EFBD,,,,,,,,,,,,,,,Matriz
+001026,Teresina - Recebimento [1],,,,1 024 620 662,UpGix-Estoque-Teresina.bat,Desktop,Optiplex 3080,,recebimentoteresina@refricril.com.br,recebimentoteresina@refricril.com.br,,,,,244244,,,,,,,,,,,,,Teresina
+001028,Reserva | Matriz - Projeto - RICARDO STRAUSS JUNIOR,,,230425,441 117 208,,Notebook,Notebook Dell G3 3500,,engenharia@refricril.com.br,,,,ENG001NOTE002,,212212,6D3AC801: 682627-175593-232562-511313-185911-022946-645810-578094,,,,,,,,,,,,Matriz
+001115,Sem info.,,,,,,Notebook,Notebook Vostro 3510,,,,,,,,,,,,,,,,,,,,,
+001037,Matriz - Cobrança - MARIA MARQUES,,,,1 764 484 977,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Dell Inspiron 3501,218,contasareceber@refricril.com.br,contasareceber@refricril.com.br,,,DESKTOP-FC2VUEB,,212212,,,,matriz.credito2,,,,,,,,,Matriz
+001045,Floripa - Balcão [3] - MOISES SILVA,,,,700 513 592,,Desktop,Optiplex 3080,,pecasfloripa@refricril.com.br,pecasfloripa@refricril.com.br,,,desktop-ll81i0m,,244244,,,,floripa.whatsapp1,,,,,,,,,Floripa
+001049,CD Içara - Conferência [4],,,,,,Desktop,Optiplex 3080,,,,,,DESKTOP-5A1NSFO,,,,,,,,,,,,,,,CD Içara
+001053,Belo Horizonte - Vendas Ar [1],,,,1 146 206 740,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3080,,vendasarbh@refricril.com.br,vendasarbh@refricril.com.br,,,DESKTOP-VS38N3R,,212212,,,,,,,,,,,,,Belo Horizonte
+001289,CD Paraíba - Conferência [2] - ANDERSON LIMA,,,,1 376 986 599,,Desktop,Optiplex 3080,,,,,,DESKTOP-VAR1GIU,,,,,,,,,,,,,,,CD Paraíba
+001065,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+001066,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+001503,CD SÃO PAULO - Organização [1] - EMERSON PINTO,,,Gerente: 020625,1579 134 970,UpGix-CDSP-Setores.bat,Notebook,Vostro 3583,,organização.cdsp@refricril.com.br,organização.cdsp@refricril.com.br,cdsaopaulo@refricril.com.br,cdsaopaulo@refricril.com.br,DESKTOP-MJTB48U,,212212,3C6A60CA: 594451-260502-609708-312576-553157-684035-427207-254837,cdsp.organizacao,7Eo&1Zs&1Nr3Av,,,,,,,,,,CD São Paulo
+002328,Matriz - Compras - JOSIMAR ZANZI,,,,800 740 215,,Notebook,Notebook Dell Inspiron 3501,,compras6@refricril.com.br,compras6@refricril.com.br,,,COMP001NOTE005,,212212,,josimar.zanzi,Utr56+6tT5$45_,,,,,,,,,,Matriz
+002688,Sem info.,,,,1 349 815 650,,Notebook,Vostro 3583,,,,,,,,212212,,,,,,,,,,,,,
+001170,Teresina - Gerente [1] - MIKAELLY BARRETO,,,,1 272 676 804,UpGix-Loja-Teresina,Notebook,Vostro 3584,,teresina@refricril.com.br,teresina@refricril.com.br,,,GOI-GFIL-001,,212212,A7C9E3DE: 201971-263494-711249-575377-321915-616594-520179-553190,jean.dantas,JNh&6409*4Tge,teresina.gerente2,,,,,,,,,Teresina
+001519,Matriz - Servidor [Srv TI (.248)],,,,1 783 944 557,,Desktop,CPU Genérica,,,monitoramento@refricril.com.br,,,DESKTOP-M3P1EGM,,212212,,,,,,,,,,,,,Matriz
+001531,Matriz - Contabil / Fiscal - RAFAELA FRANCISCO,,,,247 336 389,,Notebook,Vostro 3584,,contabil@refricril.com.br,contabil@refricril.com.br,,,CONT001NOTE001,,254254,,,,,matriz16,,,,,,,,Matriz
+000588,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+001537,CD Içara - Recebimento,,Reset senha BIOS: https://www.youtube.com/watch?v=HHlp8cAFXHA,,1 405 311 550,UpGix-Recebimento-CDSC.bat,Notebook,Notebook Acer Aspire ES1-572,,recebimento@refricril.com.br,recebimento@refricril.com.br,,,PC-PAT-001537,,????,,,,,,,,,,,,,CD Içara
+001544,Perda/Roubo |,,Notebook perdido,,,,Notebook,Notebook Dell Inspiron 3501,,,,,,,,244244,,,,,,,,,,,,,
+001547,Matriz - TI - LUIS ZANATTA,,,888412,1 551 871 188,,Notebook,Notebook Vostro 3510,,tecnologia@refricril.com.br,tecnologia@refricril.com.br,,,DESKTOP-KMVKSE9,,212212,,itamar.ramos,")4Om,5Mc(1If3El",,,,900206,Office 365 Licença Anual,,,,,Matriz
+001548,Matriz - Estoque,,,,1 702 155 884,,Notebook,Vostro 3584,,,,,,PC-PAT-001548,,244244,,,,,,,,,,,,,Matriz
+002513,CD Vila Velha - Organização [2],,,,1 151 671 452,,Notebook,Notebook Dell Inspiron 3501,,organizacao.cdes@refricril.com.br,organizacao.cdes@refricril.com.br,,,PAT-PC-002513,,212212,,organizacao.cdes,",3Qc*8Hr)0Mf0Bt",,,,,,,,,,CD Vila Velha
+001552,Matriz - Logística - AMANDA SOUZA,,,10241703,1 586 931 285,,Notebook,Notebook Vostro 3510,214,logistica@refricril.com.br,logistica@refricril.com.br,cte@refricril.com.br,,LOGI001NOTE004,,,,amanda.souza,UU#ret%$uy77,,,,,,,,,,Matriz
+000268,Sem info.,,,,,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,
+001565,Matriz - Estoque [1] - Geral Setor,,,,1 470 566 667,,Desktop,Optiplex 3070,,,,,,ESTQ001DESK001,,,,,,,,,,,,,,,Matriz
+000870,Matriz - Caixa [2] - GABRIELA LINO,,,,198 528 981,,Desktop,Optiplex 3000,,,,,,CAIX001DESK002,,,,,,,,,,,,,,,Matriz
+001566,São Paulo (Itaim) - Balcão [1] - JEFFERSON SILVA,,,,1 169 594 065,,Desktop,Optiplex 3080,,,,,,PC-PAT-001566,,,,PAT001566,5Ej#6Wu!2Nl4Sq,,,,,,,,,,São Paulo (Itaim)
+001568,Matriz - Televendas - JOSIANE MARTINS,,,,1 706 221 132,,Notebook,Notebook Vostro 3510,279,vendas31@refricril.com.br,vendas31@refricril.com.br,,,DESKTOP-HB7NUOC,,244244,,,,,,,,,,,,,Matriz
+000873,Blumenau - Caixa [1],,,,250 045 189,,Desktop,Optiplex 3000,,,,,,CAIX004DESK001,,,,,,,,,,,,,,,Blumenau
+000875,Blumenau - Caixa [2] - JENNIFER MESSIAS,,,,796 261 081,,Desktop,Optiplex 3000,,,,,,CAIX004DESK002,,,,,,,,,,,,,,,Blumenau
+000448,Blumenau - Balcão [1] - ROBERTO MOURA,,,,854 314 150,,Desktop,Optiplex 3080,,pecasblumenau@refricril.com.br,pecasblumenau@refricril.com.br,,,balc004desk001,,,,,,blumenau.balcao2,,,,,,,,,Blumenau
+000450,Blumenau - Balcão [2] - MANUEL NETTO,,,,205 149 634,,Desktop,Optiplex 3080,,pecasblumenau@refricril.com.br,pecasblumenau@refricril.com.br,,,BALC004DESK002,,,,,,blumenau.balcao1,,,,,,,,,Blumenau
+000055,Blumenau - Vendas Ar [2],,,,978 656 839,,Desktop,Optiplex 3070,,vendasarblumenau@refricril.com.br,vendasarblumenau@refricril.com.br,,,BALC006DESK003,,,,,,blumenau.balcao3,,,,,,,,,Blumenau
+000452,Blumenau - Balcão [3] - MATHEUS SILVA,,Tambem esta sendo usado como Radio,,301 325 687,,Desktop,Optiplex 3080,,pecasblumenau@refricril.com.br,pecasblumenau@refricril.com.br,,,BALC004DESK004,,,,,,blumenau.balcao4,,,,,,,,,Blumenau
+000460,Blumenau - Estoque [1] - GIANLUCA GRIGNANI,,,,545 636 400,,Desktop,Optiplex 3080,,,,,,ESTQ004DESK001,,,,,,,,,,,,,,,Blumenau
+002479,Matriz - Garantia [Jovem Aprendiz],,,,1 933 372 817,,Notebook,Vostro 3584,,,garantia.aprendiz@refricril.com.br,,,PC-PAT-002225,,212212,,,,,,,,,,,,,Matriz
+000876,Londrina - Caixa [1] - LETICIA FERREIRA,,,,112 563 707,,Desktop,Optiplex 3000,,londrinacaixa2@refricril.com.br,,,,CAIX005DESK001,,,,PAT000876,"#7Rw&1Hg#8I,uY2Px",,,,,,,,,,Londrina
+000877,Londrina - Caixa [2] - PALOMA LIMA,,,,180 170 342,,Desktop,Optiplex 3000,,londrinacaixa2@refricril.com.br,londrinacaixa2@refricril.com.br,,,CAIX005DESK002,,,,PAT000877,,,,,,,,,,,Londrina
+000241,Floripa - Vendas Ar [1] - FRANCIELI ALVES,,,,1 339 067 120,,Desktop,NPC,,vendasarfloripa@refricril.com.br,vendasarfloripa@refricril.com.br,,,,,,,,,,,,,,,,,,Floripa
+000516,Londrina - Balcão [2] - BEATRIZ SANTOS,,,,1 533 343 351,,Desktop,Optiplex 3080,,pecaslondrina@refricril.com.br,pecaslondrina@refricril.com.br,,,BALC005DESK002,,,,PAT000516,KJH86%4,londrina.balcao2,,,,,,,,,Londrina
+000240,Londrina - Balcão [3] - JAYARA TOMAZ,,Tambem esta sendo usado como Radio,,116 856 278,,Desktop,NPC,,pecaslondrina@refricril.com.br,pecaslondrina@refricril.com.br,,,BALC005DESK003,,,,PAT000240,0!pqM1(V4iB)pG,londrina.balcao3,,,,,,,,,Londrina
+000246,Londrina - Vendas WhatsApp [1],,,,1 383 476 790,,Desktop,NPC,,vendasarlondrina@refricril.com.br,vendasarlondrina@refricril.com.br,,,BALC005DESK004,,,,,,londrina.balcao4,,,,,,,,,Londrina
+000242,Londrina - Vendas Ar [1] - ELIZANDRA GUIMARÃES,,,,451 193 102,,Desktop,NPC,,vendasarlondrina@refricril.com.br,vendasarlondrina@refricril.com.br,,,VEAR005DESK001,,,,PAT000242,K#6Nf-9Rl'0Q!pP0Ng,londrina.vendasar1,,,,,,,,,Londrina
+000111,Londrina - Balcão [1],,,,224 745 994,,Desktop,ALDO PC TOP,,pecaslondrina@refricril.com.br,pecaslondrina@refricril.com.br,,,VEAR005DESK002,,,,PAT000111,0Q!pP0Ng,,,,,,,,,,Londrina
+000518,Londrina - Estoque [1],,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,Londrina
+000872,Itajaí - Caixa [1] - BRENDA SANTOS,,,,851 253 096,,Desktop,Optiplex 3000,,,,,,CAIX012DESK001,,,,,,,,,,,,,,,Itajaí
+000874,Itajaí - Caixa [2] - MARCIA OLIVEIRA,,,,930 646 988,,Desktop,Optiplex 3000,,,,,,CAIX012DESK002,,,,,,,,,,,,,,,Itajaí
+000353,Sem info.,,,,432 506 847,,Notebook,Notebook Acer Aspire A315-33,,itajai@refricril.com.br,,,,GFIL012NOTE001,,,,,,,,,,,,,,,
+000763,Itajaí - Balcão,,,,,,Desktop,Optiplex 3080,,,,,,,,,,,,,,,,,,,,,Itajaí
+000768,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+000791,Itajaí - Vendas WhatsApp - IURY FIGUEIREDO,,,,639 044 262,,Desktop,CPU Genérica,,vendaspecasitajai@refricril.com.br,,,,VWA012DESK002,,,,,,,,,,,,,,,Itajaí
+000765,Itajaí - Vendas Ar - KEROLAY ALVES,,,,702 740 071,,Desktop,Optiplex 3080,,vendasaritajai@refricril.com.br,,,,,,,,,,,,,,,,,,,Itajaí
+000474,Itajaí - Estoque,,,,440 117 076,,Desktop,NPC,,,,,,ESTQ012DESK001,,,,,,,,,,,,,,,Itajaí
+000865,Vila Velha - Caixa [1] - JOICE MOREIRA,,,,261 395 357,,Desktop,Optiplex 3000,,,,,,CAIX013DESK001,,,,,,,,,,,,,,,Vila Velha
+000864,Vila Velha - Caixa [2] - VILMA ROCHA,,,,472 343 726,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,Vila Velha
+000784,Vila Velha - Vendas Ar - JAMILE SILVA,,,,170 175 484,,Desktop,CPU Genérica,,vendasarvilavelha@refricril.com.br,vendasarvilavelha@refricril.com.br,,,,,,,,,,,,,,,,,,Vila Velha
+001222,Belo Horizonte - Televendas Loja [1] - DANIEL SANTOS,,,,1 666 667 899,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3080,18208,vendas57@refricril.com.br,vendas57@refricril.com.br,,,DESKTOP-4M6SHIB,,254254,,,,,,,,,,,,,Belo Horizonte
+000725,Vila Velha - Balcão,,,,464 813 082,,Desktop,Optiplex 3080,,pecasvilavelha@refricril.com.br,pecasvilavelha@refricril.com.br,,,BALC013DESK006,,,,,,,,,,,,,,,Vila Velha
+000521,Itajaí - Balcão,,,,591 704 410,,Desktop,Optiplex 3080,,pecasitajai@refricril.com.br,,,,BALC012DESK003,,212212,2968DA32: 491315-710919-602987-461813-011649-052525-324511-114015,,,itajai.balcao3,,,,,,,,,Itajaí
+000780,reserva | Matriz - Projeto - RICARDO STRAUSS JUNIOR,,,,133 268 140,,Desktop,Optiplex 3080,,engenharia@refricril.com.br,,,,BALC012DESK002,,212212,46830013: 138116-554818-126632-089320-538307-003861-662321-462935,,,itajai.balcao2,,,,,,,,,Itajaí
+000787,Porto Alegre - Conferência [1] - GUILHERME CALÇADO,,,,167 491 590,UpGix-Estoque-PortoAlegre.bat,Desktop,Optiplex 3080,,,,,,telv001desk017,,212212,,,,,,,,,,,,,Porto Alegre
+000051,CD Vila Velha - Recebimento [1],,,,401 142 708,,Desktop,Optiplex 3070,,recebimentoes@refricril.com.br,recebimentoes@refricril.com.br,,,RECB011DESK001,,,,,,,,,,,,,,,CD Vila Velha
+000728,CD Vila Velha - Conferência [1],,,,351 018 005,,Desktop,Optiplex 3080,,,,,,CONF011DESK001,,,,,,,,,,,,,,,CD Vila Velha
+000724,CD Vila Velha - Conferência [2] - GUTTIERREZ RAMOS,,,,181 143 353,,Desktop,Optiplex 3080,,,,,,CONF011DESK002,,,,,,,,,,,,,,,CD Vila Velha
+000727,CD Vila Velha - Conferência [3] - THIERRY FURLANI,,,,778 775 402,,Desktop,Optiplex 3080,,,,,,CONF011DESK003,,,,,,,,,,,,,,,CD Vila Velha
+000723,CD Vila Velha - Conferência [4],,,,834 633 297,,Desktop,Optiplex 3080,,,,,,CONF011DESK004,,,,,,,,,,,,,,,CD Vila Velha
+000726,CD Vila Velha - Faturamento [1],,,,371 315 689,UpGix-Estoque-CDES.bat,Desktop,Optiplex 3080,,faturamentoes@refricril.com.br,,cdvilavelha@refricril.com.br,,FATU011DESK001,,,,,,,,,,,,,,,CD Vila Velha
+001092,Porto Alegre - Servidor [Rádio],,,,1 902 334 526,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,Porto Alegre
+000106,Sem info.,,,,,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,
+001578,Porto Alegre - Gerente [1] - RAFAEL FLORIANO,,,,1 446 102 908,UpGix-PortoAlegre-Loja.bat,Notebook,Notebook Acer Aspire A315-33,,portoalegre@refricril.com.br,portoalegre@refricril.com.br,,,PAT-PC-001578,,212212,,rafael.floriano,KJH86%4_poOi,,,,,,,,,,Porto Alegre
+001085,CD Vila Velha - Organização [1] - RAFAEL RIBEIRO,,,,353 900 570,,Notebook,Vostro 3584,,,,,,ORGA011NOTE001,,,,organizacao.cdes,",3Qc*8Hr)0Mf0Bt",,,,,,,,,,CD Vila Velha
+001077,14 - Goiânia - Estoque [1],,,,1 209 943 313,,Desktop,Optiplex 3080,,,,,,,,212212,,,,,,,,,,,,,14 - Goiânia
+001080,Sem info.,,,,1 100 841 259,,Desktop,ALDO PC TOP,,estoquevilavelha@refricril.com.br,,,,ESTQ013DESK001,,,,PAT001080,"f!iA05F&k,Bk0Z",,,,,,,,,,
+000789,Vila Velha - Balcão - SONIA ROSSATI,,,,557 538 212,,Desktop,Optiplex 3080,,,,,,BALC013DESK001,,,,,,,,,,,,,,,Vila Velha
+000783,Vila Velha - Balcão - FELIPE SANTOS,,,,197 624 717,,Desktop,Optiplex 3080,,pecasvilavelha@refricril.com.br,pecasvilavelha@refricril.com.br,,,BALC013DESK002,,212212,,,,,,,,,,,,,Vila Velha
+000785,Vila Velha - Balcão - PAULO BOGIO,,,,365 105 498,,Desktop,Optiplex 3080,,,,,,BALC013DESK003,,,,,,,,,,,,,,,Vila Velha
+000491,Inativado |,,,,283 974 102,UpGix-SaoPaulo-Loja.bat,Notebook,Notebook Dell Inspiron 3501,,,,,,PC-PAT-002636,,,,,,,,,,,,,,,
+000515,São Paulo - Televendas Loja - VITOR SILVA,,,,225 259 039,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,vendas43@refricril.com.br,vendas43@refricril.com.br,,,SP-TELV-002,,,,,,,,,,,,,,,São Paulo
+000509,São Paulo - Balcão [2] - EDUARDO OLIVEIRA,,,,730 545 284,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,pecassaopaulo@refricril.com.br,pecassaopaulo@refricril.com.br,,,BALC009DESK002,,,,,,,,,,,,,,,São Paulo
+000508,São Paulo (Guarulhos) - Balcão [2] - CRISTIANO SILVA,,,,262 236 815,UpGix-SaoPaulo-Guarulhos-Loja.bat,Desktop,Optiplex 3080,,vendas.guarulhos@refricril.com.br,vendas.guarulhos@refricril.com.br,,,BALC009DESK004,,,,,,,,,,,,,,,São Paulo (Guarulhos)
+000503,São Paulo - Televendas - EDUARDO OLIVEIRA,,,,923 558 961,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,vendas60@refricril.com.br,vendas60@refricril.com.br,,,DESKTOP-J7VEQ4B,,,,,,,,,,,,,,,São Paulo
+000505,São Paulo - Vendas Ar - VALMIR SILVA,,,,299 106 406,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,vendasarsaopaulo@refricril.com.br,,,,VEAR009DESK001,,,,,,,,,,,,,,,São Paulo
+000469,Joinville - Balcão [2] - FERNANDA MOURA,,,,177 003 768,,Desktop,ALDO PC TOP,,joinville@refricril.com.br,joinville@refricril.com.br,,,DESKTOP-GI7DJCO,,,,,,,,,,,,,,,Joinville
+000502,São Paulo - Estoque - MARCO ALENCAR,,,,433 023 210,UpGix-Estoque-SaoPaulo.bat,Desktop,Optiplex 3080,,,,,,ESTQ009DESK001,,,,,,,,,,,,,,,São Paulo
+000513,São Paulo - Estoque,,,,647 436 818,UpGix-Estoque-SaoPaulo.bat,Desktop,Optiplex 3080,,,,,,ESTQ009DESK002,,,,,,,,,,,,,,,São Paulo
+000883,São Paulo - Caixa [1] - GLORIA ABREU,,,,975 918 233,,Desktop,Optiplex 3000,,,,,,CAIX009DESK001,,,,,,,,,,,,,,,São Paulo
+000881,São Paulo - Caixa [2] - JENNIFER SILVA,,,,695 409 633,,Desktop,Optiplex 3080,,,,,,CAIX009DESK002,,,,,,,,,,,,,,,São Paulo
+000882,Porto Alegre - Caixa [1] - AMANDA COSTA,,,,927 775 074,,Desktop,Optiplex 3000,,,,,,CAIX008DESK001,,244244,,,,,,,,,,,,,Porto Alegre
+000886,São Paulo - Servidor [Srv Local],,,,330 138 396,,Desktop,Optiplex 3000,,,,,,SERV009DESK001,,,,,,,,,,,,,,,São Paulo
+000514,CD Içara - Faturamento [2],,,,b,,Desktop,Optiplex 3080,,cd@refricril.com.br,cd@refricril.com.br,,,desktop-9a2rjep,,212212,6AC78859: 362868-308077-494802-045749-381689-341550-165275-076010,,,,,,,,,,,,CD Içara
+001099,CD Paraíba - Conferência [1] - JAILSON SILVA,,,,231 017 584,UpGix-CDPB.bat,Desktop,Optiplex 3080,,,,,,PC-PAT-001099,,212212,,cdpb.conf2,*5Lv$0Rz&9Bl4Xr,,,,,,,,,,CD Paraíba
+001090,Londrina - Gerente [1] - MONICA FERREIRA,,,let0747,1 549 835 534,UpGix-Administrativo.bat,Notebook,340XAA,,londrina@refricril.com.br,londrina@refricril.com.br,,,GFIL005NOTE001,,,,monica.londrina,Uojn(67%45Bc_,londrina.gerente,,,,,,,,,Londrina
+001101,Matriz - Servidor [BI TELEVENDAS],,,,749 030 005,,Desktop,Optiplex 3070,,,,,,TVBI001DESK001,,,,,,,,,,,,,,,Matriz
+001111,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+001187,Matriz - Controle de Estoque - WELDERSON SILVA,,,,861 423 597,,Notebook,Vostro 3584,,estoque4@refricril.com.br,estoque4@refricril.com.br,,,ESTQ001NOTE002,,254254,,PAT001187,2Pz)2Yb%4Jg8Zb,matriz.estoque1,matriz03,,900172,Office 2019 Licença Vitalícia,,,,,Matriz
+001118,Matriz - Televendas - EDNA POTRIKUS,,,,1 480 134 319,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,289,vendas58@refricril.com.br,vendas58@refricril.com.br,,,DESKTOP-OI2N85Q,,212212,,,,,,,,,,,,,Matriz
+001114,Matriz - Televendas - FRANCIELLE PINTO,,,,1 678 380 483,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,235,vendas18@refricril.com.br,vendas18@refricril.com.br,,,DESKTOP-FLHQFL3,,212212,,,,,,,,,,,,,Matriz
+001036,Matriz - Controle de Estoque - WESLEY FLORIANO,,,,1 536 038 492,UpGix-Administrativo.bat,Notebook,Notebook Vostro 3510,,estoque1@refricril.com.br,estoque1@refricril.com.br,,,PC-PAT-001036,,212212,,,,,,,900381,Office 365 Licença Anual,,,,,Matriz
+000057,Sem info.,,,,,,Desktop,Optiplex 3070,,,,,,,,,,,,,,,,,,,,,
+000504,São Paulo - Televendas - TIAGO SILVERIO,,,,957 699 647,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,vendas41@refricril.com.br,vendas41@refricril.com.br,,,SP-TELV-001,,,,,,,,,,,,,,,São Paulo
+000094,Floripa - Vendas Ar [2],,,,282 479 859,,Desktop,Optiplex 3070,,vendasarfloripa@refricril.com.br,vendasarfloripa@refricril.com.br,,,VEAR006DESK002,,,,,,floripa.vendasar2,,,,,,,,,Floripa
+000308,Floripa - Vendas Ar [1] - FRANCIELI ALVES,,,,205 746 424,,Desktop,NPC,,vendasarfloripa@refricril.com.br,vendasarfloripa@refricril.com.br,,,VEAR006DESK001,,,,,,floripa.vendasar1,,,,,,,,,Floripa
+001151,Matriz - Compras - ERIKE ALMEIDA,,,,1577 380 304,,Notebook,Notebook Vostro 3510,,compras4@refricril.com.br,compras4@refricril.com.br,,,DESKTOP-DBD14KV,,244244,7B23427D: 157652-545457-151723-675763-696685-718861-267047-118580,erike.almeida,JNh&TY563$4Tge,,,,900296,Office 365 Licença Anual,,,,,Matriz
+001152,Matriz - Administrativo - SAMUEL BRANCO,,,,253 869 649,,Notebook,Notebook Vostro 3510,,samuel@refricril.com.br,samuel@refricril.com.br,,,,,,,,,,matriz30,Samuel.B,900235,Office 365 Licença Anual,,,,,Matriz
+001153,Matriz - Televendas - JULIANA GALDINO,,,,1 053 780 934,UpGix-Televendas-Matriz.bat,Notebook,Notebook Vostro 3510,238,vendas23@refricril.com.br,vendas23@refricril.com.br,,,PAT-001153,,244244,360FB3F4: 591316-169686-271535-330242-467280-361240-560868-574794,,,,,,,,,,,,Matriz
+001157,Porto Alegre - Caixa [2] - GABRIELA SANTOS,,,,122 849 525,,Desktop,Optiplex 3000,,,,,,DESKTOP-KBHNBLL,,244244,,,,,,,,,,,,,Porto Alegre
+001156,Goiânia - Balcão [2] - DIEGO PORTO,,,,947 147 272,,Desktop,Optiplex 3000,,pecasgoiania@refricril.com.br,pecasgoiania@refricril.com.br,,,GOI-BALC-003,,244244,C4FA236F: 630861-702196-526405-082324-520993-036399-262515-577544,,,,,,,,,,,,
+001155,Sem info.,,,,1900 981 543,,Desktop,Optiplex 3000,,vendasargoiania@refricril.com.br,vendasargoiania@refricril.com.br,,,GOI-VEAR-002,,244244,91E4CD53: 089342-383603-663685-703219-398024-663630-137060-707509,,,,,,,,,,,,
+001154,Reserva | 27 - Brasília - Vendas Ar,,,,1606 537 264,UpGix-27-Brasilia-Loja.bat,Desktop,Optiplex 3000,,vendasarbrasilia@refricril.com.br,vendasarbrasilia@refricril.com.br,,,PC-PAT-001154,,244244,F9DC666F: 331683-531707-474815-422785-028633-607310-717926-528660,,,,,,,,,,,,27 - Brasília
+001158,Goiânia - Faturamento [1] - MATEUS SILVA,,,Gerente: 190925,1 300 254 451,UpGix-Estoque-Goiania.bat,Desktop,Optiplex 3000,,faturamentogoiania@refricril.com.br,faturamentogoiania@refricril.com.br,cdgoiania@refricril.com.br,cdgoiania@refricril.com.br,GOI-FATU-001,,244244,B71295C1: 007700-555676-420475-511500-048004-506341-145387-189486,,,,,,,,,,,,
+001159,Goiânia - Balcão [1] - MARCOS OLIVEIRA,,,,1736 237 051,UpGix-27-Brasilia-Loja.bat,Desktop,Optiplex 3000,,pecasbrasilia@refricril.com.br,pecasbrasilia@refricril.com.br,,,GOI-BALC-001,,244244,2E43D213: 611512-163515-453387-628342-466235-084359-663982-159280,,,,,,,,,,,,
+001160,Reserva | 27 - Brasília - Balcão [Goiania ],,,,1850 595 809,UpGix-27-Brasilia-Loja.bat,Desktop,Optiplex 3000,,pecasbrasilia@refricril.com.br,pecasbrasilia@refricril.com.br,,,GOI-BALC-002,,244244,5722DFDF: 025542-246092-044572-197780-432432-414997-261327-276232,,,,,,,,,,,,27 - Brasília
+001161,Belo Horizonte - Vendas WhatsApp [1],,,,678 127 826,UpGix-BeloHorizonte-Loja.bat,Desktop,Optiplex 3000,18207,vendasbh@refricril.com.br,vendasbh@refricril.com.br,,,DESKTOP-5A7Q5S6,,244244,,,,,,,,,,,,,Belo Horizonte
+001162,Sem info.,,,,1494 317 292,,Desktop,Optiplex 3000,,,,,,PC-PAT-001162,,244244,EAF497A9: 094831-690228-172348-333729-485628-488521-677853-354200,,,,,,,,,,,,
+001163,Goiânia - Recebimento [1],,,,1823 256 441,,Desktop,Optiplex 3000,,recebimentogoiania@refricril.com.br,recebimentogoiania@refricril.com.br,,,GOI-RECB-001,,244244,339B04F7: 309859-210595-132451-489896-706772-694364-697686-587939,,,,,,,,,,,,
+001164,Goiânia - Conferência [2],,,,1074 079 996,,Desktop,Optiplex 3000,,,,,,GOI-CONF-002,,244244,24874B65: 404767-272184-618739-481778-471130-581009-117337-253583,,,,,,,,,,,,
+001165,Sem info.,,,,1 397 540 947,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,
+001166,Goiânia - Conferência [1],,,,222 310 758,,Desktop,Optiplex 3000,,,,,,GOI-CONF-001,,244244,FF7C217B: 544533-396671-641927-715055-596398-644413-135201-518518,,,,,,,,,,,,
+001167,27 - Brasília - Caixa [3],,,,1 855 542 286,UpGix-27-Brasilia-Caixa.bat,Desktop,Optiplex 3000,,,,,,PC-PAT-001167,,244244,B1D24A13: 680581-374583-654709-653906-153989-478830-118569-101695,,,,,,,,,,,,27 - Brasília
+001168,Goiânia - Caixa [2] - RAQUEL SOUZA,,,,1 924 475 733,,Desktop,Optiplex 3000,,,,,,GOI-CAIX-001,,244244,A67899D5: 316338-297561-016643-280786-632698-055429-618332-561803,goiania.caixa1,UtyhU8%4PPP,,,,,,,,,,
+001169,Belo Horizonte - Servidor,,,,1548 824 269,,Desktop,Optiplex 3000,,,,,,SERV-GOI-001,,244244,,,,,,,,,,,,,Belo Horizonte
+000927,São Paulo (Osasco) - Servidor [Rádio],,,,1 271 203 476,,Desktop,ALDO PC TOP,,,,,,,,55055,,,,,,,,,,,,,São Paulo (Osasco)
+000108,Goiânia - Servidor [Rádio],,,,1 602 745 972,,Desktop,ALDO PC TOP,,,,,,GOI-RDIO-001,,212212,,,,,,,,,,,,,
+000067,Joinville - Gerente [1] - FRANCIELE LUDOVINO,,,,906 926 646,,Notebook,340XAA,,joinville@refricril.com.br,joinville@refricril.com.br,,,GFIL003NOTE001,,,,gabriel.joinville,UtyhU8%453T,joinville.gerente,,,,,,,,,Joinville
+001188,Sem info.,,,,,,Notebook,Notebook Acer Aspire A315-33,,,,,,,,,,,,,,,,,,,,,
+000867,Floripa - Caixa [2] - AMANDA QUEIROZ,,,,602 570 533,,Desktop,Optiplex 3000,,,,,,DESKTOP-1Q5DHF4,,,,,,,,,,,,,,,Floripa
+000116,Sem info.,,,,,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,
+000305,Sem info.,,,,,,Desktop,NPC,,,,,,,,,,,,,,,,,,,,,
+000304,Sem info.,,,,,,Desktop,NPC,,,,,,,,,,,,,,,,,,,,,
+000270,Sem info.,,,,,,Desktop,NPC,,,,,,,,,,,,,,,,,,,,,
+000306,Sem info.,,,,,,Desktop,NPC,,,,,,,,,,,,,,,,,,,,,
+001189,Matriz - Televendas - LIVIA REIS,,,,1 264 905 528,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,284,vendas37@refricril.com.br,vendas37@refricril.com.br,,,DESKTOP-0CFLCI3,,244244,,,,,,,,,,,,,Matriz
+001190,Matriz - Administrativo - SAMUEL MIGUEL,,,,1311 570 314,,Notebook,Vostro 3520,,samuel.miguel@refricril.com.br,samuel.miguel@refricril.com.br,,,,,244244,,,,,matriz41,CONTABIL2,,,,,,,Matriz
+001191,Matriz - Televendas - JESSICA CORREA,,,,1933 999 488,,Notebook,Vostro 3520,256,vendas15@refricril.com.br,vendas15@refricril.com.br,,,DESKTOP-CCV5E2K,,244244,,,,,,,,,,,,,Matriz
+001192,Matriz - RH - ALINE SILVA,,,,1 510 795 723,UpGix-Administrativo.bat,Notebook,Vostro 3520,,recursoshumanos1@refricril.com.br,recursoshumanos1@refricril.com.br,rh@refricril.com.br,,PAT-001192,,244244,,,,,,,900357,Licença Adobe Creative Cloud Pro Anual,,,,,Matriz
+000878,Sem info.,,,,,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,
+000934,Teresina - Servidor [Rádio],,,,1 104 187 690,,Desktop,ALDO PC TOP,,,,,,DESKTOP-A34FA1D,,212212,,,,,,,,,,,,,Teresina
+000938,Joinville,,,,1 370 383 426,,Desktop,CPU Genérica,,vendasarjoinville@refricril.com.br,vendasarjoinville@refricril.com.br,,,,,,,joinville.balcao2,Uytj745,joinville.balcao2,,,,,,,,,Joinville
+000476,Joinville - Balcão [1] - WILLIAN GONÇALVES,,,,890 672 757,,Desktop,ALDO PC TOP,,joinvillevendas4@refricril.com.br,,,,DESKTOP-IAIP7U8,,,,,,,,,,,,,,,Joinville
+001597,Matriz - Televendas - JAILA ORLANDI,,,,1819 722 334,,Notebook,Vostro 3520,237,vendas14@refricril.com.br,vendas14@refricril.com.br,,,DESKTOP-NB36FAU,,244244,,,,,,,,,,,,,Matriz
+001598,Matriz - Televendas - SONIA SILVA,,,,1188 083 570,,Notebook,Vostro 3520,247,vendas7@refricril.com.br,vendas7@refricril.com.br,,,DESKTOP-I1QPODM,,244244,,,,,,,,,,,,,Matriz
+002346,Matriz - Logística - MARIA ALVES,,,70224,1 497 058 538,,Notebook,Vostro 3520,304,logistica4@refricril.com.br,logistica4@refricril.com.br,cte@refricril.com.br,,PC-PAT-002346,,244244,,,,,,,,,,,,,Matriz
+001601,Matriz - Televendas - PATRICIA SANTOS,,,,1 140 185 039,,Notebook,Vostro 3520,285,vendas13@refricril.com.br,vendas13@refricril.com.br,,,DESKTOP-7L70V14,,244244,,,,teresina.vendasar1,,,,,,,,,Matriz
+001600,Matriz - Televendas - MARIA CORRÊA,,,,1 942 996 926,,Notebook,Vostro 3520,229,vendas34@refricril.com.br,vendas34@refricril.com.br,,,DESKTOP-GNG54SB,,244244,,,,,,,,,,,,,Matriz
+001599,Matriz - Controle de Estoque - ARTHUR PESSOA,,Trocado de Tela ticket 2367,,1 503 225 087,,Notebook,Vostro 3520,,arthur.biehl@refricril.com.br,arthur.biehl@refricril.com.br,,,DESKTOP-1IUNA0L,,244244,,PAT001599,9Xz-8Xw'9Ge2Kf,,matriz01,,900367,Office 365 Licença Anual,,,,,Matriz
+001595,Matriz - Pricing - LUIS ALEXANDRE,,,,1 077 323 394,UpGix-Administrativo.bat,Notebook,Vostro 3520,216,pricing@refricril.com.br,pricing@refricril.com.br,,,PAT-001595,,244244,,,,,,,,,,,,,Matriz
+001594,Matriz - Televendas - DIEGO NAZARIO,,,,1230 647 366,,Notebook,Vostro 3520,268,vendas28@refricril.com.br,vendas28@refricril.com.br,,,PC-PAT-001594,,244244,,,,,,,,,,,,,Matriz
+001593,Matriz - Televendas - LUIZ COELHO,,,,1531 375 159,,Notebook,Vostro 3520,264,vendas20@refricril.com.br,vendas20@refricril.com.br,,,DESKTOP-6CPEJUK,,244244,,,,,,,,,,,,,Matriz
+001592,Matriz - Garantia,,,,1 613 588 225,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,garantia5@refricril.com.br,garantia5@refricril.com.br,,,,,244244,,,,,,,,,,,,,Matriz
+001596,Matriz - Televendas,,,,1 237 797 295,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,281,vendas32@refricril.com.br,vendas32@refricril.com.br,,,DESKTOP-HMH05JO,,244244,,,,matriz.compras1,,,,,,,,,Matriz
+001590,Teresina - Caixa [2] - RITA SOUSA,,,,1718 773 639,,Desktop,Optiplex 7010,,,,,,TER-CAIX-002,,244244,,,,,,,,,,,,,Teresina
+001589,Teresina - Caixa [1] - ADRIANA LOPES,,,,1876 767 530,,Desktop,Optiplex 7010,,,,,,TER-CAIX-001,,244244,,,,,,,,,,,,,Teresina
+001591,Teresina - Servidor [Srv Local],,,,1636 684 118,,Desktop,Optiplex 7010,,,,,,serv-ter-001,,244244,,,,,,,,,,,,,Teresina
+001218,Teresina - Estoque [1] - ALEXANDRO SOUSA,,,,1230 146 776,UpGix-Estoque-Teresina.bat,Desktop,Optiplex 3080,,,,,,TER-CONF-001,,244244,,PAT-001218,6Bu%6Yk*9Rj0Ge,,,,,,,,,,Teresina
+000868,Floripa - Caixa [1] - ÉRICA KOERICH,,,,392 067 034,UpGix-Caixa.bat,Desktop,Optiplex 3000,,,,,,CAIX006DESK001,,,,,,,,,,,,,,,Floripa
+001231,Matriz - Televendas - ASHLEY ARAUJO,,,,1 688 865 943,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,310,vendas59@refricril.com.br,vendas59@refricril.com.br,,,DESKTOP-K6J9892,,254254,,,,,,,,,,,,,Matriz
+001230,Matriz - Televendas - KAROLINE SANTO,,,,1 451 369 157,,Notebook,Vostro 3520,291,vendas55@refricril.com.br,vendas55@refricril.com.br,,,DESKTOP-1HJEH2N,,254254,,andre.pereira.notebook,J$&rT64.TkFlUUJ4#@F4,,,,,,,,,,Matriz
+001229,Matriz - Televendas,,,,1 684 151 277,,Notebook,Vostro 3520,299,vendas26@refricril.com.br,vendas26@refricril.com.br,,,DESKTOP-DORG3D2,,254254,,,,,,,,,,,,,Matriz
+001248,Matriz - Televendas - JHONATA MARTINS,,,,1 306 393 172,,Notebook,Vostro 3520,287,vendas19@refricril.com.br,vendas19@refricril.com.br,,,,,254254,,,,,,,,,,,,,Matriz
+001252,Matriz - Televendas - DIOVANA COLOMBO,,,,1 300 227 206,,Notebook,Vostro 3520,253,vendas21@refricril.com.br,vendas21@refricril.com.br,,,DESKTOP-N8D5398,,254254,,,,,,,,,,,,,Matriz
+001250,Matriz - Televendas,,,,1 032 941 858,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,246,vendas16@refricril.com.br,vendas16@refricril.com.br,,,PC-PAT-001250,,254254,,,,,,,,,,,,,Matriz
+001251,Matriz - Televendas - DOUGLAS AMARAL,,,,1 439 933 551,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,286,vendas38@refricril.com.br,vendas38@refricril.com.br,,,DESKTOP-AJSQB9O,,254254,,,,,,,,,,,,,Matriz
+001249,Sem info.,,,,,,Notebook,Vostro 3520,,,,,,,,254254,,,,,,,,,,,,,
+002335,Matriz - Administrativo - ARIEL MATOS,,,,185 004 224,,Notebook,Notebook Vostro 3510,,ariel@refricril.com.br,,,,GFIL001NOTE001,,,,,,matriz.adm3,,,900254,Office 365 Licença Anual,,,,,Matriz
+000520,Joinville - Vendas Ar,,,,,,Desktop,Optiplex 3080,,,,,,,,,,,,,,,,,,,,,Joinville
+000887,Joinville - Caixa [1] - SAMIRA PEREIRA,,,,712 349 515,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,Joinville
+000884,Joinville - Caixa [2] - ELAINE CLIMACO,,,,549 685 976,,Desktop,CPU Genérica,,,,,,CAIX003DESK002,,,,,,,,,,,,,,,Joinville
+001261,Joinville,,,,213 267 779,,Desktop,Optiplex 3080,,vendasarjoinville@gmail.com,vendasarjoinville@gmail.com,,,VEAR003DESK001,,,,,,joinville.balcao1,,,,,,,,,Joinville
+001277,Matriz - Compras,,,,1 464 228 773,,Notebook,Vostro 3520,309,everton.nascimento@refricril.com.br,everton.nascimento@refricril.com.br,,,DESKTOP-2HE2FK3,,254254,,,,,,,,,,,,,Matriz
+001276,Matriz - Televendas - AMANDA OLIVEIRA,,,,229 249 240,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,278,vendas1@refricril.com.br,vendas1@refricril.com.br,,,DESKTOP-RQGBUQB,,254254,,,,,,,,,,,,,Matriz
+001275,Matriz - Televendas - LAIS SOUZA,,,,1 159 066 579,UpGix-Gerente-Televendas-Matriz.bat,Notebook,Vostro 3520,244,vendas5@refricril.com.br,vendas5@refricril.com.br,,,DESKTOP-MUQDHUP,,254254,,daniel.silva,tT65$3edoYgM,,,,,,,,,,Matriz
+001274,Matriz - Ecommerce - STÉFANI GRUBERT,,,,1 003 909 887,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,ecommerce3@refricril.com.br,ecommerce3@refricril.com.br,,,DESKTOP-685GKK2,,254254,,,,,,,,,,,,,Matriz
+001273,Matriz - Televendas - JANAINA XAVIER,,,,1 217 759 951,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,290,vendas17@refricril.com.br,vendas17@refricril.com.br,,,DESKTOP-JCUQEJ7,,254254,,floripa.gerente,GDdpuo%478#hn,floripa.gerente1,,,,,,,,,Matriz
+001272,Matriz - Televendas - JOANA MARQUES,,,,1 781 401 372,,Notebook,Vostro 3520,234,vendas56@refricril.com.br,vendas56@refricril.com.br,,,DESKTOP-JD89N10,,254254,,,,,,,,,,,,,Matriz
+001280,Matriz - Transferência - LARISSA BAGÉ,,,,1 788 433 054,,Notebook,Vostro 3520,,transferencia@refricril.com.br,transferencia@refricril.com.br,,,DESKTOP-75JJ24A,,254254,,,,teresina.whatsapp,,,900179,Office 2019 Licença Vitalícia,,,,,Matriz
+001279,Matriz - Compras - MAURICIO CALDAS,,,101125,1 727 801 453,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,compras11@refricril.com.br,compras11@refricril.com.br,,,PC-PAT-001279,,254254,,PAT001279,8Yu!5Ow+7Nn4Sm,credenciais,,,900212,Office 365 Licença Anual,,,,,Matriz
+001278,Matriz - Compras - HENRIQUE MILANEZ,,,76325,1 463 816 671,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,compras1@refricril.com.br,compras1@refricril.com.br,,,DESKTOP-JN7K3NK,,254254,,PAT001278,4Iq(2Yb-2Us1Rv,,,,900197,Office 365 Licença Anual,,,,,Matriz
+001691,Goiânia - Gerente [1] - WICLEFF BAIMA,,,,1 785 003 816,,Notebook,Vostro 3520,,goiania@refricril.com.br,goiania@refricril.com.br,,,PAT-001691,,254254,,,,goiania.gerente,,,,,,,,,
+001282,Matriz - Televendas - ESTER BONFIM,,,,1 304 499 598,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,292,vendas30@refricril.com.br,vendas30@refricril.com.br,,,DESKTOP-H9FIPDS,,254254,,,,,,,,,,,,,Matriz
+001281,Matriz - Televendas - DJENIFER MATTOS,,,,1 548 565 252,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,251,vendas62@refricril.com.br,vendas62@refricril.com.br,,,PC-PAT-001281,,254254,,,,,,,,,,,,,Matriz
+000467,Joinville - Balcão [4],,,,801 329 135,,Desktop,CPU Genérica,,pecasjoinville1@refricril.com.br,pecasjoinville1@refricril.com.br,,,,,,,,,,,,,,,,,,Joinville
+000047,Porto Alegre,,,,1 909 229 956,UpGix-PortoAlegre-Loja.bat,Desktop,Optiplex 3070,,,,,,PAT0047,,254254,,,,teresina.balcao2,,,,,,,,,Porto Alegre
+000511,São Paulo - Balcão [3] - THIAGO SOUSA,,,,425 185 830,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 3080,,pecassaopaulo@refricril.com.br,pecassaopaulo@refricril.com.br,,,BALC009DESK001,,,,,,,,,,,,,,,São Paulo
+001294,Floripa - Servidor Local [Rádio e TV],,,,1 274 424 856,,Desktop,ALDO PC TOP,,,,,,DESKTOP-0SVCI43,,,,,,,,,,,,,,,Floripa
+000879,Sem info.,,,,,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,
+000880,Sem info.,,,,,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,
+001301,Matriz - Televendas - TAMIRES COLOMBO,,,,203 657 012,,Notebook,Vostro 3520,269,vendas22@refricril.com.br,vendas22@refricril.com.br,,,DESKTOP-2EAH3HB,,254254,,,,,,,,,,,,,Matriz
+001311,Matriz - Logística - KETHULIN MARQUES,,,,1 062 662 996,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,265,logistica2@refricril.com.br,logistica2@refricril.com.br,cte@refricril.com.br,,DESKTOP-KE3NIHD,,254254,,,,,,,900220,Office 365 Licença Anual,,,,,Matriz
+001310,Matriz - Compras - BRUNA CEMOLIN,,,,1 148 306 215,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,compras10@refricril.com.br,compras10@refricril.com.br,,,DESKTOP-AVOT7QV,,254254,,PAT001310,"6Ku#4Sq,8Vo2Wy",matriz.compras5,,,900292,Office 365 Licença Anual,,,,,Matriz
+001309,Matriz - Televendas - MARIA MATTIA,,,,1 571 122 381,,Notebook,Vostro 3520,311,vendas64@refricril.com.br,vendas64@refricril.com.br,,,,,,,,,,,,,,,,,,Matriz
+001308,Matriz - Televendas - REGINA CRISPIM,,,,1 277 381 811,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,283,vendas29@refricril.com.br,vendas29@refricril.com.br,,,DESKTOP-4DAOB74,,254254,,jessica.budel,J$k99.TkFl@F4,matriz.comercial,,,,,,,,,Matriz
+001305,Matriz - Televendas - KASSIELLY OLIVEIRA,,,,1 603 005 628,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,258,vendas25@refricril.com.br,vendas25@refricril.com.br,,,DESKTOP-4LM3EKJ,,254254,,,,,,,,,,,,,Matriz
+001303,Matriz - Televendas - ELLEN SANTOS,,,,1 315 060 980,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,254,vendas42@refricril.com.br,vendas42@refricril.com.br,,,DESKTOP-MJ37B72,,254254,,thayssa.ramos,OU7%4_loKjseF,matriz.deppessoal2,,,,,,,,,Matriz
+001302,Matriz - Televendas - BEATRIZ PONCIANO,,,,951 267 342,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,243,vendas12@refricril.com.br,vendas12@refricril.com.br,,,DESKTOP-215JKV7,,254254,,,,vilavelha.tele3,,,,,,,,,Matriz
+001307,Matriz - Televendas - MAIARA PREVE,,,,1 228 933 019,,Notebook,Vostro 3520,242,vendas10@refricril.com.br,vendas10@refricril.com.br,,,DESKTOP-FL0QPJ7,,254254,,,,vilavelha.tele4,,,,,,,,,Matriz
+001306,Matriz - Compras - GUILHERME STEFANI,,,up2024,1 873 570 568,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3520,,importacao@refricril.com.br,importacao@refricril.com.br,,,DESKTOP-OBSEGBK,,254254,,,,,,,900352,Office 365 Licença Anual,,,,,Matriz
+001304,Matriz - Televendas - TAINÁ ALVES,,,,1 280 409 897,UpGix-Televendas-Matriz.bat,Notebook,Vostro 3520,,vendas36@refricril.com.br,vendas36@refricril.com.br,,,DESKTOP-1D5AHRH,,254254,,,,,,,,,,,,,Matriz
+001317,Porto Alegre - Caixa [3] - ROSECLEI OLIVEIRA,,,,1 717 361 350,UpGix-PortoAlegre-Caixa.bat,Desktop,Optiplex 7010,,,,,,DESKTOP-E1EOF8R,,254254,,,,,,,,,,,,,Porto Alegre
+001318,Londrina - Rádio [1],,,,425 327 515,,Desktop,ALDO PC TOP,,,,,,DESKTOP-6R3M1C8,,254254,,,,,,,,,,,,,Londrina
+001321,Belo Horizonte - Caixa [3],,,,1 684 425 458,UpGix-BeloHorizonte-Caixa.bat,Desktop,Optiplex 7010,,,,,,desktop-0eco9d7,,254254,,,,,,,,,,,,,Belo Horizonte
+001322,Belo Horizonte - Caixa [2] - JOSIANE SANTOS,,,,1 685 380 157,UpGix-BeloHorizonte-Caixa.bat,Desktop,Optiplex 3070,,,,,,DESKTOP-DQT15IF,,254254,,,,,,,,,,,,,Belo Horizonte
+001323,Belo Horizonte - Caixa [1] - MILENA SILVA,,,,1 214 951 325,UpGix-BeloHorizonte-Caixa.bat,Desktop,Optiplex 3070,,,,,,DESKTOP-NLVFU85,,254254,,,,,,,,,,,,,Belo Horizonte
+001353,Matriz - Marketing - BEATRIZ SILVEIRA,,,M@kt1707,416 297 932,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Dell G15 5511,,marketing@refricril.com.br,marketing@refricril.com.br,,publicidade@refricril.com.br,PAT001353,,254254,,,,,,,900205,Office 365 Licença Anual,900322,Licença Adobe Creative Cloud Pro Anual,900229,CorelDRAW Graphics Suite 2025 (Vitalício),Matriz
+001369,Belo Horizonte - Gerente [1] - RENATO REIS,,"acesso no .134 para SP, ajustar para BH no SRV dia 9/AGO",,1 224 277 464,UpGix-BeloHorizonte-Gerente.bat,Notebook,Vostro 3530,,belohorizonte@refricril.com.br,belohorizonte@refricril.com.br,,,DESKTOP-0G4MKH2,,254254,,gerente.bh,UUt&847__0jj678,bh.gerente,,,,,,,,,Belo Horizonte
+001366,Sem info.,,,2011,1 408 780 598,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,credito.televendas@refricril.com.br,contasareceber1@refricril.com.br,,,DESKTOP-GVJ2VTS,,254254,,,,,,,900234,Office 365 Licença Anual,,,,,
+001427,Matriz - Garantia - NATIELE SOUZA,,,,1 195 665 694,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,garantia2@refricril.com.br,garantia2@refricril.com.br,,,DESKTOP-S1CSALU,,254254,,,,,matriz09,,,,,,,,Matriz
+001364,Matriz - Cadastro de Produto - LEANDRO ARAUJO,,,456852,1 314 248 464,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,cadastroproduto@refricril.com.br,cadastroproduto@refricril.com.br,,,DESKTOP-U1HFQ86,,254254,,,,,,,900366,Office 365 Licença Anual,,,,,Matriz
+001363,Matriz - Ecommerce - ALEXSANDER NUERNBERG,,,,1 599 515 518,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,ecommerce@refricril.com.br,ecommerce@refricril.com.br,,publicidade@refricril.com.br,DESKTOP-4QGMKJ6,,254254,,,,,,,,,,,,,Matriz
+001362,Matriz - Dep. Pessoal - DIANDRIA CARRADORE,,,112852,1 823 018 707,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,departamentopessoal@refricril.com.br,departamentopessoal@refricril.com.br,,,DESKTOP-DERVVV1,,254254,,,,matriz.deppessoal,,,900310,Office 365 Licença Anual,,,,,Matriz
+001368,Matriz - Logística - FRANCIELE ELIAS,,,120225,1 723 777 490,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,franciele.elias@refricril.com.br,franciele.elias@refricril.com.br,,,DESKTOP-Q97LP1U,,254254,,PAT001368,Uirk(09i)1Gr6Ni,,,,900295,Office 365 Licença Anual,,,,,Matriz
+001367,Matriz - Gerente Cd - GUILHERME MARINHO,,,,1 620 852 040,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,guilherme.marinho@refricril.com.br,guilherme.marinho@refricril.com.br,,,DESKTOP-F3SBE0N,,254254,,,,,,,900343,Office 365 Licença Anual,,,,,Matriz
+001360,Matriz - Administrativo - WILLIAM BATISTA,,,,1 204 179 310,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,william.gustafson@refricril.com.br,william.gustafson@refricril.com.br,,,DESKTOP-DAHE16D,,254254,,,,,matriz78,,900306,Office 365 Licença Anual,,,,,Matriz
+001359,Matriz - RH - EMILLY DARABAS,,,2545,1 921 246 369,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,recursoshumanos@refricril.com.br,recursoshumanos@refricril.com.br,rh@refricril.com.br,,DESKTOP-EMRO9PD,,254254,,,,,,,900187,Office 2019 Licença Vitalícia,,,,,Matriz
+001361,Matriz - Garantia - TAINARA FONSECA,,,101202,1 628 069 186,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,garantia3@refricril.com.br,garantia3@refricril.com.br,,,PC-PAT-001361,,254254,,,,,,,,,,,,,Matriz
+001358,Matriz - TI - BRÁULIO PIEDADE,,,22024,1 012 726 412,UpGix-Ti-Matriz.bat,Notebook,Vostro 3530,,suporte@refricril.com.br,suporte@refricril.com.br,,,DESKTOP-6FDG34G,,254254,,,,,,,900222,Licença AnyDesk,,,,,Matriz
+001378,14 - Goiânia - Caixa [2],,,,1 035 893 987,UpGix-24-Goiania-Caixa.bat,Desktop,Optiplex 7010,,,,,,PC-PAT-001378,,254254,,PAT001378,"7Mv,2Jh)1Gr6Ni",,,,,,,,,,14 - Goiânia
+001419,Matriz - Controladoria - EDNELSON CARDOSO,,,779852,1 599 663 000,UpGix-Administrativo-Console.bat,Notebook,Notebook Dell G15 5530,,controladoria@refricril.com.br,controladoria@refricril.com.br,,,DESKTOP-0RTAMB0,,,,,,,matriz10,CONTROLADORIA2,900208,Office 365 Licença Anual,,,,,Matriz
+001385,Sem info.,,,,1 057 796 897,,Desktop,Small Optiplex 7010,,,,,,,,,,,,floripa.whatsapp1,,,,,,,,,
+001406,Matriz - Contabil / Fiscal - TATIANE SALVARO,,,561184,1 822 039 170,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,contabilidade@refricril.com.br,contabilidade@refricril.com.br,,,DESKTOP-PB7Q3G8,,254254,,tatiane.salvaro,gk1#TQUU%$X&3tTg*,matriz.cont1,matriz22,contabilidade,900392,Office 365 Licença Anual,,,,,Matriz
+001438,Matriz - Transferência - HELIEUDES OLIVEIRA,,,transferencia,1 877 127 694,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,transferencia2@refricril.com.br,transferencia2@refricril.com.br,,,DESKTOP-OCB8LJQ,,287287,,,,,,,,,,,,,Matriz
+001408,Matriz - Transferência - VANESSA PACHECO,,,2001,1 937 475 921,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,transferencia3@refricril.com.br,transferencia3@refricril.com.br,,,PAT001408,,287287,,,,,,,,,,,,,Matriz
+001416,Matriz - Financeiro - EMANUELA MACHADO,,,140325,1 255 399 104,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,linkpagamento@refricril.com.br,linkpagamento@refricril.com.br,,,PC-PAT-001416,,287287,,,,,,,,,,,,,Matriz
+001417,Matriz - TI - GUILHERME SILVA,,,559034,1 423 456 604,UpGix-Ti-Matriz.bat,Notebook,Vostro 3530,,suporte2@refricril.com.br,suporte2@refricril.com.br,,,PC-PAT001417,,287287,,,,,,,,,,,,,Matriz
+001445,CD Içara - Recebimento [1] - MICHELY DRAGE,,,,1 204 674 232,UpGix-Estoque-Matriz.bat,Desktop,Optiplex 7020,,recebimento@refricril.com.br,recebimentoes@refricril.com.br,,,pat001445,,,,maria.vasconcelos,Uirk(0984Nb_oP,teresina.gerente1,,,,,,,,,CD Içara
+001424,CD Vila Velha - Faturamento [2] - ATHIRSON SILVA,,,170225,1 744 032 451,UpGix-Estoque-CDES.bat,Desktop,Optiplex 7020,,faturamentoes@refricril.com.br,faturamentoes@refricril.com.br,,,PC-PAT-001424,,287287,,josimar.zanzi,Utr56+6tT5$45_,,,,,,,,,,CD Vila Velha
+001392,CD Vila Velha - Conferência [5],,,,1 856 321 390,UpGix-CDES-Conf.bat,Desktop,Optiplex 7020,,,,,,DESKTOP-3I1IT09,,287287,,ana.teixeira,Utr576+6tT5$45_,,,,,,,,,,CD Vila Velha
+001418,CD Vila Velha - Recebimento [2],,,,1 990 213 209,UpGix-Estoque-CDES.bat,Desktop,Optiplex 7020,,recebimentoes@refricril.com.br,,,,DESKTOP-DEOA0PB,,287287,,jean.dantas,JNh&6409*4Tge,teresina.gerente2,,,,,,,,,CD Vila Velha
+001441,Matriz - Logística - JOÃO VICENTE,,,786542,1 404 910 674,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,273,logistica5@refricril.com.br,logistica5@refricril.com.br,,,DESKTOP-L9DC0UF,,287287,,,,,,,900294,Office 365 Licença Anual,,,,,Matriz
+001401,Matriz [Brasilia] - RAIANE SILVA,,,898600,1 941 333 335,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,brasilia@refricril.com.br,brasilia@refricril.com.br,,,PC-PAT001401,,212212,,PAT001401,8!Yr!1Ds(!7Hb9+Ik,,,,900342,Office 365 Licença Anual,,,,,
+001460,Matriz - TI - ANDRÉ SANTOS,,,,1 759 111 180,UpGix-Ti-Matriz.bat,Notebook,Notebook Dell G15 5530,,andre.alves@refricril.com.br,,,,DESKTOP-B0ILS0U,,212212,,,,,,,900129,Pacote Office 365 licença Anual Personal,,,,,Matriz
+001411,CD Vila Velha - Doca [1],,,,1 796 208 917,,Desktop,Optiplex 7020,,,,,,PAT1411,,212212,,rafael.floriano,KJH86%4_poOi,goiania.gerente,,,,,,,,,CD Vila Velha
+001412,Matriz - Contabil / Fiscal - TATIANE SALVARO,,Computador provisorio,,1 393 136 558,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,salaconferencia@refricril.com.br,salaconferencia@refricril.com.br,,,PAT001412,,287287,,,,,,,900200,Office 365 Licença Anual,,,,,Matriz
+002137,São Paulo (Itaim) - Servidor [Rádio],,,,392 485 161,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,São Paulo (Itaim)
+002195,Matriz - Servidor [Rádio],,,,1 012 090 688,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,Matriz
+001475,Joinville - Servidor [Rádio],,,,864 933 880,,Desktop,ALDO PC TOP,,,,,,,,,,gabriela.pietro,8&65TetGl_8870Kf,portoalegre.gerente,,,,,,,,,Joinville
+001627,São Paulo - Gerente - MAYARA SOUZA,,,166545,1 472 124 214,,Notebook,Vostro 3530,,saopaulo@refricril.com.br,saopaulo@refricril.com.br,,,PC-PAT-001627,,212212,,amanda.souza,UU#ret%$uy77,saopaulo.gerente2,,,,,,,,,São Paulo
+001629,Matriz - Contabil / Fiscal - THAYSE PEREIRA,,,,1 702 068 440,,Notebook,Vostro 3530,,contabil5@refricril.com.br,contabil5@refricril.com.br,,,PAT001629,,287287,,,,,,,900368,Office 365 Licença Anual,,,,,Matriz
+002413,Matriz - Negociação - CHERLI SOUZA,,,chede123,831 537 938,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,245,cherli.guimaraes@refricril.com.br,cherli.guimaraes@refricril.com.br,,,PC-PAT-001647,,287287,,,,matriz.comercial1,,,900309,Office 365 Licença Anual,,,,,Matriz
+001648,Matriz - Gerente Televendas - FRANCIELLE MOTTA,,,,1 168 319 720,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,francielle.motta@refricril.com.br,francielle.motta@refricril.com.br,,,PC-PAT-001648,,287287,,francielle.motta,8Bp-4Qn+1Wy3Ay,,,,,,,,,,Matriz
+001650,Matriz - Comercial - ANDREZA DAROS,,,210725,1 325 960 445,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,andreza.daros@refricril.com.br,andreza.daros@refricril.com.br,,,PC-PAT-001650,,287287,,PAT001650,0Jl*4Sc#3Yh5Ib,,,,900293,Office 365 Licença Anual,,,,,Matriz
+001644,São Paulo (Osasco) - Vendas [1],,,,1 162 141 514,UpGix-SaoPAulo-Osasco-Loja.bat,Notebook,Vostro 3530,21202,vendas.osasco@refricril.com.br,vendas.osasco@refricril.com.br,,,,,,,PAT001644,Utr56+6tT54kHF,,,,,,,,,,São Paulo (Osasco)
+001645,São Paulo (Guarulhos) - Vendas [1],,,,1 850 455 241,UpGix-SaoPaulo-Guarulhos-Gerente.bat,Notebook,Vostro 3530,20202,vendas.guarulhos@refricril.com.br,,saopaulo.guarulhos@refricril.com.br,,PC-PAT-001645,,287287,,PAT001645,"3Yt,5VSfr54d8Ss",,,,,,,,,,São Paulo (Guarulhos)
+001653,Vila Velha - Servidor [Rádio],,,,1 626 660 142,,Desktop,ALDO PC TOP,,,,,,,,,,blumenau.cx2,BFHr64%74_L,,,,,,,,,,Vila Velha
+001657,Matriz - Controladoria - DAIANE KEMPA,,,654887,1 123 062 407,UpGix-Administrativo-Matriz.bat,Notebook,Notebook Dell G15 5530,,controladoria1@refricril.com.br,controladoria1@refricril.com.br,,,PC-PAT-001657,,287287,,daiane.kempa,6Az&0Af$5Zk9Qg,blumenau.balcao2,matriz16,,900305,Office 365 Licença Anual,,,,,Matriz
+001679,São Paulo (Itaim) - Vendas [1],,,Gerente: 280425,1 697 929 922,UpGix-SaoPaulo-ItamPaulista-Gerente.bat,Notebook,Vostro 3530,22202,vendas.itaim@refricril.com.br,,saopaulo.itaim@refricril.com.br,,PC-PAT-001679,,254254,,PAT001679,tT65$3edoYR5,blumenau.balcao1,,,,,,,,,São Paulo (Itaim)
+002041,Matriz - Gerente Loja - TULLY SILVA,,,898600,1 020 898 839,UpGix-Loja-Matriz.bat,Notebook,Vostro 3530,301,matriz@refricril.com.br,matriz@refricril.com.br,,,PC-PAT-002041,,287287,,,,,,,900240,Office 365 Licença Anual,,,,,Matriz
+002042,Matriz - Financeiro - MILENA FERREIRA,,,554647,1 845 495 569,,Notebook,Vostro 3530,,milena.ferreira@refricril.com.br,,,,PC-PAT-002042,,287287,,milena.ferreira,uY54%5(8&Nm,matriz.fina2,,,,,,,,,Matriz
+002043,Matriz - Compras - TIAGO BORGES,,,151025,1 049 143 859,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,213,compras3@refricril.com.br,compras3@refricril.com.br,,,PC-PAT-002042,,287287,,,,,,,900344,Office 365 Licença Anual,,,,,
+002044,São Paulo (Itaim) - Caixa [1] - JENIFFER SILVA,,,,1 752 540 410,UpGix-Administrativo-Matriz.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-002044,,287287,,PAT002044,"3Yt,5Vb*9Vd8Ss",,,,,,,,,,São Paulo (Itaim)
+002045,São Paulo (Itaim) - Caixa [2],,,,1 059 890 642,UpGix-Administrativo-Matriz.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-002045,,287287,,PAT002045,9Qe+8Uk$8Pb9Xq,,,,,,,,,,São Paulo (Itaim)
+002046,Matriz - Balcão [2] - LUCAS SILVA,,,,1 266 563 547,UpGix-Loja-Matriz.bat,Desktop,Optiplex 7020,,balcao4@refricril.com.br,balcao4@refricril.com.br,,,PC-PAT-002046,,287287,,,,,,,,,,,,,Matriz
+002047,São Paulo (Osasco) - Caixa [1] - MARIA SILVA,,,,862 025 458,,Desktop,Optiplex 7020,,,,,,PC-PAT-002047,,287287,,OSASCO.CX.1,5Tp5Yb+2Ga8Sz,,,,,,,,,,São Paulo (Osasco)
+002048,São Paulo (Osasco) - Caixa [2],,,,1 121 554 952,,Desktop,Optiplex 7020,,,,,,PC-PAT-2048,,287287,,,,,,,,,,,,,São Paulo (Osasco)
+002049,Matriz - Balcão [1],,,,1 691 018 574,UpGix-Loja-Matriz.bat,Desktop,Optiplex 7020,,balcao4@refricril.com.br,balcao4@refricril.com.br,,,PC-PAT-2049,,254254,,,,,,,,,,,,,Matriz
+002050,São Paulo - Balcão - ALESSANDRA CHRISTOVAM,,,,1 016 689 658,UpGix-SaoPaulo-Loja.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-2050,,254254,,,,,,,,,,,,,São Paulo
+002051,São Paulo (Guarulhos) - Caixa [1] - GISLENE MESSIAS,,,,646 702 724,UpGix-SaoPaulo-Guarulhos-Caixa.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-002051,,254254,,,,,,,,,,,,,São Paulo (Guarulhos)
+002052,Matriz - Balcão [3] - LUCAS EUZEBIO,,,,1 212 718 972,UpGix-Loja-Matriz.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-2052,,,,,,,,,,,,,,,Matriz
+002219,Matriz - Servidor,,,,,,Desktop,PowerEdge R440,,,,,,,,,,,,,,,,,,,,,Matriz
+001662,Matriz - Ecommerce - VITÓRIA CARABAJAL,,,554647,1 411 377 978,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,ecommerce2@refricril.com.br,ecommerce2@refricril.com.br,,,,,,,PAT001662,9Qa)7Zj&6Pu0Sw,,,,,,,,,,Matriz
+001663,Matriz - Compras - ANDERSON ROQUE,,,2145,1 118 490 711,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,compras8@refricril.com.br,compras8@refricril.com.br,,,PAT-001663,,254254,,,,,,,900253,Office 365 Licença Anual,,,,,Matriz
+002157,São Paulo (Guarulhos) - Servidor [Rádio],,,,1 670 299 876,,Desktop,ALDO PC TOP,,,,,,,,,,,,,,,,,,,,,São Paulo (Guarulhos)
+000885,Sem info.,,,,,,Desktop,Optiplex 3000,,,,,,,,,,,,,,,,,,,,,
+000866,Sem info.,,,,,,Desktop,Optiplex 3000,,,,,,,,,,,,itajai.balcao3,,,,,,,,,
+002233,Matriz - Projeto - DJHONATA MACHADO,,,110425,1 905 577 906,,Notebook,Notebook Dell G15 5530,,arquitetura@refricril.com.br,arquitetura@refricril.com.br,,,,,,,,,,,,900243,AutoCad LT Anual,900244,Sketchup Anual,,,Matriz
+002241,Matriz - Análise de Crédito - KAROLAYN MARTINS,,,232526,1 097 608 809,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,241,credito.filial@refricril.com.br,credito.filial@refricril.com.br,,,,,254254,,,,,,,,,,,,,Matriz
+002240,Matriz - Análise de Crédito - TAYNÁ ROSSA,,,17101997,1 964 287 614,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,203,credito@refricril.com.br,credito@refricril.com.br,,,,,,,,,,,,900369,Office 365 Licença Anual,,,,,
+002533,Estoque TI (Adm) | Matriz,,,,1 998 246 820,,Notebook,Notebook Samsung NP350XAA,,controleestoque1@refricril.com.br,controleestoque1@refricril.com.br,,,,,,,,,matriz.projeto4,,,,,,,,,Matriz
+002257,Matriz - Servidor [Backup e Monit.],,,,1 974 363 127,,Desktop,Desktop Dell Precision 3680,,,,,,SRV-PAT-002257,,254254,,,,,,,,,,,,,Matriz
+002302,Blumenau - Gerente [1] - MATEUS MELO,,,250725,1 546 127 275,,Notebook,Notebook Lenovo 81FD,,blumenau@refricril.com.br,blumenau@refricril.com.br,,,PAT-002203,,212212,,mateus.melo,UUj_06%4Trfgg6%,blumenau.gerente1,,,,,,,,,Blumenau
+002315,CD SÃO PAULO - Servidor Local,,,,1 925 640 874,,Desktop,Optiplex 7020,,,,,,,,254254,,,,,,,,,,,,,CD São Paulo
+002318,CD SÃO PAULO - Conferência [1],,,,219 040 711,\UpGix-CDSP-Conferencia.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-002318,,254254,,PAT-002318,4Hs*3Qv)8Gd7Rm,,,,,,,,,,CD São Paulo
+002314,CD SÃO PAULO - Conferência [2] - ALESSANDRO SANTOS,,,,1 605 632 470,\UpGix-CDSP-Conferencia.bat,Desktop,Optiplex 7020,,,,,,PC-PAT-002314,,254254,,,,,,,,,,,,,CD São Paulo
+002322,CD SÃO PAULO - Recebimento [1] - DEIVYD MIQUILES,,,,1 125 310 705,\UpGix-CDSP-Recebimento.bat,Desktop,Optiplex 7020,,recebimento.sp@refricril.com.br,recebimento.sp@refricril.com.br,,,PC-PAT-002322,,254254,,PAT-002322,2Dw)6Wh(5Ja0Je,,,,,,,,,,CD São Paulo
+002325,CD SÃO PAULO - Faturamento [1],,,,1 047 031 778,\UpGix-CDSP-Faturamento.bat,Desktop,Optiplex 7020,,faturamento.sp@refricril.com.br,faturamento.sp@refricril.com.br,,,PC-PAT-002325,,254254,,PAT-002325,6Hv#1Dy$2Tv7Ev,,,,,,,,,,CD São Paulo
+002347,Em transferência | Itajaí,,,,1 417 104 582,,Desktop,ALDO PC TOP,,,,,,PC-PAT-002347,,254254,,,,,,,,,,,,,Itajaí
+002393,Sem info.,,,,,,Desktop,CPU Genérica,,,,,,,,,,,,,,,,,,,,,
+002401,14 - Goiânia - Servidor [Srv Local],,,,1 394 219 724,,Desktop,Small Optiplex 7020,,,,,,SERV-GOI24-001,,285285,,,,,,,,,,,,,14 - Goiânia
+002420,14 - Goiânia - Caixa [1],,,,1 924 475 733,UpGix-24-Goiania-Caixa.bat,Desktop,Desktop Dell Pro Micro,,,,,,PC-PAT-002420,,285285,,PAT002420,2Ho%3Lf%4Yd1Uf,,,,,,,,,,14 - Goiânia
+002426,14 - Goiânia - Vendas Ar [1],,,,418 952 822,UpGix-24-Goiania-Loja.bat,Desktop,Desktop Dell Pro Micro,,vendasargoiania@refricril.com.br,vendasargoiania@refricril.com.br,,,PC-PAT-002426,,285285,,PAT002426,"4Vl""5Nn)2Ht0Po",,,,,,,,,,14 - Goiânia
+002429,14 - Goiânia - Balcão [2],,,,1 790 515 569,UpGix-24-Goiania-Loja.bat,Desktop,Desktop Dell Pro Micro,,pecasgoiania@refricril.com.br,pecasgoiania@refricril.com.br,,,PC-PAT-002429,,285285,,PAT002429,2Bg'0Og*2Zr0Ew,,,,,,,,,,14 - Goiânia
+002432,14 - Goiânia - Balcão [1],,,,1 815 175 724,UpGix-24-Goiania-Loja.bat,Desktop,Desktop Dell Pro Micro,,pecasgoiania@refricril.com.br,pecasgoiania@refricril.com.br,,,PC-PAT-002432,,285285,,PAT002432,Og*2Zy$4Yd1Uf,,,,,,,,,,14 - Goiânia
+002452,Vila Velha - Estoque - MARCUS JUNIOR,,,,895 667 937,Sync-Estoque-VilaVelha.bat,Desktop,ALDO PC TOP,,,,,,PC-PAT-002452,,,,,,,,,,,,,,,Vila Velha
+002487,CD Paraíba - Conferência [3],,,,1 150 790 430,UpGix-CDPB.bat,Desktop,Desktop Dell Pro Micro,,,,,,PC-PAT-002487,,285285,,,,,,,,,,,,,CD Paraíba
+002488,Sem info.,,,,1 856 639 193,UpGix-CDPB.bat,Desktop,Desktop Dell Pro Micro,,cdparaiba@refricril.com.br,cdparaiba@refricril.com.br,,,PC-PAT-002488,,254254,,,,,,,,,,,,,
+002514,Matriz - Compras - HILLAN MATTIA,,,,330 905 563,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,compras9@refricril.com.br,compras9@refricril.com.br,,,PC-PAT-002514,,285285,,PAT001279,"8De%6Dj""6Pd2Bp",matriz.compras6,,,,,900231,Office 365 Licença Anual,,,Matriz
+002516,CD Vila Velha - Recebimento [3],,,,1 660 711 256,UpGix-CDES-Organizacao.bat,Desktop,Desktop Dell Pro Micro,,recebimentoes@refricril.com.br,recebimentoes@refricril.com.br,,,PC-PAT-002516,,254254,,,,,,,,,,,,,CD Vila Velha
+002568,Matriz - Contabil / Fiscal - NAIARA CARVALHO,,,,385 755 288,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,fiscal2@refricril.com.br,fiscal2@refricril.com.br,,,PC-PAT-002568,,254254,,,,,,,,,900380,Office 365 Licença Anual,,,Matriz
+002547,Reserva | 27 - Brasília - Caixa 1,,,,1 917 726 472,UpGix-27-Brasilia-Caixa.bat,Desktop,Desktop Dell Pro Micro,,,,,,PC-PAT-002547,,285285,,PAT002547,4Ii-3Qx'1Vy4Ax,,,,,,,,,,27 - Brasília
+002551,Reserva | 27 - Brasília - Caixa 2,,,,1 915 988 188,UpGix-27-Brasilia-Caixa.bat,Desktop,Desktop Dell Pro Micro,,,,,,PC-PAT-002551,,285285,,PAT002551,8De%6Qx)2Ht0Po,,,,,,,,,,27 - Brasília
+002555,Sem info.,,,,1 994 281 876,,Desktop,Desktop Dell Pro Slim,,,,,,,,285285,,,,,,,,,,,,,
+002576,Reserva | 27 - Brasília - Balcão [1],,,,1 593 626 067,UpGix-27-Brasilia-Loja.bat,Desktop,Desktop Dell Pro Micro,,pecasbrasilia@refricril.com.br,pecasbrasilia@refricril.com.br,,,PC-PAT-002576,,285285,,PAT002576,v#1Dy$22Ht0Po,,,,,,,,,,27 - Brasília
+002577,Reserva | 27 - Brasília - Vendas WhatsApp,,,,1 905 595 300,UpGix-27-Brasilia-Loja.bat,Desktop,Desktop Dell Pro Micro,,pecasbrasilia@refricril.com.br,pecasbrasilia@refricril.com.br,,,PC-PAT-002577,,285285,,PAT002577,2Dw)6Pd2Bp0Je,,,,,,,,,,27 - Brasília
+002578,Reserva | 27 - Brasília [Telvendas Loja],,,,1 976 378 803,UpGix-27-Brasilia-Loja.bat,Desktop,Desktop Dell Pro Micro,,vendasbrasilia@refricril.com.br,vendasbrasilia@refricril.com.br,,,PC-PAT-002578,,285285,,PAT002578,6Hv#Qv)8Gd7Rm,,,,,,,,,,27 - Brasília
+002589,CD SÃO PAULO - Conferência [3],,,,1 615 613 316,UpGix-CDSP-Conferencia.bat,Desktop,Desktop Dell Pro Micro,,,,,,PC-PAT-002589,,285285,,,,,,,,,,,,,CD São Paulo
+002588,CD Içara - Conferência [6],,,,1 912 757 749,,Desktop,Desktop Dell Pro Micro,,,,,,,,254254,,,,,,,,,,,,,CD Içara
+002609,Matriz - Negociação - CHERLI SOUZA,,Instalado IVMS para as cameras de SP,,1 007 261 695,,Desktop,Desktop NTC,,,,,,,,,,,,,,,,,,,,,Matriz
+002642,,,,,1 271 164 507,,Notebook,Vostro 3530,,anderson.ferreira@refricril.com.br,anderson.ferreira@refricril.com.br,,,PC-PAT-002642,,285285,,,,saopaulo.gerente,,,,,,,,,#N/A
+002644,,,,,1 005 117 754,UpGix-Administrativo-Matriz.bat,Notebook,Vostro 3530,,,,,,PC-PAT-002644,,285285,,PAT002644,"O-2Gk)4Jx,6D+gL1Ow",,,,,,,,,,#N/A
+002693,Sem info.,,,,1 837 188 371,UpGix-SaoPaulo-Loja.bat,Desktop,Desktop Dell Pro Micro,,pecassaopaulo@refricril.com.br,pecassaopaulo@refricril.com.br,,,PC-PAT-002693,,254254,,,,,,,,,,,,,
+002700,Sem info.,,,,1 856 639 193,,Desktop,Desktop Dell Pro Micro,,cdparaiba@refricril.com.br,cdparaiba@refricril.com.br,,,PC-PAT-002700,,254254,,,,,,,,,,,,,
+002636,Sem info.,,,,283 974 102,,Notebook,Notebook Dell Inspiron 3501,,,,,,PC-PAT-002636,,,,,,,,,,,,,,,

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h3>
+            {% if filial_atual %}
+                📂 {{ filial_atual }}
+            {% else %}
+                🏢 Visão Geral (Todas as Unidades)
+            {% endif %}
+        </h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                📍 Selecionar Unidade
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item fw-bold" href="{{ url_for('assets.index') }}">Ver Tudo (Geral)</a></li>
+                <li><hr class="dropdown-divider"></li>
+                {% for f in filiais %}
+                    <li><a class="dropdown-item" href="{{ url_for('assets.index', filial=f) }}">{{ f }}</a></li>
+                {% else %}
+                    <li><span class="dropdown-item text-muted">Cadastre uma máquina para criar filiais</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <form class="d-inline-block ms-2" method="GET" action="{{ url_for('assets.index') }}">
+            {% if filial_atual %}<input type="hidden" name="filial" value="{{ filial_atual }}">{% endif %}
+            <input type="text" name="q" class="form-control d-inline-block w-auto" placeholder="Buscar PAT ou Pessoa..." style="width: 200px;">
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered mb-0 align-middle">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th style="width: 15%">Setor</th>
+                        <th style="width: 20%">Colaborador</th>
+                        <th style="width: 10%">PAT</th>
+                        <th style="width: 10%">Tipo</th>
+                        <th>Hostname</th>
+                        <th>Softwares/Obs</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td class="fw-bold text-secondary">{{ asset.setor or '-' }}</td>
+                        
+                        <td>
+                            <div class="fw-bold">{{ asset.responsavel }}</div>
+                            <small class="text-muted">{{ asset.emails[0] if asset.emails else '' }}</small>
+                        </td>
+                        
+                        <td class="text-center font-monospace">{{ asset.patrimonio }}</td>
+                        
+                        <td class="text-center">
+                            {% if asset.tipo == 'Notebook' %}💻{% else %}🖥️{% endif %}
+                        </td>
+                        
+                        <td class="small">{{ asset.hostname }}</td>
+                        
+                        <td class="small text-muted">
+                            {% if asset.softwares %}
+                                {{ asset.softwares|length }} softwares inst.
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+
+                        <td class="text-center">
+                            <a href="{{ url_for('assets.form_asset', id=asset._id) }}" class="btn btn-sm btn-outline-primary">
+                                ✏️
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            Nenhum ativo encontrado nesta unidade.<br>
+                            <a href="/novo" class="btn btn-primary btn-sm mt-2">Cadastrar Novo</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<div class="col-md-4">
+    <label class="form-label">Unidade / Loja</label>
+    <select name="filial" class="form-select" required>
+        <option value="">Selecione...</option>
+        <option value="Matriz" {% if asset and asset.filial == 'Matriz' %}selected{% endif %}>Matriz</option>
+        <option value="CD 01" {% if asset and asset.filial == 'CD 01' %}selected{% endif %}>CD 01</option>
+        <option value="CD 02" {% if asset and asset.filial == 'CD 02' %}selected{% endif %}>CD 02</option>
+        <option value="CD 03" {% if asset and asset.filial == 'CD 03' %}selected{% endif %}>CD 03</option>
+        <option value="CD 04" {% if asset and asset.filial == 'CD 04' %}selected{% endif %}>CD 04</option>
+        <option value="Floripa" {% if asset and asset.filial == 'Floripa' %}selected{% endif %}>Escritório Floripa</option>
+        <option value="Porto Alegre" {% if asset and asset.filial == 'Porto Alegre' %}selected{% endif %}>Escritório POA</option>
+        {% for i in range(1, 17) %}
+        <option value="Loja {{ '%02d' % i }}" {% if asset and asset.filial == ('Loja %02d' % i) %}selected{% endif %}>Loja {{ '%02d' % i }}</option>
+        {% endfor %}
+    </select>
+</div>
