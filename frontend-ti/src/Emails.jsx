@@ -3,10 +3,12 @@ import {
   Box, Button, Table, Thead, Tbody, Tr, Th, Td, Badge, IconButton,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
   ModalFooter, FormControl, FormLabel, Input, Select, VStack, HStack,
-  useToast, Text, InputGroup, InputRightElement, Divider, Tabs, TabList, TabPanels, Tab, TabPanel
+  useToast, Text, InputGroup, InputRightElement, Divider, Tabs, TabList, TabPanels, Tab, TabPanel,
+  useDisclosure // <--- Adicionado
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, DownloadIcon } from '@chakra-ui/icons'; // <--- DownloadIcon
 import axios from 'axios';
+import ImportModal from './components/ImportModal'; // <--- Import Component
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
@@ -25,12 +27,24 @@ const initialEmailState = {
 
 function EmailsComponent({ usuario, assets, celulares }) {
   const [emails, setEmails] = useState([]);
+  
+  // Controle do Modal de Cadastro/Edição
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(null);
   const [formData, setFormData] = useState(initialEmailState);
   const [showPassword, setShowPassword] = useState({});
+  
+  // Filtros
   const [filtroTipo, setFiltroTipo] = useState('');
   const [filtroPatrimonio, setFiltroPatrimonio] = useState('');
+  
+  // Controle do Modal de Importação (NOVO)
+  const { 
+    isOpen: isImportOpen, 
+    onOpen: onImportOpen, 
+    onClose: onImportClose 
+  } = useDisclosure();
+
   const toast = useToast();
 
   useEffect(() => {
@@ -129,15 +143,19 @@ function EmailsComponent({ usuario, assets, celulares }) {
   };
 
   const getTipoColor = (tipo) => {
-    return tipo === 'google' ? 'red' : 'purple';
+    if (tipo === 'google') return 'red';
+    if (tipo === 'microsoft') return 'blue';
+    return 'purple'; // zimbra
   };
 
   const getTipoLabel = (tipo) => {
-    return tipo === 'google' ? 'Google Workspace' : 'Zimbra';
+    if (tipo === 'google') return 'Google Workspace';
+    if (tipo === 'microsoft') return 'Microsoft 365';
+    return 'Zimbra';
   };
 
   const getPatrimonioLabel = (assetId, assetType) => {
-    if (assetType === 'celular') {
+    if (assetType === 'celular' || assetType === 'cellphone') {
       const cel = celulares?.find(c => c._id === assetId);
       return cel ? `CEL: ${cel.patrimonio}` : 'Celular não encontrado';
     }
@@ -149,9 +167,20 @@ function EmailsComponent({ usuario, assets, celulares }) {
     <Box p={6}>
       <HStack justify="space-between" mb={6}>
         <Text fontSize="2xl" fontWeight="bold">E-mails Corporativos</Text>
-        <Button leftIcon={<AddIcon />} colorScheme="green" onClick={handleOpenCreate}>
-          Novo Email
-        </Button>
+        <HStack>
+          {/* BOTÃO IMPORTAR */}
+          <Button 
+            leftIcon={<DownloadIcon />} 
+            variant="outline" 
+            colorScheme="blue" 
+            onClick={onImportOpen}
+          >
+            Importar CSV
+          </Button>
+          <Button leftIcon={<AddIcon />} colorScheme="green" onClick={handleOpenCreate}>
+            Novo Email
+          </Button>
+        </HStack>
       </HStack>
 
       <HStack mb={4} spacing={4}>
@@ -163,6 +192,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
             placeholder="Todos"
           >
             <option value="google">Google Workspace</option>
+            <option value="microsoft">Microsoft 365</option>
             <option value="zimbra">Zimbra</option>
           </Select>
         </FormControl>
@@ -236,7 +266,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
         </Table>
       </Box>
 
-      {/* Modal de Criar/Editar */}
+      {/* Modal de Criar/Editar (MANTIDO O ORIGINAL COMPLETO) */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size="lg">
         <ModalOverlay />
         <ModalContent>
@@ -261,6 +291,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
                   onChange={(e) => setFormData({ ...formData, tipo: e.target.value })}
                 >
                   <option value="google">Google Workspace</option>
+                  <option value="microsoft">Microsoft 365</option>
                   <option value="zimbra">Zimbra (Legado)</option>
                 </Select>
               </FormControl>
@@ -375,6 +406,15 @@ function EmailsComponent({ usuario, assets, celulares }) {
           </ModalFooter>
         </ModalContent>
       </Modal>
+      
+      {/* Modal de Importação (NOVO) */}
+      <ImportModal 
+        isOpen={isImportOpen} 
+        onClose={onImportClose} 
+        type="emails" 
+        onSuccess={fetchEmails} 
+      />
+
     </Box>
   );
 }

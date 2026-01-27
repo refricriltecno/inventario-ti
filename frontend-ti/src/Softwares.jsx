@@ -3,10 +3,11 @@ import {
   Box, Button, Table, Thead, Tbody, Tr, Th, Td, Badge, IconButton,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
   ModalFooter, FormControl, FormLabel, Input, Select, VStack, HStack,
-  useToast, Text, Checkbox
+  useToast, Text, Checkbox, useDisclosure // <--- Adicionado
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon, DeleteIcon, DownloadIcon } from '@chakra-ui/icons'; // <--- DownloadIcon
 import axios from 'axios';
+import ImportModal from './components/ImportModal'; // <--- Import Component
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
@@ -24,12 +25,24 @@ const initialSoftwareState = {
   obs: ''
 };
 
-function SoftwaresComponent({ usuario, assets }) {
+function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
   const [softwares, setSoftwares] = useState([]);
+  
+  // Controle Modal Criar/Editar
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(null);
   const [formData, setFormData] = useState(initialSoftwareState);
+  
+  // Filtro
   const [filtroAsset, setFiltroAsset] = useState('');
+  
+  // Controle Modal Importação (NOVO)
+  const { 
+    isOpen: isImportOpen, 
+    onOpen: onImportOpen, 
+    onClose: onImportClose 
+  } = useDisclosure();
+  
   const toast = useToast();
 
   useEffect(() => {
@@ -90,6 +103,7 @@ function SoftwaresComponent({ usuario, assets }) {
       }
       setIsOpen(false);
       fetchSoftwares();
+      if(onSoftwareAdded) onSoftwareAdded();
     } catch (error) {
       toast({
         title: 'Erro',
@@ -134,9 +148,20 @@ function SoftwaresComponent({ usuario, assets }) {
     <Box p={6}>
       <HStack justify="space-between" mb={6}>
         <Text fontSize="2xl" fontWeight="bold">Softwares & Licenças</Text>
-        <Button leftIcon={<AddIcon />} colorScheme="green" onClick={handleOpenCreate}>
-          Novo Software
-        </Button>
+        <HStack>
+          {/* BOTÃO IMPORTAR */}
+          <Button 
+            leftIcon={<DownloadIcon />} 
+            variant="outline" 
+            colorScheme="blue" 
+            onClick={onImportOpen}
+          >
+            Importar CSV
+          </Button>
+          <Button leftIcon={<AddIcon />} colorScheme="green" onClick={handleOpenCreate}>
+            Novo Software
+          </Button>
+        </HStack>
       </HStack>
 
       <HStack mb={4} spacing={4}>
@@ -206,7 +231,7 @@ function SoftwaresComponent({ usuario, assets }) {
         </Table>
       </Box>
 
-      {/* Modal de Criar/Editar */}
+      {/* Modal de Criar/Editar (MANTIDO COMPLETO) */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size="lg">
         <ModalOverlay />
         <ModalContent>
@@ -322,6 +347,18 @@ function SoftwaresComponent({ usuario, assets }) {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      {/* Modal de Importação (NOVO) */}
+      <ImportModal 
+        isOpen={isImportOpen} 
+        onClose={onImportClose} 
+        type="softwares" 
+        onSuccess={() => {
+          fetchSoftwares();
+          if(onSoftwareAdded) onSoftwareAdded();
+        }} 
+      />
+
     </Box>
   );
 }

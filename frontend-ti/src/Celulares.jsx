@@ -1,288 +1,319 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Button, Table, Thead, Tbody, Tr, Th, Td, Badge, IconButton,
+  Box, Flex, Heading, Button, Table, Thead, Tbody, Tr, Th, Td,
+  Badge, IconButton, useDisclosure, useToast, Select,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
-  ModalFooter, FormControl, FormLabel, Input, Select, VStack, HStack,
-  useToast, InputGroup, InputRightElement, Divider, Text
+  FormControl, FormLabel, Input, VStack, HStack, Textarea,
+  Text // <--- ADICIONADO AQUI
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon, DeleteIcon, DownloadIcon } from '@chakra-ui/icons';
 import axios from 'axios';
+
+// Importa o Modal de Importação que criamos
+import ImportModal from './components/ImportModal';
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
-const initialCelularState = {
-  patrimonio: '',
-  filial: '',
-  modelo: '',
-  imei: '',
-  numero: '',
-  responsavel: '',
-  status: 'Em Uso',
-  obs: ''
-};
-
-function CelularesComponent({ usuario, filiais, assets }) {
+const Celulares = () => {
   const [celulares, setCelulares] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [filiais, setFiliais] = useState([]);
+  const [filialFiltro, setFilialFiltro] = useState('');
+  
+  // Estado para o formulário de cadastro/edição
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(null);
-  const [formData, setFormData] = useState(initialCelularState);
-  const [showPassword, setShowPassword] = useState({});
-  const [filtroFilial, setFiltroFilial] = useState('');
+  const [formData, setFormData] = useState({
+    patrimonio: '', filial: '', modelo: '', imei: '',
+    numero: '', responsavel: '', status: 'Em Uso', obs: ''
+  });
+
+  // Estado para o Modal de Importação
+  const { 
+    isOpen: isImportOpen, 
+    onOpen: onImportOpen, 
+    onClose: onImportClose 
+  } = useDisclosure();
+
   const toast = useToast();
 
-  useEffect(() => {
-    fetchCelulares();
-  }, [filtroFilial]);
-
-  const fetchCelulares = async () => {
+  // Carregar dados iniciais
+  const fetchData = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const params = filtroFilial ? { filial: filtroFilial } : {};
-      const response = await axios.get(`${API_URL}/celulares`, {
-        params,
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setCelulares(response.data.filter(c => c.status !== 'Inativo'));
+      // Busca Celulares (com filtro opcional)
+      const params = filialFiltro ? { filial: filialFiltro } : {};
+      const resCel = await axios.get(`${API_URL}/celulares`, { params });
+      setCelulares(resCel.data);
+
+      // Busca Filiais (para o Select)
+      const resFil = await axios.get(`${API_URL}/filiais`);
+      setFiliais(resFil.data);
     } catch (error) {
-      toast({ title: 'Erro ao carregar celulares', status: 'error' });
+      console.error("Erro ao buscar dados", error);
+      toast({ title: 'Erro ao carregar dados', status: 'error' });
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, [filialFiltro]);
+
+  // Handlers do Formulário
   const handleOpenCreate = () => {
-    setFormData(initialCelularState);
+    setFormData({
+      patrimonio: '', filial: '', modelo: '', imei: '',
+      numero: '', responsavel: '', status: 'Em Uso', obs: ''
+    });
     setIsEditing(null);
-    setIsOpen(true);
+    onOpen();
   };
 
   const handleOpenEdit = (celular) => {
-    setFormData(celular);
+    setFormData({ ...celular });
     setIsEditing(celular._id);
-    setIsOpen(true);
+    onOpen();
   };
 
   const handleSave = async () => {
-    if (!formData.patrimonio || !formData.filial) {
-      toast({ title: 'Erro', description: 'Patrimônio e Filial são obrigatórios', status: 'error' });
-      return;
-    }
-
     try {
-      const token = localStorage.getItem('token');
       if (isEditing) {
-        await axios.put(`${API_URL}/celulares/${isEditing}`, formData, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        await axios.put(`${API_URL}/celulares/${isEditing}`, formData);
         toast({ title: 'Celular atualizado!', status: 'success' });
       } else {
-        await axios.post(`${API_URL}/celulares`, formData, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        toast({ title: 'Celular criado!', status: 'success' });
+        await axios.post(`${API_URL}/celulares`, formData);
+        toast({ title: 'Celular cadastrado!', status: 'success' });
       }
-      setIsOpen(false);
-      fetchCelulares();
+      onClose();
+      fetchData();
     } catch (error) {
-      toast({
-        title: 'Erro',
-        description: error.response?.data?.erro || 'Erro ao salvar',
-        status: 'error'
-      });
+      const msg = error.response?.data?.erro || 'Erro ao salvar';
+      toast({ title: 'Erro', description: msg, status: 'error' });
     }
   };
 
   const handleDelete = async (id, patrimonio) => {
-    if (window.confirm(`Tem certeza que deseja inativar o celular ${patrimonio}?`)) {
-      try {
-        const token = localStorage.getItem('token');
-        await axios.delete(`${API_URL}/celulares/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        toast({ title: 'Celular inativado!', status: 'success' });
-        fetchCelulares();
-      } catch (error) {
-        toast({ title: 'Erro ao inativar', status: 'error' });
-      }
+    if (!window.confirm(`Deseja inativar o celular ${patrimonio}?`)) return;
+    try {
+      await axios.delete(`${API_URL}/celulares/${id}`);
+      toast({ title: 'Celular inativado', status: 'info' });
+      fetchData();
+    } catch (error) {
+      toast({ title: 'Erro ao excluir', status: 'error' });
     }
   };
 
-  const toggleShowField = (fieldName) => {
-    setShowPassword(prev => ({ ...prev, [fieldName]: !prev[fieldName] }));
-  };
-
+  // Cores dos Status
   const getStatusColor = (status) => {
-    const colors = { 'Em Uso': 'green', 'Reserva': 'blue', 'Manutenção': 'orange', 'Inativo': 'gray' };
-    return colors[status] || 'gray';
+    switch (status) {
+      case 'Em Uso': return 'green';
+      case 'Reserva': return 'blue';
+      case 'Manutenção': return 'orange';
+      case 'Inativo': return 'red';
+      default: return 'gray';
+    }
   };
 
   return (
-    <Box p={6}>
-      <HStack justify="space-between" mb={6}>
-        <Text fontSize="2xl" fontWeight="bold">Celulares</Text>
-        <Button leftIcon={<AddIcon />} colorScheme="green" onClick={handleOpenCreate}>
-          Novo Celular
-        </Button>
-      </HStack>
-
-      <HStack mb={4} spacing={4}>
-        <FormControl maxW="200px">
-          <FormLabel fontSize="sm">Filtrar por Filial</FormLabel>
-          <Select
-            value={filtroFilial}
-            onChange={(e) => setFiltroFilial(e.target.value)}
-            placeholder="Todas"
+    <Box p={5}>
+      {/* Cabeçalho e Ações */}
+      <Flex justify="space-between" align="center" mb={6}>
+        <Heading size="lg">Celulares Corporativos</Heading>
+        <HStack>
+          {/* BOTÃO DE IMPORTAR */}
+          <Button 
+            leftIcon={<DownloadIcon />} 
+            variant="outline" 
+            colorScheme="blue" 
+            onClick={onImportOpen}
           >
-            {filiais.map(f => (
-              <option key={f._id} value={f.nome}>{f.nome}</option>
-            ))}
-          </Select>
-        </FormControl>
-      </HStack>
+            Importar CSV
+          </Button>
+          
+          <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={handleOpenCreate}>
+            Novo Celular
+          </Button>
+        </HStack>
+      </Flex>
 
-      <Box overflowX="auto" borderWidth="1px" borderRadius="lg">
-        <Table variant="striped" colorScheme="gray">
-          <Thead bg="gray.100">
+      {/* Filtro */}
+      <Box mb={6} maxW="300px">
+        <Select 
+          placeholder="Filtrar por Filial" 
+          value={filialFiltro} 
+          onChange={(e) => setFilialFiltro(e.target.value)}
+          bg="white"
+        >
+          {filiais.map(f => (
+            <option key={f._id} value={f.nome}>{f.nome}</option>
+          ))}
+        </Select>
+      </Box>
+
+      {/* Tabela de Listagem */}
+      <Box bg="white" shadow="md" borderRadius="lg" overflow="hidden">
+        <Table variant="simple">
+          <Thead bg="gray.50">
             <Tr>
-              <Th>PAT</Th>
+              <Th>Patrimônio</Th>
+              <Th>Filial</Th>
               <Th>Modelo</Th>
-              <Th>IMEI</Th>
-              <Th>Número</Th>
+              <Th>Linha (Número)</Th>
               <Th>Responsável</Th>
               <Th>Status</Th>
               <Th>Ações</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {celulares.map(celular => (
-              <Tr key={celular._id}>
-                <Td fontWeight="bold">{celular.patrimonio}</Td>
-                <Td>{celular.modelo}</Td>
-                <Td fontSize="sm">{celular.imei || '-'}</Td>
-                <Td>{celular.numero || '-'}</Td>
-                <Td>{celular.responsavel}</Td>
+            {celulares.map((cel) => (
+              <Tr key={cel._id} _hover={{ bg: "gray.50" }}>
+                <Td fontWeight="bold">{cel.patrimonio}</Td>
+                <Td>{cel.filial}</Td>
                 <Td>
-                  <Badge colorScheme={getStatusColor(celular.status)}>
-                    {celular.status}
+                  {cel.modelo}
+                  <br/>
+                  <Text as="span" fontSize="xs" color="gray.500">IMEI: {cel.imei || '-'}</Text>
+                </Td>
+                <Td>{cel.numero}</Td>
+                <Td>{cel.responsavel}</Td>
+                <Td>
+                  <Badge colorScheme={getStatusColor(cel.status)}>
+                    {cel.status}
                   </Badge>
                 </Td>
                 <Td>
-                  <HStack spacing={2}>
-                    <IconButton
-                      icon={<EditIcon />}
-                      size="sm"
-                      colorScheme="blue"
-                      onClick={() => handleOpenEdit(celular)}
-                    />
-                    <IconButton
-                      icon={<DeleteIcon />}
-                      size="sm"
-                      colorScheme="red"
-                      onClick={() => handleDelete(celular._id, celular.patrimonio)}
-                    />
-                  </HStack>
+                  <IconButton 
+                    icon={<EditIcon />} 
+                    size="sm" 
+                    mr={2}
+                    colorScheme="blue" 
+                    variant="ghost" 
+                    onClick={() => handleOpenEdit(cel)} 
+                  />
+                  <IconButton 
+                    icon={<DeleteIcon />} 
+                    size="sm" 
+                    colorScheme="red" 
+                    variant="ghost" 
+                    onClick={() => handleDelete(cel._id, cel.patrimonio)} 
+                  />
                 </Td>
               </Tr>
             ))}
+            {celulares.length === 0 && (
+              <Tr>
+                <Td colSpan={7} textAlign="center" py={4} color="gray.500"> {/* CORRIGIDO PARA colSpan */}
+                  Nenhum celular encontrado.
+                </Td>
+              </Tr>
+            )}
           </Tbody>
         </Table>
       </Box>
 
-      {/* Modal de Criar/Editar */}
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size="lg">
+      {/* Modal de Cadastro/Edição */}
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{isEditing ? 'Editar Celular' : 'Novo Celular'}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody pb={6}>
             <VStack spacing={4}>
-              <FormControl isRequired>
-                <FormLabel>Patrimônio</FormLabel>
-                <Input
-                  value={formData.patrimonio}
-                  onChange={(e) => setFormData({ ...formData, patrimonio: e.target.value })}
-                  placeholder="Ex: CEL-001"
-                />
-              </FormControl>
+              <HStack w="full">
+                <FormControl isRequired>
+                  <FormLabel>Patrimônio</FormLabel>
+                  <Input 
+                    value={formData.patrimonio} 
+                    onChange={e => setFormData({...formData, patrimonio: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Filial</FormLabel>
+                  <Select 
+                    value={formData.filial} 
+                    onChange={e => setFormData({...formData, filial: e.target.value})}
+                  >
+                    <option value="">Selecione...</option>
+                    {filiais.map(f => (
+                      <option key={f._id} value={f.nome}>{f.nome}</option>
+                    ))}
+                  </Select>
+                </FormControl>
+              </HStack>
 
-              <FormControl isRequired>
-                <FormLabel>Filial</FormLabel>
-                <Select
-                  value={formData.filial}
-                  onChange={(e) => setFormData({ ...formData, filial: e.target.value })}
-                >
-                  <option value="">Selecione...</option>
-                  {filiais.map(f => (
-                    <option key={f._id} value={f.nome}>{f.nome}</option>
-                  ))}
-                </Select>
-              </FormControl>
+              <HStack w="full">
+                <FormControl>
+                  <FormLabel>Modelo</FormLabel>
+                  <Input 
+                    placeholder="Ex: Samsung A54"
+                    value={formData.modelo} 
+                    onChange={e => setFormData({...formData, modelo: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>IMEI</FormLabel>
+                  <Input 
+                    value={formData.imei} 
+                    onChange={e => setFormData({...formData, imei: e.target.value})} 
+                  />
+                </FormControl>
+              </HStack>
 
-              <FormControl>
-                <FormLabel>Modelo</FormLabel>
-                <Input
-                  value={formData.modelo}
-                  onChange={(e) => setFormData({ ...formData, modelo: e.target.value })}
-                  placeholder="Ex: iPhone 13"
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>IMEI</FormLabel>
-                <Input
-                  value={formData.imei}
-                  onChange={(e) => setFormData({ ...formData, imei: e.target.value })}
-                  placeholder="Número IMEI"
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Número</FormLabel>
-                <Input
-                  value={formData.numero}
-                  onChange={(e) => setFormData({ ...formData, numero: e.target.value })}
-                  placeholder="Ex: (11) 99999-8888"
-                />
-              </FormControl>
+              <HStack w="full">
+                <FormControl>
+                  <FormLabel>Número (Linha)</FormLabel>
+                  <Input 
+                    placeholder="(00) 00000-0000"
+                    value={formData.numero} 
+                    onChange={e => setFormData({...formData, numero: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Status</FormLabel>
+                  <Select 
+                    value={formData.status} 
+                    onChange={e => setFormData({...formData, status: e.target.value})}
+                  >
+                    <option value="Em Uso">Em Uso</option>
+                    <option value="Reserva">Reserva (Estoque)</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Inativo">Inativo / Baixado</option>
+                  </Select>
+                </FormControl>
+              </HStack>
 
               <FormControl>
                 <FormLabel>Responsável</FormLabel>
-                <Input
-                  value={formData.responsavel}
-                  onChange={(e) => setFormData({ ...formData, responsavel: e.target.value })}
-                  placeholder="Nome do responsável"
+                <Input 
+                  value={formData.responsavel} 
+                  onChange={e => setFormData({...formData, responsavel: e.target.value})} 
                 />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Status</FormLabel>
-                <Select
-                  value={formData.status}
-                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                >
-                  <option>Em Uso</option>
-                  <option>Reserva</option>
-                  <option>Manutenção</option>
-                  <option>Inativo</option>
-                </Select>
               </FormControl>
 
               <FormControl>
                 <FormLabel>Observações</FormLabel>
-                <Input
-                  value={formData.obs}
-                  onChange={(e) => setFormData({ ...formData, obs: e.target.value })}
-                  placeholder="Notas adicionais"
+                <Textarea 
+                  value={formData.obs} 
+                  onChange={e => setFormData({...formData, obs: e.target.value})} 
                 />
               </FormControl>
+
+              <Button colorScheme="teal" w="full" onClick={handleSave}>
+                Salvar
+              </Button>
             </VStack>
           </ModalBody>
-          <ModalFooter>
-            <Button variant="ghost" mr={3} onClick={() => setIsOpen(false)}>Cancelar</Button>
-            <Button colorScheme="blue" onClick={handleSave}>Salvar</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
+
+      {/* Modal de Importação (Reutilizável) */}
+      <ImportModal 
+        isOpen={isImportOpen} 
+        onClose={onImportClose} 
+        type="celulares" 
+        onSuccess={fetchData} 
+      />
+
     </Box>
   );
-}
+};
 
-export default CelularesComponent;
+export default Celulares;

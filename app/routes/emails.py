@@ -63,8 +63,8 @@ def create_email():
     if not data.get('endereco') or not data.get('asset_id') or not data.get('tipo'):
         return jsonify({'erro': 'Endereço, Asset ID e Tipo são obrigatórios'}), 400
     
-    if data.get('tipo') not in ['google', 'zimbra']:
-        return jsonify({'erro': 'Tipo deve ser "google" ou "zimbra"'}), 400
+    if data.get('tipo') not in ['google', 'zimbra', 'microsoft']:
+        return jsonify({'erro': 'Tipo deve ser "google", "zimbra" ou "microsoft"'}), 400
     
     # Determinar tipo de asset se não informado
     if 'asset_type' not in data:
