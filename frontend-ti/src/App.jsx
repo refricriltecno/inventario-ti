@@ -390,16 +390,16 @@ function App() {
                 <TabPanel>
                   <VStack spacing={5}>
                     <HStack w="full">
-                      <FormControl isRequired><FormLabel>Patrimônio</FormLabel><Input bg="white" value={formData.patrimonio} onChange={e => handleChange('patrimonio', e.target.value)} borderColor="gray.300" _hover={{borderColor: 'teal.400'}} /></FormControl>
+                      <FormControl isRequired><FormLabel>Patrimônio</FormLabel><Input bg="white" value={formData.patrimonio || ''} onChange={e => handleChange('patrimonio', e.target.value)} borderColor="gray.300" _hover={{borderColor: 'teal.400'}} /></FormControl>
                       <FormControl isRequired><FormLabel>Unidade</FormLabel>
-                        <Select bg="white" value={formData.filial} onChange={e => handleChange('filial', e.target.value)}>
+                        <Select bg="white" value={formData.filial || ''} onChange={e => handleChange('filial', e.target.value)}>
                           <option value="">Selecione...</option>
                           {filiais.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
                         </Select>
                       </FormControl>
                       <FormControl isRequired>
                         <FormLabel>Setor</FormLabel>
-                        <Select bg="white" placeholder={formData.filial ? "Selecione o Setor" : "Selecione a Unidade primeiro"} value={formData.setor} onChange={e => handleChange('setor', e.target.value)} isDisabled={!formData.filial}>
+                        <Select bg="white" placeholder={formData.filial ? "Selecione o Setor" : "Selecione a Unidade primeiro"} value={formData.setor || ''} onChange={e => handleChange('setor', e.target.value)} isDisabled={!formData.filial}>
                           {setoresDisponiveis.map(s => <option key={s} value={s}>{s}</option>)}
                         </Select>
                       </FormControl>
@@ -409,7 +409,7 @@ function App() {
                           <FormLabel>Responsável</FormLabel>
                           <Input
                             bg="white"
-                            value={formData.responsavel}
+                            value={formData.responsavel || ''}
                             onChange={e => handleChange('responsavel', e.target.value)}
                             onFocus={() => setRespMenuOpen(true)}
                             onBlur={() => setTimeout(() => setRespMenuOpen(false), 120)}
@@ -462,27 +462,27 @@ function App() {
                     </HStack>
                     <Divider />
                     <HStack w="full">
-                      <FormControl><FormLabel>Hostname</FormLabel><Input bg="white" value={formData.hostname} onChange={e => handleChange('hostname', e.target.value)} /></FormControl>
+                      <FormControl><FormLabel>Hostname</FormLabel><Input bg="white" value={formData.hostname || ''} onChange={e => handleChange('hostname', e.target.value)} /></FormControl>
                       <FormControl>
                         <FormLabel>Tipo</FormLabel>
-                        <Select bg="white" value={formData.tipo} onChange={e => handleChange('tipo', e.target.value)}>
+                        <Select bg="white" value={formData.tipo || 'Desktop'} onChange={e => handleChange('tipo', e.target.value)}>
                           <option key="tipo-notebook" value="Notebook">Notebook</option>
                           <option key="tipo-desktop" value="Desktop">Desktop</option>
                         </Select>
                       </FormControl>
-                      <FormControl><FormLabel>Modelo</FormLabel><Input bg="white" value={formData.modelo} onChange={e => handleChange('modelo', e.target.value)} /></FormControl>
+                      <FormControl><FormLabel>Modelo</FormLabel><Input bg="white" value={formData.modelo || ''} onChange={e => handleChange('modelo', e.target.value)} /></FormControl>
                     </HStack>
-                    <FormControl><FormLabel>Observações</FormLabel><Textarea bg="white" value={formData.obs} onChange={e => handleChange('obs', e.target.value)} /></FormControl>
+                    <FormControl><FormLabel>Observações</FormLabel><Textarea bg="white" value={formData.obs || ''} onChange={e => handleChange('obs', e.target.value)} /></FormControl>
                   </VStack>
                 </TabPanel>
                 <TabPanel>
                   <VStack spacing={4}>
                      <HStack w="full">
-                      <FormControl><FormLabel>IP Address</FormLabel><Input bg="white" value={formData.ip} onChange={e => handleChange('ip', e.target.value)} /></FormControl>
-                      <FormControl><FormLabel>AnyDesk ID</FormLabel><Input bg="white" value={formData.anydesk} onChange={e => handleChange('anydesk', e.target.value)} /></FormControl>
+                      <FormControl><FormLabel>IP Address</FormLabel><Input bg="white" value={formData.ip || ''} onChange={e => handleChange('ip', e.target.value)} /></FormControl>
+                      <FormControl><FormLabel>AnyDesk ID</FormLabel><Input bg="white" value={formData.anydesk || ''} onChange={e => handleChange('anydesk', e.target.value)} /></FormControl>
                       <FormControl>
                         <FormLabel>Domínio?</FormLabel>
-                        <Select bg="white" value={formData.dominio} onChange={e => handleChange('dominio', e.target.value)}>
+                        <Select bg="white" value={formData.dominio || 'Não'} onChange={e => handleChange('dominio', e.target.value)}>
                           <option key="dominio-sim" value="Sim">Sim</option>
                           <option key="dominio-nao" value="Não">Não</option>
                         </Select>
@@ -490,8 +490,8 @@ function App() {
                     </HStack>
                     <Divider />
                     <HStack w="full">
-                        <FormControl><FormLabel>Senha BIOS</FormLabel><InputGroup><Input bg="white" type={showPassword.bios ? 'text' : 'password'} value={formData.senha_bios} onChange={e => handleChange('senha_bios', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.bios ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('bios')} /></InputRightElement></InputGroup></FormControl>
-                        <FormControl><FormLabel>Senha Windows</FormLabel><InputGroup><Input bg="white" type={showPassword.win ? 'text' : 'password'} value={formData.senha_windows} onChange={e => handleChange('senha_windows', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.win ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('win')} /></InputRightElement></InputGroup></FormControl>
+                        <FormControl><FormLabel>Senha BIOS</FormLabel><InputGroup><Input bg="white" type={showPassword.bios ? 'text' : 'password'} value={formData.senha_bios || ''} onChange={e => handleChange('senha_bios', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.bios ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('bios')} /></InputRightElement></InputGroup></FormControl>
+                        <FormControl><FormLabel>Senha Windows</FormLabel><InputGroup><Input bg="white" type={showPassword.win ? 'text' : 'password'} value={formData.senha_windows || ''} onChange={e => handleChange('senha_windows', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.win ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('win')} /></InputRightElement></InputGroup></FormControl>
                     </HStack>
                   </VStack>
                 </TabPanel>
@@ -500,7 +500,7 @@ function App() {
                         <HStack w="full" align="flex-end">
                             <FormControl>
                                 <FormLabel>Ramal <PhoneIcon ml={2} color="gray.400" /></FormLabel>
-                                <Input bg="white" placeholder="Ex: 2024" value={formData.ramal} onChange={e => handleChange('ramal', e.target.value)} />
+                                <Input bg="white" placeholder="Ex: 2024" value={formData.ramal || ''} onChange={e => handleChange('ramal', e.target.value)} />
                             </FormControl>
                             <FormControl w="auto" pb={2}>
                                 <Checkbox size="lg" colorScheme="teal" isChecked={formData.is_softphone} onChange={e => handleChange('is_softphone', e.target.checked)}>Usa Softphone?</Checkbox>

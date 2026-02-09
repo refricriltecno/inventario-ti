@@ -2,6 +2,7 @@ import csv
 import io
 import re
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 from app.models import db, Asset, Celular, Software, Email
 from datetime import datetime
 
@@ -9,95 +10,178 @@ bp_imports = Blueprint('imports', __name__)
 
 # --- IMPORTAÇÃO DE ATIVOS (COMPUTADORES) ---
 @bp_imports.route('/api/import/assets', methods=['POST'])
+@jwt_required()
 def import_assets():
     """Importar computadores/patrimonios do CSV com todos os dados"""
-    if 'file' not in request.files: 
-        return jsonify({"erro": "Nenhum arquivo"}), 400
-    
-    file = request.files['file']
-    content = file.stream.read().decode("UTF8", errors='ignore')
-    delimiter = ';' if ';' in content.split('\n')[0] else ','
-    stream = io.StringIO(content, newline=None)
-    csv_input = csv.DictReader(stream, delimiter=delimiter)
-    
-    sucessos = 0
-    erros = []
-    linha = 1
-    
-    for row in csv_input:
-        linha += 1
-        # Normaliza chaves (remove espaços, coloca minúsculo, remove caracteres especiais)
-        row_norm = {}
-        for k, v in row.items():
-            if not k:
+    try:
+        if 'file' not in request.files: 
+            return jsonify({"erro": "Nenhum arquivo"}), 400
+        
+        file = request.files['file']
+        if not file or file.filename == '':
+            return jsonify({"erro": "Arquivo vazio"}), 400
+        
+        content = file.stream.read().decode("UTF8", errors='ignore')
+        if not content:
+            return jsonify({"erro": "Arquivo sem conteúdo"}), 400
+        
+        delimiter = ';' if ';' in content.split('\n')[0] else ','
+        stream = io.StringIO(content, newline=None)
+        csv_input = csv.DictReader(stream, delimiter=delimiter)
+        
+        sucessos = 0
+        erros = []
+        linha = 1
+        
+        for row in csv_input:
+            linha += 1
+            if not row or all(not v for v in row.values()):
                 continue
-            # Normalizar chave
-            key_clean = k.strip().lower().replace('º', 'o').replace('.', '').replace(' ', '_')
-            row_norm[key_clean] = v.strip() if v else ''
+                
+            # Normaliza chaves (remove espaços, minúsculo, caracteres especiais)
+            row_norm = {}
+            for k, v in row.items():
+                if not k:
+                    continue
+                # Normalizar: minúsculo, remove espaços, caracteres especiais
+                key_clean = k.strip().lower().replace('ç', 'c').replace('ã', 'a').replace('õ', 'o').replace('.', '').replace(' ', '_').lstrip('0123456789_')
+                row_norm[key_clean] = v.strip() if v else ''
+            
+            # Campo obrigatório: PAT (Patrimônio)
+            patrimonio = row_norm.get('pat', '')
+            if not patrimonio:
+                continue  # Pula linhas vazias
+            
+            # Verifica duplicidade
+            if Asset.query.filter_by(patrimonio=patrimonio).first():
+                erros.append(f"Linha {linha}: Ativo {patrimonio} já existe")
+                continue
+            
+            # Mapeia campos de identificação
+            filial = row_norm.get('centro_de_custo_filial', '') or row_norm.get('filial', '')
+            responsavel = row_norm.get('em_uso', '') or row_norm.get('responsavel', '')
+            tipo = row_norm.get('tipo', 'Desktop')
+            modelo = row_norm.get('modelo', '')
+            hostname = row_norm.get('hostname', '')
+            observacoes = row_norm.get('observacao', '')
+            
+            # Mapeia dados técnicos/segurança
+            anydesk = row_norm.get('anydesk', '')
+            senha_bios = row_norm.get('senha_bios', '')
+            senha_windows = row_norm.get('senha_windows', '')
+            bitlocker = row_norm.get('bitlocker', '')
+            
+            # Mapeia informações de rede
+            vpn = row_norm.get('vpn', '')
+            senha_vpn = row_norm.get('senha_vpn', '')
+            
+            # Tenta extrair IPs dos campos de rede
+            gix_remoto = row_norm.get('gix_remoto_10_1_1_134_135', '') or row_norm.get('gix_remoto', '')
+            duapi = row_norm.get('duapi_10_1_1_122', '') or row_norm.get('duapi', '')
+            dominio = row_norm.get('dominio_10_1_1_129', '') or row_norm.get('dominio', '')
+            
+            # Mapeia informações de comunicação (emails/softphone)
+            softphone = row_norm.get('softphone', '')
+            zimbra = row_norm.get('zimbra', '')
+            conta_google = row_norm.get('conta_google', '')
+            email_secundario = row_norm.get('email_secundario', '')
+            conta_google_2 = row_norm.get('conta_google_2', '')
+            
+            # Criar ativo
+            asset = Asset(
+                patrimonio=patrimonio,
+                tipo='Notebook' if tipo.lower() in ['notebook', 'note'] else 'Desktop',
+                modelo=modelo or 'Não informado',
+                filial=filial or 'Não informada',
+                responsavel=responsavel or 'Não atribuído',
+                status='Ativo',
+                observacoes=observacoes or 'Importado via CSV',
+                anydesk=anydesk,
+                especificacoes={
+                    'hostname': hostname,
+                    'gix_remoto': gix_remoto,
+                    'duapi': duapi,
+                    'dominio': dominio,
+                    'vpn': vpn,
+                    'senha_bios': senha_bios,
+                    'senha_windows': senha_windows,
+                    'senha_vpn': senha_vpn,
+                    'bitlocker': bitlocker,
+                    'softphone': softphone,
+                    'zimbra': zimbra,
+                    'conta_google': conta_google,
+                    'email_secundario': email_secundario,
+                    'conta_google_2': conta_google_2
+                }
+            )
+            asset.atualizado_em = datetime.now()
+            
+            try:
+                db.session.add(asset)
+                db.session.flush()
+                asset_id = asset.id
+                
+                # Criar softwares vinculados
+                softwares_list = []
+                for i in range(1, 4):
+                    pat_software = row_norm.get(f'pat_software_{i}', '')
+                    nome_software = row_norm.get(f'software_{i}', '')
+                    
+                    if pat_software and nome_software:
+                        soft = Software(
+                            nome=nome_software,
+                            patrimonio=pat_software,
+                            asset_id=asset_id,
+                            status='Instalado'
+                        )
+                        softwares_list.append(soft)
+                
+                # Adicionar softwares ao asset
+                if softwares_list:
+                    for soft in softwares_list:
+                        db.session.add(soft)
+                
+                # Criar emails/comunicação se existirem
+                emails_list = []
+                email_fields = {
+                    'softphone': softphone,
+                    'zimbra': zimbra,
+                    'conta_google': conta_google,
+                    'email_secundario': email_secundario,
+                    'conta_google_2': conta_google_2
+                }
+                
+                for tipo_email, email_valor in email_fields.items():
+                    if email_valor and '@' in email_valor:
+                        email_obj = Email(
+                            endereco=email_valor,
+                            tipo=tipo_email,
+                            asset_id=asset_id,
+                            ativo=True
+                        )
+                        emails_list.append(email_obj)
+                
+                if emails_list:
+                    for email_obj in emails_list:
+                        db.session.add(email_obj)
+                
+                db.session.commit()
+                sucessos += 1
+                
+            except Exception as e:
+                db.session.rollback()
+                erros.append(f"Linha {linha}: Erro ao inserir - {str(e)}")
+                continue
         
-        # Campo obrigatório: PAT (Patrimônio)
-        patrimonio = row_norm.get('pat', '')
-        if not patrimonio:
-            erros.append(f"Linha {linha}: Patrimônio (PAT) vazio")
-            continue
+        return jsonify({
+            "msg": f"Importação concluída! {sucessos} ativos criados.",
+            "sucessos": sucessos,
+            "total_erros": len(erros),
+            "erros": erros[:10]  # Retorna até 10 erros para não sobrecarregar a resposta
+        })
         
-        # Verifica duplicidade
-        if Asset.query.filter_by(patrimonio=patrimonio).first():
-            erros.append(f"Linha {linha}: Ativo {patrimonio} já existe")
-            continue
-        
-        # Mapeia todos os campos do CSV
-        filial = row_norm.get('centro_de_custo_filial', '') or row_norm.get('filial', '')
-        responsavel = row_norm.get('em_uso', '')
-        tipo = row_norm.get('tipo', 'Computador')
-        modelo = row_norm.get('modelo', '')
-        hostname = row_norm.get('hostname', '')
-        anydesk = row_norm.get('anydesk', '')
-        senha_bios = row_norm.get('senha_bios', '')
-        senha_windows = row_norm.get('senha_windows', '')
-        vpn_login = row_norm.get('vpn_login', '')
-        senha_vpn = row_norm.get('senha_vpn', '')
-        ip = row_norm.get('ip', '')
-        dominio = row_norm.get('dominio_101011129', '').lower() in ['sim', 's', '1', 'true']
-        observacoes = row_norm.get('observação', '')
-        
-        # Criar ativo
-        asset = Asset(
-            patrimonio=patrimonio,
-            tipo='Notebook' if tipo.lower() in ['notebook', 'note'] else 'Desktop',
-            modelo=modelo,
-            hostname=hostname,
-            filial=filial,
-            responsavel=responsavel,
-            status='Ativo',
-            observacoes=observacoes or 'Importado via CSV',
-            anydesk=anydesk,
-            especificacoes={
-                'ip': ip,
-                'dominio': dominio,
-                'vpn_login': vpn_login,
-                'senha_bios': senha_bios,
-                'senha_windows': senha_windows,
-                'senha_vpn': senha_vpn
-            }
-        )
-        asset.atualizado_em = datetime.now()
-        
-        try:
-            db.session.add(asset)
-            db.session.commit()
-            sucessos += 1
-        except Exception as e:
-            db.session.rollback()
-            erros.append(f"Linha {linha}: Erro ao inserir - {str(e)}")
-            continue
-    
-    return jsonify({
-        "msg": f"Importação concluída! {sucessos} ativos criados.",
-        "sucessos": sucessos,
-        "total_erros": len(erros),
-        "erros": erros[:10]  # Retorna até 10 erros para não sobrecarregar a resposta
-    })
+    except Exception as e:
+        return jsonify({"erro": f"Erro na importação: {str(e)}"}), 500
 
 def parse_date(date_str):
     if not date_str: return None
