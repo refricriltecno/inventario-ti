@@ -7,6 +7,98 @@ from datetime import datetime
 
 bp_imports = Blueprint('imports', __name__)
 
+# --- IMPORTAÇÃO DE ATIVOS (COMPUTADORES) ---
+@bp_imports.route('/api/import/assets', methods=['POST'])
+def import_assets():
+    """Importar computadores/patrimonios do CSV com todos os dados"""
+    if 'file' not in request.files: 
+        return jsonify({"erro": "Nenhum arquivo"}), 400
+    
+    file = request.files['file']
+    content = file.stream.read().decode("UTF8", errors='ignore')
+    delimiter = ';' if ';' in content.split('\n')[0] else ','
+    stream = io.StringIO(content, newline=None)
+    csv_input = csv.DictReader(stream, delimiter=delimiter)
+    
+    sucessos = 0
+    erros = []
+    linha = 1
+    
+    for row in csv_input:
+        linha += 1
+        # Normaliza chaves (remove espaços, coloca minúsculo, remove caracteres especiais)
+        row_norm = {}
+        for k, v in row.items():
+            if not k:
+                continue
+            # Normalizar chave
+            key_clean = k.strip().lower().replace('º', 'o').replace('.', '').replace(' ', '_')
+            row_norm[key_clean] = v.strip() if v else ''
+        
+        # Campo obrigatório: PAT (Patrimônio)
+        patrimonio = row_norm.get('pat', '')
+        if not patrimonio:
+            erros.append(f"Linha {linha}: Patrimônio (PAT) vazio")
+            continue
+        
+        # Verifica duplicidade
+        if Asset.query.filter_by(patrimonio=patrimonio).first():
+            erros.append(f"Linha {linha}: Ativo {patrimonio} já existe")
+            continue
+        
+        # Mapeia todos os campos do CSV
+        filial = row_norm.get('centro_de_custo_filial', '') or row_norm.get('filial', '')
+        responsavel = row_norm.get('em_uso', '')
+        tipo = row_norm.get('tipo', 'Computador')
+        modelo = row_norm.get('modelo', '')
+        hostname = row_norm.get('hostname', '')
+        anydesk = row_norm.get('anydesk', '')
+        senha_bios = row_norm.get('senha_bios', '')
+        senha_windows = row_norm.get('senha_windows', '')
+        vpn_login = row_norm.get('vpn_login', '')
+        senha_vpn = row_norm.get('senha_vpn', '')
+        ip = row_norm.get('ip', '')
+        dominio = row_norm.get('dominio_101011129', '').lower() in ['sim', 's', '1', 'true']
+        observacoes = row_norm.get('observação', '')
+        
+        # Criar ativo
+        asset = Asset(
+            patrimonio=patrimonio,
+            tipo='Notebook' if tipo.lower() in ['notebook', 'note'] else 'Desktop',
+            modelo=modelo,
+            hostname=hostname,
+            filial=filial,
+            responsavel=responsavel,
+            status='Ativo',
+            observacoes=observacoes or 'Importado via CSV',
+            anydesk=anydesk,
+            especificacoes={
+                'ip': ip,
+                'dominio': dominio,
+                'vpn_login': vpn_login,
+                'senha_bios': senha_bios,
+                'senha_windows': senha_windows,
+                'senha_vpn': senha_vpn
+            }
+        )
+        asset.atualizado_em = datetime.now()
+        
+        try:
+            db.session.add(asset)
+            db.session.commit()
+            sucessos += 1
+        except Exception as e:
+            db.session.rollback()
+            erros.append(f"Linha {linha}: Erro ao inserir - {str(e)}")
+            continue
+    
+    return jsonify({
+        "msg": f"Importação concluída! {sucessos} ativos criados.",
+        "sucessos": sucessos,
+        "total_erros": len(erros),
+        "erros": erros[:10]  # Retorna até 10 erros para não sobrecarregar a resposta
+    })
+
 def parse_date(date_str):
     if not date_str: return None
     for fmt in ('%d/%m/%Y', '%Y-%m-%d', '%Y/%m/%d'):

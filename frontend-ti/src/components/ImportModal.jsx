@@ -55,11 +55,19 @@ const ImportModal = ({ isOpen, onClose, type, onSuccess }) => {
             <Alert status="info" fontSize="sm">
               <AlertIcon />
               <Box>
-                O arquivo deve ser <b>.csv</b> (separado por ponto e vírgula).
+                O arquivo deve ser <b>.csv</b> (separado por ponto e vírgula ou vírgula).
                 <br />
+                {type === 'assets' && (
+                  <>
+                    Colunas principais: <b>PAT; Em Uso; Tipo; Modelo; Hostname; AnyDesk; Senha Windows; Senha BIOS; IP; Dominio; Centro de Custo Filial</b>
+                    <br/>
+                    <Text fontSize="xs" mt={1} color="blue.600">
+                      ✓ Importa todos os patrimônios do arquivo CSV para o banco
+                    </Text>
+                  </>
+                )}
                 {type === 'celulares' && "Colunas: patrimonio; filial; modelo; imei; numero; responsavel"}
                 
-                {/* ATUALIZADO AQUI: */}
                 {type === 'emails' && (
                   <>
                     Colunas: <b>endereco; pat_pc; pat_cel; conta google; conta zimbra; conta microsoft; senha google; senha zimbra; senha microsoft</b>

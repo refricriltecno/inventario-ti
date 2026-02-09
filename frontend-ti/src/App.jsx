@@ -5,11 +5,11 @@ import {
   ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel,
   VStack, HStack, IconButton, Tabs, TabList, TabPanels, Tab, TabPanel,
   Textarea, InputGroup, InputRightElement, Divider, Avatar, Tooltip,
-  Checkbox, List, ListItem, ListIcon
+  Checkbox, List, ListItem, ListIcon, useDisclosure
 } from '@chakra-ui/react';
 import { 
   AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon, 
-  SearchIcon, RepeatIcon, SmallCloseIcon, PhoneIcon, CheckCircleIcon, WarningIcon
+  SearchIcon, RepeatIcon, SmallCloseIcon, PhoneIcon, CheckCircleIcon, WarningIcon, DownloadIcon
 } from '@chakra-ui/icons';
 import { FaLaptop, FaMobileAlt, FaEnvelope, FaSave, FaClipboardList, FaUsers } from 'react-icons/fa';
 import axios from 'axios';
@@ -21,6 +21,7 @@ import UsersManagement from './UsersManagement';
 import CelularesComponent from './Celulares';
 import SoftwaresComponent from './Softwares';
 import EmailsComponent from './Emails';
+import ImportModal from './components/ImportModal';
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
@@ -70,6 +71,11 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(null);
   const [modalFilialOpen, setModalFilialOpen] = useState(false);
+  const { 
+    isOpen: isImportOpen, 
+    onOpen: onImportOpen, 
+    onClose: onImportClose 
+  } = useDisclosure();
   const [formData, setFormData] = useState(initialFormState);
   const [novaFilial, setNovaFilial] = useState({ nome: '', tipo: 'Loja' });
   const [showPassword, setShowPassword] = useState({});
@@ -282,6 +288,7 @@ function App() {
           {paginaAtual === 'assets' && (
              <HStack>
                <Button leftIcon={<SettingsIcon />} variant="outline" onClick={() => setModalFilialOpen(true)}>Unidades</Button>
+               <Button leftIcon={<DownloadIcon />} colorScheme="green" variant="outline" onClick={onImportOpen}>Importar CSV</Button>
                <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={handleOpenCreate}>Novo Ativo</Button>
              </HStack>
           )}
@@ -582,6 +589,16 @@ function App() {
           </ModalBody>
         </ModalContent>
       </Modal>
+
+      <ImportModal 
+        isOpen={isImportOpen}
+        onClose={onImportClose}
+        type="assets"
+        onSuccess={() => {
+          fetchData();
+          onImportClose();
+        }}
+      />
     </Flex>
   );
 }
