@@ -1,10 +1,8 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from app import mongo
+from flask_jwt_extended import jwt_required
+from app.models import db, Usuario, AuditLog
 from app.auth import create_user, login_user, get_current_user
-from app.services.audit import obter_logs_ativo, obter_todos_os_logs
-from bson.objectid import ObjectId
-from datetime import datetime
+from sqlalchemy import func
 
 bp_auth = Blueprint('auth', __name__)
 
@@ -32,11 +30,13 @@ def register():
     password = data.get('password')
     nome = data.get('nome')
     filial = data.get('filial')
+    email = data.get('email')
+    permissoes = data.get('permissoes', ['view'])
     
     if not all([username, password, nome, filial]):
         return jsonify({'erro': 'Dados incompletos'}), 400
     
-    result, status_code = create_user(username, password, nome, filial)
+    result, status_code = create_user(username, password, nome, filial, email, permissoes)
     return jsonify(result), status_code
 
 @bp_auth.route('/api/auth/me', methods=['GET'])
@@ -50,65 +50,54 @@ def get_me():
 @jwt_required()
 def list_usuarios():
     """Lista todos os usuários (apenas admin)"""
-    usuarios = list(mongo.db.usuarios.find({}, {'senha': 0}))
-    for u in usuarios:
-        u['_id'] = str(u['_id'])
-        u['created_at'] = u['created_at'].isoformat()
-        u['updated_at'] = u['updated_at'].isoformat()
-        if 'ultimo_login' in u:
-            u['ultimo_login'] = u['ultimo_login'].isoformat()
-    return jsonify(usuarios), 200
+    usuarios = Usuario.query.all()
+    return jsonify([u.to_dict() for u in usuarios]), 200
 
-@bp_auth.route('/api/auth/usuarios/<usuario_id>', methods=['PUT'])
+@bp_auth.route('/api/auth/usuarios/<int:usuario_id>', methods=['PUT'])
 @jwt_required()
 def update_usuario(usuario_id):
     """Atualiza permissões e status do usuário"""
-    data = request.json
-    
-    update_fields = {}
-    if 'permissoes' in data:
-        update_fields['permissoes'] = data['permissoes']
-    if 'ativo' in data:
-        update_fields['ativo'] = data['ativo']
-    if 'nome' in data:
-        update_fields['nome'] = data['nome']
-    if 'filial' in data:
-        update_fields['filial'] = data['filial']
-    
-    update_fields['updated_at'] = datetime.now()
-    
-    result = mongo.db.usuarios.update_one(
-        {'_id': ObjectId(usuario_id)},
-        {'$set': update_fields}
-    )
-    
-    if result.matched_count == 0:
+    usuario = Usuario.query.get(usuario_id)
+    if not usuario:
         return jsonify({'erro': 'Usuário não encontrado'}), 404
     
+    data = request.json
+    
+    if 'permissoes' in data:
+        usuario.permissoes = data['permissoes']
+    if 'ativo' in data:
+        usuario.ativo = data['ativo']
+    if 'nome' in data:
+        usuario.nome = data['nome']
+    if 'filial' in data:
+        usuario.filial = data['filial']
+    if 'email' in data:
+        usuario.email = data['email']
+    
+    db.session.commit()
     return jsonify({'msg': 'Usuário atualizado com sucesso!'}), 200
 
-@bp_auth.route('/api/auth/usuarios/<usuario_id>', methods=['DELETE'])
+@bp_auth.route('/api/auth/usuarios/<int:usuario_id>', methods=['DELETE'])
 @jwt_required()
 def delete_usuario(usuario_id):
     """Deleta um usuário"""
-    result = mongo.db.usuarios.delete_one({'_id': ObjectId(usuario_id)})
-    
-    if result.deleted_count == 0:
+    usuario = Usuario.query.get(usuario_id)
+    if not usuario:
         return jsonify({'erro': 'Usuário não encontrado'}), 404
     
+    db.session.delete(usuario)
+    db.session.commit()
     return jsonify({'msg': 'Usuário deletado com sucesso!'}), 200
+
 
 # --- ROTAS DE AUDITORIA/LOGS ---
 
-@bp_auth.route('/api/logs/ativo/<asset_id>', methods=['GET'])
+@bp_auth.route('/api/logs/ativo/<int:asset_id>', methods=['GET'])
 @jwt_required()
 def get_logs_ativo(asset_id):
     """Retorna logs de um ativo específico"""
-    try:
-        logs = obter_logs_ativo(asset_id)
-        return jsonify(logs), 200
-    except Exception as e:
-        return jsonify({'erro': str(e)}), 400
+    logs = AuditLog.query.filter_by(entidade_id=str(asset_id)).order_by(AuditLog.timestamp.desc()).limit(100).all()
+    return jsonify([log.to_dict() for log in logs]), 200
 
 @bp_auth.route('/api/logs', methods=['GET'])
 @jwt_required()
@@ -117,21 +106,30 @@ def get_logs():
     filtro_usuario = request.args.get('usuario')
     limite = int(request.args.get('limite', 100))
     
-    logs = obter_todos_os_logs(filtro_usuario=filtro_usuario, limite=limite)
-    return jsonify(logs), 200
+    query = AuditLog.query
+    
+    if filtro_usuario:
+        query = query.filter_by(usuario_nome=filtro_usuario)
+    
+    logs = query.order_by(AuditLog.timestamp.desc()).limit(limite).all()
+    return jsonify([log.to_dict() for log in logs]), 200
 
 @bp_auth.route('/api/logs/estatisticas', methods=['GET'])
 @jwt_required()
 def get_estatisticas_logs():
     """Retorna estatísticas dos logs"""
-    total_logs = mongo.db.logs.count_documents({})
-    usuarios_unicos = mongo.db.logs.distinct('usuario')
-    acoes = mongo.db.logs.distinct('acao')
+    total_logs = db.session.query(func.count(AuditLog.id)).scalar()
+    
+    usuarios_unicos = db.session.query(AuditLog.usuario_nome).distinct().all()
+    usuarios_unicos = [u[0] for u in usuarios_unicos if u[0]]
+    
+    acoes = db.session.query(AuditLog.acao).distinct().all()
+    acoes = [a[0] for a in acoes]
     
     # Logs por ação
     logs_por_acao = {}
     for acao in acoes:
-        count = mongo.db.logs.count_documents({'acao': acao})
+        count = db.session.query(func.count(AuditLog.id)).filter_by(acao=acao).scalar()
         logs_por_acao[acao] = count
     
     return jsonify({

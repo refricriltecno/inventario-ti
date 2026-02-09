@@ -61,7 +61,8 @@ function Logs() {
       'ALTERACAO': 'blue',
       'ADICAO': 'purple',
       'REMOCAO': 'red',
-      'ATUALIZACAO': 'orange'
+      'ATUALIZACAO': 'orange',
+      'EXCLUSAO': 'red'
     };
     return cores[acao] || 'gray';
   };
@@ -78,6 +79,8 @@ function Logs() {
       </Center>
     );
   }
+
+  const logsFiltrados = logs.filter(l => l.acao !== 'ATUALIZACAO');
 
   return (
     <Box p={6}>
@@ -137,15 +140,15 @@ function Logs() {
             </Tr>
           </Thead>
           <Tbody>
-            {logs.length === 0 ? (
+            {logsFiltrados.length === 0 ? (
               <Tr>
                 <Td colSpan="7" textAlign="center" py={8}>
                   <Text color="gray.500">Nenhum log encontrado</Text>
                 </Td>
               </Tr>
             ) : (
-              logs.map((log) => (
-                <Tr key={log._id} _hover={{ bg: 'gray.50' }}>
+              logsFiltrados.map((log) => (
+                <Tr key={log.id} _hover={{ bg: 'gray.50' }}>
                   <Td fontSize="xs">{formatarData(log.data)}</Td>
                   <Td>
                     <Badge colorScheme={getAcaoBadge(log.acao)}>

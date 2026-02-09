@@ -16,16 +16,16 @@ function AssetDetail({ asset, onClose, onSave }) {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (asset._id) {
+    if (asset.id) {
       fetchLogs();
     }
-  }, [asset._id]);
+  }, [asset.id]);
 
   const fetchLogs = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${API_URL}/logs/ativo/${asset._id}`,
+        `${API_URL}/logs/ativo/${asset.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setLogs(response.data);
@@ -69,7 +69,7 @@ function AssetDetail({ asset, onClose, onSave }) {
             <VStack align="stretch" spacing={4}>
               <HStack>
                 <Text fontWeight="bold">ID:</Text>
-                <Text>{asset._id}</Text>
+                <Text>{asset.id}</Text>
               </HStack>
               
               <FormControl>
@@ -119,7 +119,7 @@ function AssetDetail({ asset, onClose, onSave }) {
                   </Thead>
                   <Tbody>
                     {logs.map((log) => (
-                      <Tr key={log._id}>
+                      <Tr key={log.id}>
                         <Td fontSize="xs">{formatarData(log.data)}</Td>
                         <Td>
                           <Badge colorScheme={getAcaoBadge(log.acao)}>

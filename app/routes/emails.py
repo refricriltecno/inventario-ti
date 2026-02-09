@@ -1,11 +1,18 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt
-from app import mongo
+from app.models import db, Email, Asset
 from app.services.audit import registrar_historico
-from bson.objectid import ObjectId
 from datetime import datetime
 
 bp_emails = Blueprint('emails', __name__)
+
+
+def _status_to_ativo(value):
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.lower() != 'inativo'
+    return True
 
 # --- ROTAS DE EMAILS (ZIMBRA/GOOGLE) ---
 
@@ -16,40 +23,34 @@ def get_emails():
     asset_id = request.args.get('asset_id')
     filial = request.args.get('filial')
     tipo = request.args.get('tipo')  # 'google' ou 'zimbra'
-    
-    query = {}
+
+    query = Email.query
     if asset_id:
         try:
-            query['asset_id'] = ObjectId(asset_id)
-        except:
+            query = query.filter(Email.asset_id == int(asset_id))
+        except ValueError:
             pass
     if filial:
-        query['filial'] = filial
+        query = query.join(Asset).filter(Asset.filial == filial)
     if tipo:
-        query['tipo'] = tipo
-    
-    emails = list(mongo.db.emails.find(query))
-    for email in emails:
-        email['_id'] = str(email['_id'])
-        if 'asset_id' in email:
-            email['asset_id'] = str(email['asset_id'])
-    
-    return jsonify(emails), 200
+        query = query.filter(Email.tipo == tipo)
+
+    emails = query.all()
+    return jsonify([email.to_dict() for email in emails]), 200
 
 @bp_emails.route('/api/emails/<id>', methods=['GET'])
 @jwt_required()
 def get_email(id):
     """Obter detalhes de um email específico"""
     try:
-        email = mongo.db.emails.find_one({'_id': ObjectId(id)})
-        if not email:
-            return jsonify({'erro': 'Email não encontrado'}), 404
-        email['_id'] = str(email['_id'])
-        if 'asset_id' in email:
-            email['asset_id'] = str(email['asset_id'])
-        return jsonify(email), 200
-    except Exception as e:
-        return jsonify({'erro': str(e)}), 400
+        email_id = int(id)
+    except ValueError:
+        return jsonify({'erro': 'ID inválido'}), 400
+
+    email = Email.query.get(email_id)
+    if not email:
+        return jsonify({'erro': 'Email não encontrado'}), 404
+    return jsonify(email.to_dict()), 200
 
 @bp_emails.route('/api/emails', methods=['POST'])
 @jwt_required()
@@ -57,7 +58,7 @@ def create_email():
     """Criar novo email (Zimbra ou Google)"""
     claims = get_jwt()
     user_name = claims.get('nome', 'Unknown')
-    data = request.json
+    data = request.json or {}
     
     # Validações obrigatórias
     if not data.get('endereco') or not data.get('asset_id') or not data.get('tipo'):
@@ -66,27 +67,33 @@ def create_email():
     if data.get('tipo') not in ['google', 'zimbra', 'microsoft']:
         return jsonify({'erro': 'Tipo deve ser "google", "zimbra" ou "microsoft"'}), 400
     
-    # Determinar tipo de asset se não informado
-    if 'asset_type' not in data:
-        data['asset_type'] = 'workstation'
-    
-    # Converter asset_id para ObjectId se for string
-    if isinstance(data.get('asset_id'), str):
-        try:
-            data['asset_id'] = ObjectId(data['asset_id'])
-        except:
-            return jsonify({'erro': 'Asset ID inválido'}), 400
-    
-    data['created_at'] = datetime.now()
-    data['updated_at'] = datetime.now()
-    data['status'] = data.get('status', 'Ativo')
-    
-    result = mongo.db.emails.insert_one(data)
-    registrar_historico(result.inserted_id, None, data, usuario=user_name)
-    
+    try:
+        asset_id = int(data.get('asset_id'))
+    except ValueError:
+        return jsonify({'erro': 'Asset ID inválido'}), 400
+
+    ativo = _status_to_ativo(data.get('ativo') if 'ativo' in data else data.get('status'))
+
+    email = Email(
+        endereco=data.get('endereco'),
+        tipo=data.get('tipo'),
+        asset_id=asset_id,
+        usuario=data.get('usuario'),
+        senha=data.get('senha'),
+        recuperacao=data.get('recuperacao'),
+        observacoes=data.get('observacoes'),
+        ativo=ativo
+    )
+
+    email.atualizado_em = datetime.now()
+    db.session.add(email)
+    db.session.commit()
+
+    registrar_historico(email.id, None, email.to_dict(include_password=True), usuario=user_name, entidade="Email")
+
     return jsonify({
         'msg': 'Email criado com sucesso!',
-        'id': str(result.inserted_id)
+        'id': str(email.id)
     }), 201
 
 @bp_emails.route('/api/emails/<id>', methods=['PUT'])
@@ -95,31 +102,37 @@ def update_email(id):
     """Atualizar email existente"""
     claims = get_jwt()
     user_name = claims.get('nome', 'Unknown')
-    data = request.json
-    
+    data = request.json or {}
+
     try:
-        obj_id = ObjectId(id)
-    except:
+        email_id = int(id)
+    except ValueError:
         return jsonify({'erro': 'ID inválido'}), 400
-    
-    email_antigo = mongo.db.emails.find_one({'_id': obj_id})
-    if not email_antigo:
+
+    email = Email.query.get(email_id)
+    if not email:
         return jsonify({'erro': 'Email não encontrado'}), 404
-    
-    # Converter asset_id para ObjectId se for string
-    if 'asset_id' in data and isinstance(data.get('asset_id'), str):
+
+    email_antigo = email.to_dict(include_password=True)
+
+    for chave in ['endereco', 'tipo', 'usuario', 'senha', 'recuperacao', 'observacoes']:
+        if chave in data:
+            setattr(email, chave, data.get(chave))
+
+    if 'asset_id' in data:
         try:
-            data['asset_id'] = ObjectId(data['asset_id'])
-        except:
+            email.asset_id = int(data.get('asset_id'))
+        except ValueError:
             return jsonify({'erro': 'Asset ID inválido'}), 400
-    
-    data['updated_at'] = datetime.now()
-    if '_id' in data:
-        del data['_id']
-    
-    mongo.db.emails.update_one({'_id': obj_id}, {'$set': data})
-    registrar_historico(obj_id, email_antigo, data, usuario=user_name)
-    
+
+    if 'ativo' in data or 'status' in data:
+        email.ativo = _status_to_ativo(data.get('ativo') if 'ativo' in data else data.get('status'))
+
+    email.atualizado_em = datetime.now()
+    db.session.commit()
+
+    registrar_historico(email.id, email_antigo, email.to_dict(include_password=True), usuario=user_name, entidade="Email")
+
     return jsonify({'msg': 'Email atualizado com sucesso!'}), 200
 
 @bp_emails.route('/api/emails/<id>', methods=['DELETE'])
@@ -128,23 +141,21 @@ def delete_email(id):
     """Inativar email (soft delete)"""
     claims = get_jwt()
     user_name = claims.get('nome', 'Unknown')
-    
+
     try:
-        obj_id = ObjectId(id)
-    except:
+        email_id = int(id)
+    except ValueError:
         return jsonify({'erro': 'ID inválido'}), 400
-    
-    email = mongo.db.emails.find_one({'_id': obj_id})
+
+    email = Email.query.get(email_id)
     if not email:
         return jsonify({'erro': 'Email não encontrado'}), 404
-    
-    mongo.db.emails.update_one(
-        {'_id': obj_id},
-        {'$set': {
-            'status': 'Inativo',
-            'deleted_at': datetime.now()
-        }}
-    )
-    registrar_historico(obj_id, email, {'status': 'Inativo'}, usuario=user_name)
-    
+
+    email_antigo = email.to_dict(include_password=True)
+    email.ativo = False
+    email.atualizado_em = datetime.now()
+    db.session.commit()
+
+    registrar_historico(email.id, email_antigo, email.to_dict(include_password=True), usuario=user_name, entidade="Email")
+
     return jsonify({'msg': 'Email inativado com sucesso!'}), 200

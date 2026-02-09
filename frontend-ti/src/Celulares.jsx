@@ -6,7 +6,7 @@ import {
   FormControl, FormLabel, Input, VStack, HStack, Textarea,
   Text // <--- ADICIONADO AQUI
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon, DeleteIcon, DownloadIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon, DeleteIcon, DownloadIcon, WarningIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 // Importa o Modal de Importação que criamos
@@ -14,7 +14,7 @@ import ImportModal from './components/ImportModal';
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
-const Celulares = () => {
+const Celulares = ({ usuario }) => {
   const [celulares, setCelulares] = useState([]);
   const [filiais, setFiliais] = useState([]);
   const [filialFiltro, setFilialFiltro] = useState('');
@@ -23,8 +23,10 @@ const Celulares = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(null);
   const [formData, setFormData] = useState({
-    patrimonio: '', filial: '', modelo: '', imei: '',
-    numero: '', responsavel: '', status: 'Em Uso', obs: ''
+    patrimonio: '', filial: '', modelo: '', imei: '', imei_2: '',
+    numero: '', numero_secundario: '', anydesk: '', conta_google: '',
+    marca: '', responsavel: '', status: 'Em Uso', obs: '',
+    senha: '', sub_tipo: '', propriedade: '', serial: ''
   });
 
   // Estado para o Modal de Importação
@@ -60,8 +62,10 @@ const Celulares = () => {
   // Handlers do Formulário
   const handleOpenCreate = () => {
     setFormData({
-      patrimonio: '', filial: '', modelo: '', imei: '',
-      numero: '', responsavel: '', status: 'Em Uso', obs: ''
+      patrimonio: '', filial: '', modelo: '', imei: '', imei_2: '',
+      numero: '', numero_secundario: '', anydesk: '', conta_google: '',
+      marca: '', responsavel: '', status: 'Em Uso', obs: '',
+      senha: '', sub_tipo: '', propriedade: '', serial: ''
     });
     setIsEditing(null);
     onOpen();
@@ -69,7 +73,7 @@ const Celulares = () => {
 
   const handleOpenEdit = (celular) => {
     setFormData({ ...celular });
-    setIsEditing(celular._id);
+    setIsEditing(celular.id);
     onOpen();
   };
 
@@ -90,14 +94,19 @@ const Celulares = () => {
     }
   };
 
-  const handleDelete = async (id, patrimonio) => {
-    if (!window.confirm(`Deseja inativar o celular ${patrimonio}?`)) return;
+  const handleDelete = async (id, patrimonio, forceHard = false) => {
+    const isAdmin = usuario?.permissoes?.includes('admin');
+    if (!forceHard && !window.confirm(`Deseja inativar o celular ${patrimonio}?`)) return;
+    const hard = forceHard || (isAdmin && window.confirm('Excluir definitivamente? OK = excluir, Cancelar = só inativar'));
+    if (hard && !isAdmin) return; // segurança extra no client
     try {
-      await axios.delete(`${API_URL}/celulares/${id}`);
-      toast({ title: 'Celular inativado', status: 'info' });
+      const url = `${API_URL}/celulares/${id}${hard ? '?hard=true' : ''}`;
+      await axios.delete(url, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+      toast({ title: hard ? 'Celular excluído' : 'Celular inativado', status: 'info' });
       fetchData();
     } catch (error) {
-      toast({ title: 'Erro ao excluir', status: 'error' });
+      const msg = error.response?.data?.erro || 'Erro ao excluir';
+      toast({ title: 'Erro', description: msg, status: 'error' });
     }
   };
 
@@ -143,7 +152,7 @@ const Celulares = () => {
           bg="white"
         >
           {filiais.map(f => (
-            <option key={f._id} value={f.nome}>{f.nome}</option>
+            <option key={f.id} value={f.nome}>{f.nome}</option>
           ))}
         </Select>
       </Box>
@@ -164,7 +173,7 @@ const Celulares = () => {
           </Thead>
           <Tbody>
             {celulares.map((cel) => (
-              <Tr key={cel._id} _hover={{ bg: "gray.50" }}>
+              <Tr key={cel.id} _hover={{ bg: "gray.50" }}>
                 <Td fontWeight="bold">{cel.patrimonio}</Td>
                 <Td>{cel.filial}</Td>
                 <Td>
@@ -193,8 +202,23 @@ const Celulares = () => {
                     size="sm" 
                     colorScheme="red" 
                     variant="ghost" 
-                    onClick={() => handleDelete(cel._id, cel.patrimonio)} 
+                    onClick={() => handleDelete(cel.id, cel.patrimonio)} 
+                    aria-label="Inativar"
                   />
+                  {usuario?.permissoes?.includes('admin') && (
+                    <IconButton
+                      icon={<WarningIcon />}
+                      size="sm"
+                      colorScheme="orange"
+                      variant="ghost"
+                      aria-label="Excluir definitivamente"
+                      onClick={() => {
+                        if (window.confirm(`Excluir DEFINITIVAMENTE ${cel.patrimonio}? Esta ação não pode ser desfeita.`)) {
+                          handleDelete(cel.id, cel.patrimonio, true);
+                        }
+                      }}
+                    />
+                  )}
                 </Td>
               </Tr>
             ))}
@@ -233,7 +257,7 @@ const Celulares = () => {
                   >
                     <option value="">Selecione...</option>
                     {filiais.map(f => (
-                      <option key={f._id} value={f.nome}>{f.nome}</option>
+                      <option key={f.id} value={f.nome}>{f.nome}</option>
                     ))}
                   </Select>
                 </FormControl>
@@ -241,31 +265,113 @@ const Celulares = () => {
 
               <HStack w="full">
                 <FormControl>
+                  <FormLabel>Marca</FormLabel>
+                  <Input 
+                    placeholder="Ex: Samsung"
+                    value={formData.marca} 
+                    onChange={e => setFormData({...formData, marca: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
                   <FormLabel>Modelo</FormLabel>
                   <Input 
-                    placeholder="Ex: Samsung A54"
+                    placeholder="Ex: Galaxy A54"
                     value={formData.modelo} 
                     onChange={e => setFormData({...formData, modelo: e.target.value})} 
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>IMEI</FormLabel>
+                  <FormLabel>Sub Tipo</FormLabel>
                   <Input 
-                    value={formData.imei} 
-                    onChange={e => setFormData({...formData, imei: e.target.value})} 
+                    placeholder="Ex: Smartphone"
+                    value={formData.sub_tipo} 
+                    onChange={e => setFormData({...formData, sub_tipo: e.target.value})} 
                   />
                 </FormControl>
               </HStack>
 
               <HStack w="full">
                 <FormControl>
-                  <FormLabel>Número (Linha)</FormLabel>
+                  <FormLabel>IMEI 1</FormLabel>
+                  <Input 
+                    value={formData.imei} 
+                    onChange={e => setFormData({...formData, imei: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>IMEI 2</FormLabel>
+                  <Input 
+                    value={formData.imei_2} 
+                    onChange={e => setFormData({...formData, imei_2: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Serial</FormLabel>
+                  <Input 
+                    value={formData.serial} 
+                    onChange={e => setFormData({...formData, serial: e.target.value})} 
+                  />
+                </FormControl>
+              </HStack>
+
+              <HStack w="full">
+                <FormControl>
+                  <FormLabel>Nº Principal</FormLabel>
                   <Input 
                     placeholder="(00) 00000-0000"
                     value={formData.numero} 
                     onChange={e => setFormData({...formData, numero: e.target.value})} 
                   />
                 </FormControl>
+                <FormControl>
+                  <FormLabel>Nº Secundário</FormLabel>
+                  <Input 
+                    placeholder="(00) 00000-0000"
+                    value={formData.numero_secundario} 
+                    onChange={e => setFormData({...formData, numero_secundario: e.target.value})} 
+                  />
+                </FormControl>
+              </HStack>
+
+              <HStack w="full">
+                <FormControl>
+                  <FormLabel>Conta Google</FormLabel>
+                  <Input 
+                    placeholder="usuario@gmail.com"
+                    value={formData.conta_google} 
+                    onChange={e => setFormData({...formData, conta_google: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Senha</FormLabel>
+                  <Input 
+                    type="password"
+                    value={formData.senha} 
+                    onChange={e => setFormData({...formData, senha: e.target.value})} 
+                  />
+                </FormControl>
+              </HStack>
+
+              <HStack w="full">
+                <FormControl>
+                  <FormLabel>AnyDesk</FormLabel>
+                  <Input 
+                    placeholder="123456789"
+                    value={formData.anydesk} 
+                    onChange={e => setFormData({...formData, anydesk: e.target.value})} 
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Propriedade</FormLabel>
+                  <Input 
+                    placeholder="Empresa/Pessoal"
+                    value={formData.propriedade} 
+                    onChange={e => setFormData({...formData, propriedade: e.target.value})} 
+                  />
+                </FormControl>
+              </HStack>
+
+              <HStack w="full">
                 <FormControl>
                   <FormLabel>Status</FormLabel>
                   <Select 
@@ -278,15 +384,14 @@ const Celulares = () => {
                     <option value="Inativo">Inativo / Baixado</option>
                   </Select>
                 </FormControl>
+                <FormControl>
+                  <FormLabel>Responsável</FormLabel>
+                  <Input 
+                    value={formData.responsavel} 
+                    onChange={e => setFormData({...formData, responsavel: e.target.value})} 
+                  />
+                </FormControl>
               </HStack>
-
-              <FormControl>
-                <FormLabel>Responsável</FormLabel>
-                <Input 
-                  value={formData.responsavel} 
-                  onChange={e => setFormData({...formData, responsavel: e.target.value})} 
-                />
-              </FormControl>
 
               <FormControl>
                 <FormLabel>Observações</FormLabel>

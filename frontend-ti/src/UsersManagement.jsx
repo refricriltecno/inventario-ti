@@ -104,7 +104,7 @@ export default function UsersManagement() {
   const handleSaveEdit = async () => {
     try {
       const token = getToken();
-      await axios.put(`${API_URL}/auth/usuarios/${editingUser._id}`, editingUser, {
+      await axios.put(`${API_URL}/auth/usuarios/${editingUser.id}`, editingUser, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast({
@@ -233,7 +233,7 @@ export default function UsersManagement() {
             </Thead>
             <Tbody>
               {usuarios.map((u) => (
-                <Tr key={u._id}>
+                <Tr key={u.id}>
                   <Td>{u.username}</Td>
                   <Td>{u.nome}</Td>
                   <Td>{u.filial}</Td>
@@ -264,7 +264,7 @@ export default function UsersManagement() {
                       <Button
                         size="sm"
                         colorScheme="red"
-                        onClick={() => handleDeleteUser(u._id)}
+                        onClick={() => handleDeleteUser(u.id)}
                       >
                         Deletar
                       </Button>
@@ -306,7 +306,7 @@ export default function UsersManagement() {
                   >
                     <option value="">Selecione uma filial</option>
                     {filiais.map((f) => (
-                      <option key={f._id} value={f.nome}>
+                      <option key={f.id} value={f.nome}>
                         {f.nome}
                       </option>
                     ))}
@@ -410,7 +410,7 @@ export default function UsersManagement() {
                 >
                   <option value="">Selecione uma filial</option>
                   {filiais.map((f) => (
-                    <option key={f._id} value={f.nome}>
+                    <option key={f.id} value={f.nome}>
                       {f.nome}
                     </option>
                   ))}

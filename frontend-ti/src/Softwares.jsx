@@ -71,7 +71,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
 
   const handleOpenEdit = (software) => {
     setFormData(software);
-    setIsEditing(software._id);
+    setIsEditing(software.id);
     setIsOpen(true);
   };
 
@@ -88,7 +88,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
     try {
       const token = localStorage.getItem('token');
       const dados = { ...formData };
-      if (dados._id) delete dados._id;
+      if (dados.id) delete dados.id;
 
       if (isEditing) {
         await axios.put(`${API_URL}/softwares/${isEditing}`, dados, {
@@ -173,7 +173,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
             placeholder="Todos"
           >
             {assets.map(a => (
-              <option key={a._id} value={a._id}>{a.patrimonio} - {a.hostname}</option>
+              <option key={a.id} value={a.id}>{a.patrimonio} - {a.hostname}</option>
             ))}
           </Select>
         </FormControl>
@@ -194,7 +194,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
           </Thead>
           <Tbody>
             {softwares.map(software => (
-              <Tr key={software._id}>
+              <Tr key={software.id}>
                 <Td fontWeight="bold">{software.nome}</Td>
                 <Td>{software.versao || '-'}</Td>
                 <Td>{software.tipo_licenca}</Td>
@@ -221,7 +221,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
                       icon={<DeleteIcon />}
                       size="sm"
                       colorScheme="red"
-                      onClick={() => handleDelete(software._id, software.nome)}
+                      onClick={() => handleDelete(software.id, software.nome)}
                     />
                   </HStack>
                 </Td>
@@ -265,7 +265,7 @@ function SoftwaresComponent({ usuario, assets, onSoftwareAdded }) {
                 >
                   <option value="">Selecione um Asset...</option>
                   {assets.map(a => (
-                    <option key={a._id} value={a._id}>
+                    <option key={a.id} value={a.id}>
                       {a.patrimonio} - {a.hostname}
                     </option>
                   ))}

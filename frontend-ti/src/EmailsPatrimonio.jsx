@@ -62,7 +62,7 @@ function EmailsPatrimonioComponent({ assetId, assetType = 'workstation' }) {
       senha: email.senha,
       recuperacao: email.recuperacao
     });
-    setIsEditing(email._id);
+    setIsEditing(email.id);
     setIsOpen(true);
   };
 
@@ -160,7 +160,7 @@ function EmailsPatrimonioComponent({ assetId, assetType = 'workstation' }) {
             </Thead>
             <Tbody>
               {emails.map(email => (
-                <Tr key={email._id}>
+                <Tr key={email.id}>
                   <Td fontSize="sm">{email.endereco}</Td>
                   <Td>
                     <Badge colorScheme={getTipoColor(email.tipo)}>
@@ -182,7 +182,7 @@ function EmailsPatrimonioComponent({ assetId, assetType = 'workstation' }) {
                         size="xs"
                         colorScheme="red"
                         variant="ghost"
-                        onClick={() => handleDelete(email._id, email.endereco)}
+                        onClick={() => handleDelete(email.id, email.endereco)}
                       />
                     </HStack>
                   </Td>

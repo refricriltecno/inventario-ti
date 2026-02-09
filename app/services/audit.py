@@ -1,128 +1,143 @@
 from datetime import datetime
-from app import mongo
-from bson import ObjectId
+from app.models import db, AuditLog
 
-def registrar_historico(asset_id, dados_antigos, dados_novos, usuario="Sistema"):
+
+def registrar_exclusao(asset_id, dados_antigos, usuario="Sistema", entidade="Asset"):
+    """Registra remoção definitiva preservando snapshot para auditoria."""
+    try:
+        entidade_id = str(int(asset_id))
+    except (TypeError, ValueError):
+        entidade_id = None
+
+    log = AuditLog(
+        usuario_nome=usuario,
+        acao="EXCLUSAO",
+        entidade=entidade,
+        entidade_id=entidade_id,
+        descricao=f"Ativo {dados_antigos.get('patrimonio', 'N/A')} excluido definitivamente" if dados_antigos else "Registro excluido definitivamente",
+        dados_antes=dados_antigos,
+        dados_depois=None,
+        timestamp=datetime.now()
+    )
+    db.session.add(log)
+    db.session.commit()
+
+def registrar_historico(asset_id, dados_antigos, dados_novos, usuario="Sistema", entidade="Asset"):
     """
     Compara o documento antigo com o novo e gera logs detalhados para o que mudou.
     Registra: criação, alterações de campos, adições e remoções de itens.
     """
-    
-    # Garantir que asset_id é ObjectId
-    if isinstance(asset_id, str):
-        asset_id = ObjectId(asset_id)
-    
+
+    try:
+        entidade_id = str(int(asset_id))
+    except (TypeError, ValueError):
+        entidade_id = None
+
+    logs = []
+
     # É uma criação nova
     if not dados_antigos:
-        log_entrada = {
-            "asset_id": asset_id,
-            "data": datetime.now(),
-            "acao": "CRIACAO",
-            "usuario": usuario,
-            "campos_alterados": list(dados_novos.keys()),
-            "detalhes": f"Ativo {dados_novos.get('patrimonio', 'N/A')} cadastrado no sistema",
-            "timestamp": datetime.now()
-        }
-        mongo.db.logs.insert_one(log_entrada)
+        logs.append(AuditLog(
+            usuario_nome=usuario,
+            acao="CRIACAO",
+            entidade=entidade,
+            entidade_id=entidade_id,
+            descricao=f"Ativo {dados_novos.get('patrimonio', 'N/A')} cadastrado no sistema",
+            dados_antes=None,
+            dados_depois=dados_novos,
+            timestamp=datetime.now()
+        ))
+        db.session.add_all(logs)
+        db.session.commit()
         return
 
-    ignorar = ['_id', 'updated_at', 'created_at']
-    
+    ignorar = ['_id', 'updated_at', 'created_at', 'criado_em', 'atualizado_em']
+
     # Detectar campos alterados
     campos_alterados = []
-    
+
     for chave, valor_novo in dados_novos.items():
         if chave in ignorar:
             continue
-            
+
         valor_antigo = dados_antigos.get(chave)
-        
+
         if valor_antigo != valor_novo:
-            # Se for lista (softwares), detectar o que foi adicionado/removido
+            # Se for lista, detectar o que foi adicionado/removido
             if isinstance(valor_novo, list) and isinstance(valor_antigo, list):
                 adicionados = [item for item in valor_novo if item not in valor_antigo]
                 removidos = [item for item in valor_antigo if item not in valor_novo]
-                
+
                 if adicionados:
-                    mongo.db.logs.insert_one({
-                        "asset_id": asset_id,
-                        "data": datetime.now(),
-                        "acao": "ADICAO",
-                        "campo": chave,
-                        "itens_adicionados": adicionados,
-                        "usuario": usuario,
-                        "timestamp": datetime.now()
-                    })
+                    logs.append(AuditLog(
+                        usuario_nome=usuario,
+                        acao="ADICAO",
+                        entidade=entidade,
+                        entidade_id=entidade_id,
+                        descricao=f"Itens adicionados em {chave}",
+                        dados_antes=None,
+                        dados_depois={"campo": chave, "itens_adicionados": adicionados},
+                        timestamp=datetime.now()
+                    ))
                     campos_alterados.append(f"{chave} (+)")
-                
+
                 if removidos:
-                    mongo.db.logs.insert_one({
-                        "asset_id": asset_id,
-                        "data": datetime.now(),
-                        "acao": "REMOCAO",
-                        "campo": chave,
-                        "itens_removidos": removidos,
-                        "usuario": usuario,
-                        "timestamp": datetime.now()
-                    })
+                    logs.append(AuditLog(
+                        usuario_nome=usuario,
+                        acao="REMOCAO",
+                        entidade=entidade,
+                        entidade_id=entidade_id,
+                        descricao=f"Itens removidos em {chave}",
+                        dados_antes={"campo": chave, "itens_removidos": removidos},
+                        dados_depois=None,
+                        timestamp=datetime.now()
+                    ))
                     campos_alterados.append(f"{chave} (-)")
             else:
-                # Alteração simples de campo
-                mongo.db.logs.insert_one({
-                    "asset_id": asset_id,
-                    "data": datetime.now(),
-                    "acao": "ALTERACAO",
-                    "campo": chave,
-                    "valor_anterior": str(valor_antigo) if valor_antigo else "vazio",
-                    "valor_novo": str(valor_novo) if valor_novo else "vazio",
-                    "usuario": usuario,
-                    "timestamp": datetime.now()
-                })
+                logs.append(AuditLog(
+                    usuario_nome=usuario,
+                    acao="ALTERACAO",
+                    entidade=entidade,
+                    entidade_id=entidade_id,
+                    descricao=f"Campo {chave} alterado",
+                    dados_antes={chave: valor_antigo},
+                    dados_depois={chave: valor_novo},
+                    timestamp=datetime.now()
+                ))
                 campos_alterados.append(chave)
-    
+
     # Registrar log geral de alteração
     if campos_alterados:
-        mongo.db.logs.insert_one({
-            "asset_id": asset_id,
-            "data": datetime.now(),
-            "acao": "ATUALIZACAO",
-            "usuario": usuario,
-            "campos_alterados": campos_alterados,
-            "detalhes": f"Ativo {dados_novos.get('patrimonio', 'N/A')} atualizado",
-            "timestamp": datetime.now()
-        })
+        logs.append(AuditLog(
+            usuario_nome=usuario,
+            acao="ATUALIZACAO",
+            entidade=entidade,
+            entidade_id=entidade_id,
+            descricao=f"Ativo {dados_novos.get('patrimonio', 'N/A')} atualizado",
+            dados_antes={"campos_alterados": campos_alterados},
+            dados_depois=dados_novos,
+            timestamp=datetime.now()
+        ))
+
+    if logs:
+        db.session.add_all(logs)
+        db.session.commit()
 
 def obter_logs_ativo(asset_id):
     """Retorna todos os logs de um ativo"""
-    if isinstance(asset_id, str):
-        asset_id = ObjectId(asset_id)
-    
-    logs = list(mongo.db.logs.find(
-        {'asset_id': asset_id}
-    ).sort('data', -1))
-    
-    for log in logs:
-        log['_id'] = str(log['_id'])
-        log['asset_id'] = str(log['asset_id'])
-        log['data'] = log['data'].isoformat()
-        if 'timestamp' in log:
-            log['timestamp'] = log['timestamp'].isoformat()
-    
-    return logs
+    try:
+        entidade_id = str(int(asset_id))
+    except (TypeError, ValueError):
+        entidade_id = None
+
+    logs = AuditLog.query.filter_by(entidade_id=entidade_id).order_by(AuditLog.timestamp.desc()).all()
+    return [log.to_dict() for log in logs]
 
 def obter_todos_os_logs(filtro_usuario=None, limite=100):
     """Retorna todos os logs do sistema com opção de filtro"""
-    query = {}
+    query = AuditLog.query
     if filtro_usuario:
-        query['usuario'] = filtro_usuario
-    
-    logs = list(mongo.db.logs.find(query).sort('data', -1).limit(limite))
-    
-    for log in logs:
-        log['_id'] = str(log['_id'])
-        log['asset_id'] = str(log['asset_id'])
-        log['data'] = log['data'].isoformat()
-        if 'timestamp' in log:
-            log['timestamp'] = log['timestamp'].isoformat()
-    
-    return logs
+        query = query.filter_by(usuario_nome=filtro_usuario)
+
+    logs = query.order_by(AuditLog.timestamp.desc()).limit(limite).all()
+    return [log.to_dict() for log in logs]

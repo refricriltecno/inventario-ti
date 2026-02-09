@@ -1,8 +1,8 @@
 Flask
-pymongo
-flask-pymongo
+Flask-SQLAlchemy
+psycopg2-binary
 python-dotenv
-dnspython
 Flask-JWT-Extended
 bcrypt
 flask-cors
+Flask-Migrate

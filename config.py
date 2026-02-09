@@ -2,8 +2,15 @@ import os
 from datetime import timedelta
 
 class Config:
-    # Database
-    MONGO_URI = "mongodb+srv://tecnologia_db_user:afbn3vtexZUN3zPh@refricril.lfg6bem.mongodb.net/inventario_ti?appName=Refricril"
+    # Database - PostgreSQL
+    # Senha: Adm@Ref212 (@ precisa ser %40 em URL encoding)
+    SQLALCHEMY_DATABASE_URI = "postgresql://user_inventario:Adm%40Ref212@10.1.1.248/inventario-ti?sslmode=disable"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 300,
+    }
+    
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'sua-chave-super-secreta-mudeme-em-producao'
     
     # JWT Configuration

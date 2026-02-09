@@ -82,7 +82,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
 
   const handleOpenEdit = (email) => {
     setFormData(email);
-    setIsEditing(email._id);
+    setIsEditing(email.id);
     setIsOpen(true);
   };
 
@@ -99,7 +99,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
     try {
       const token = localStorage.getItem('token');
       const dados = { ...formData };
-      if (dados._id) delete dados._id;
+      if (dados.id) delete dados.id;
 
       if (isEditing) {
         await axios.put(`${API_URL}/emails/${isEditing}`, dados, {
@@ -156,10 +156,10 @@ function EmailsComponent({ usuario, assets, celulares }) {
 
   const getPatrimonioLabel = (assetId, assetType) => {
     if (assetType === 'celular' || assetType === 'cellphone') {
-      const cel = celulares?.find(c => c._id === assetId);
+      const cel = celulares?.find(c => c.id === assetId);
       return cel ? `CEL: ${cel.patrimonio}` : 'Celular não encontrado';
     }
-    const asset = assets?.find(a => a._id === assetId);
+    const asset = assets?.find(a => a.id === assetId);
     return asset ? asset.patrimonio : 'Asset não encontrado';
   };
 
@@ -205,10 +205,10 @@ function EmailsComponent({ usuario, assets, celulares }) {
             placeholder="Todos"
           >
             {assets?.map(a => (
-              <option key={a._id} value={a._id}>{a.patrimonio}</option>
+              <option key={a.id} value={a.id}>{a.patrimonio}</option>
             ))}
             {celulares?.map(c => (
-              <option key={c._id} value={c._id}>CEL: {c.patrimonio}</option>
+              <option key={c.id} value={c.id}>CEL: {c.patrimonio}</option>
             ))}
           </Select>
         </FormControl>
@@ -228,7 +228,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
           </Thead>
           <Tbody>
             {emails.map(email => (
-              <Tr key={email._id}>
+              <Tr key={email.id}>
                 <Td fontWeight="bold" fontSize="sm">{email.endereco}</Td>
                 <Td>
                   <Badge colorScheme={getTipoColor(email.tipo)}>
@@ -256,7 +256,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
                       icon={<DeleteIcon />}
                       size="sm"
                       colorScheme="red"
-                      onClick={() => handleDelete(email._id, email.endereco)}
+                      onClick={() => handleDelete(email.id, email.endereco)}
                     />
                   </HStack>
                 </Td>
@@ -315,7 +315,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
                         placeholder="Selecione um computador..."
                       >
                         {assets?.map(a => (
-                          <option key={a._id} value={a._id}>
+                          <option key={a.id} value={a.id}>
                             {a.patrimonio} - {a.hostname}
                           </option>
                         ))}
@@ -332,7 +332,7 @@ function EmailsComponent({ usuario, assets, celulares }) {
                         placeholder="Selecione um celular..."
                       >
                         {celulares?.map(c => (
-                          <option key={c._id} value={c._id}>
+                          <option key={c.id} value={c.id}>
                             {c.patrimonio} - {c.modelo}
                           </option>
                         ))}

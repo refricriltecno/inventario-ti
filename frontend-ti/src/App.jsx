@@ -1,170 +1,147 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Box, Flex, Heading, Text, Button, Table, Thead, Tbody, Tr, Th, Td, 
   Badge, Input, Select, useToast, Modal, ModalOverlay, ModalContent, 
   ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel,
   VStack, HStack, IconButton, Tabs, TabList, TabPanels, Tab, TabPanel,
-  Textarea, InputGroup, InputRightElement, Divider, List, ListItem, ListIcon,
-  Checkbox, MenuButton, Menu, MenuItem, MenuList
+  Textarea, InputGroup, InputRightElement, Divider, Avatar, Tooltip,
+  Checkbox, List, ListItem, ListIcon
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon, CheckCircleIcon, PhoneIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { 
+  AddIcon, EditIcon, DeleteIcon, ViewIcon, ViewOffIcon, SettingsIcon, 
+  SearchIcon, RepeatIcon, SmallCloseIcon, PhoneIcon, CheckCircleIcon, WarningIcon
+} from '@chakra-ui/icons';
+import { FaLaptop, FaMobileAlt, FaEnvelope, FaSave, FaClipboardList, FaUsers } from 'react-icons/fa';
 import axios from 'axios';
+
+// Componentes
 import Login from './Login';
 import Logs from './Logs';
-import AssetDetail from './AssetDetail';
 import UsersManagement from './UsersManagement';
 import CelularesComponent from './Celulares';
 import SoftwaresComponent from './Softwares';
 import EmailsComponent from './Emails';
-import EmailsPatrimonioComponent from './EmailsPatrimonio';
-import SoftwaresPatrimonioComponent from './SoftwaresPatrimonio';
 
 const API_URL = 'http://127.0.0.1:5000/api';
 
 const SETORES_POR_TIPO = {
-  'Administrativo': [
-    'Análise de Crédito', 'Auxiliar Televendas', 'Cadastro', 'Cadastro de Produto', 
-    'Cobrança', 'Comercial', 'Compras', 'Contabil / Fiscal', 'Controladoria', 
-    'Controle de Estoque', 'Dep. Pessoal', 'Direção', 'Ecommerce', 'Financeiro', 
-    'Garantia', 'Gerente Televendas', 'Liberação de Pedido / Depósito', 'Logística', 
-    'Marketing', 'Negociação', 'Pricing', 'Projeto', 'RH', 'Servidor', 'Televendas'
-  ].sort(),
-  'Loja': [
-    'Balcão', 'Caixa', 'Conferência', 'Estoque', 'Faturamento', 'Gerente Loja', 
-    'Recebimento', 'Servidor', 'Televendas', 'Televendas Loja', 'Vendas', 
-    'Vendas Ar', 'Vendas WhatsApp'
-  ].sort(),
-  'CD': [
-    'Assistente Inventário', 'Conferência', 'Doca', 'Estoque', 'Expedição', 
-    'Faturamento', 'Garantia', 'Gerente CD', 'Organização', 'Recebimento', 'Servidor'
-  ].sort()
+  'Administrativo': ['Análise de Crédito', 'Auxiliar Televendas', 'Cadastro', 'Cadastro de Produto', 'Cobrança', 'Comercial', 'Compras', 'Contabil / Fiscal', 'Controladoria', 'Controle de Estoque', 'Dep. Pessoal', 'Direção', 'Ecommerce', 'Financeiro', 'Garantia', 'Gerente Televendas', 'Liberação de Pedido / Depósito', 'Logística', 'Marketing', 'Negociação', 'Pricing', 'Projeto', 'RH', 'Servidor', 'TI', 'Televendas'].sort(),
+  'Loja': ['Balcão', 'Caixa', 'Conferência', 'Estoque', 'Faturamento', 'Gerente Loja', 'Recebimento', 'Servidor', 'Televendas', 'Televendas Loja', 'Vendas', 'Vendas Ar', 'Vendas WhatsApp'].sort(),
+  'CD': ['Assistente Inventário', 'Conferência', 'Doca', 'Estoque', 'Expedição', 'Faturamento', 'Garantia', 'Gerente CD', 'Organização', 'Recebimento', 'Servidor'].sort()
 };
 
 const initialFormState = {
-  patrimonio: '', filial: '', setor: '', responsavel: '', 
-  hostname: '', tipo: 'Notebook', modelo: '', obs: '',
-  ip: '', anydesk: '', duapi: '', dominio: 'Não',
-  senha_bios: '', senha_windows: '', vpn_login: '', senha_vpn: '', gix_remoto: '',
-  email_google: '', email_zimbra: '', 
+  patrimonio: '', filial: '', setor: '', responsavel: '', hostname: '', tipo: 'Notebook', modelo: '', obs: '',
+  ip: '', anydesk: '', duapi: '', dominio: 'Não', senha_bios: '', senha_windows: '', vpn_login: '', senha_vpn: '', gix_remoto: '',
   ramal: '', is_softphone: false
 };
+
+// Componente Botão Sidebar
+const SidebarBtn = ({ label, icon, id, paginaAtual, setPaginaAtual, color = "teal" }) => (
+  <Button
+    w="full" justifyContent="flex-start" variant="ghost"
+    color={paginaAtual === id ? `${color}.300` : "gray.400"}
+    bg={paginaAtual === id ? "whiteAlpha.100" : "transparent"}
+    borderLeft={paginaAtual === id ? `4px solid` : "4px solid transparent"}
+    borderColor={`${color}.300`}
+    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+    leftIcon={icon} onClick={() => setPaginaAtual(id)}
+    size="lg" fontWeight={paginaAtual === id ? "bold" : "normal"} mb={1}
+  >
+    {label}
+  </Button>
+);
 
 function App() {
   const [usuario, setUsuario] = useState(null);
   const [paginaAtual, setPaginaAtual] = useState('assets');
   
+  // --- DADOS COMPLETOS ---
   const [assets, setAssets] = useState([]);
-  const [celulares, setCelulares] = useState([]);
-  const [softwares, setSoftwares] = useState([]);
   const [filiais, setFiliais] = useState([]);
-  const [filialFiltro, setFilialFiltro] = useState('');
-  const [filtros, setFiltros] = useState({
-    pat: '',
-    responsavel: '',
-    setor: '',
-    equipamento: '',
-    anydesk: '',
-    tipo: ''
-  });
+  const [celulares, setCelulares] = useState([]);
+  const [emails, setEmails] = useState([]);     // <--- RESTAURADO
+  const [softwares, setSoftwares] = useState([]); // <--- RESTAURADO
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+  
+  const [filiaisFiltro, setFiliaisFiltro] = useState('');
+  const [filtros, setFiltros] = useState({ pat: '', responsavel: '', setor: '', equipamento: '', anydesk: '', tipo: '' });
   
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(null);
   const [modalFilialOpen, setModalFilialOpen] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
-  
   const [novaFilial, setNovaFilial] = useState({ nome: '', tipo: 'Loja' });
   const [showPassword, setShowPassword] = useState({});
+  const [respMenuOpen, setRespMenuOpen] = useState(false);
   const [setoresDisponiveis, setSetoresDisponiveis] = useState([]);
   const [responsaveisDisponiveis, setResponsaveisDisponiveis] = useState([]);
 
   const toast = useToast();
 
-  // Configurar interceptor de autenticação e carregar dados na montagem
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const usuarioArmazenado = localStorage.getItem('usuario');
-    
-    if (token && usuarioArmazenado) {
+    const userStored = localStorage.getItem('usuario');
+    if (token && userStored) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setUsuario(JSON.parse(usuarioArmazenado));
+      setUsuario(JSON.parse(userStored));
     }
   }, []);
 
-  // Carregar dados quando usuário está autenticado
-  useEffect(() => {
-    if (usuario) {
-      fetchData();
-    }
-  }, [usuario]);
-
-  const handleLoginSuccess = (usuarioData) => {
-    // Get token from localStorage (was just set by Login component)
+  const handleLoginSuccess = (userData) => {
     const token = localStorage.getItem('token');
-    console.log('Login bem-sucedido! Token:', token ? token.substring(0, 20) + '...' : 'NÃO ENCONTRADO');
-    
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Pequeno delay para garantir que o header está configurado
-      setTimeout(() => {
-        setUsuario(usuarioData);
-        setPaginaAtual('assets');
-      }, 100);
-    } else {
-      console.error('Token não foi salvo no localStorage após login!');
+      setUsuario(userData);
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    delete axios.defaults.headers.common['Authorization'];
     setUsuario(null);
-    setAssets([]);
-    setFiliais([]);
   };
 
-  const fetchData = async () => {
+  const fetchData = async (silent = false) => {
+    if (!usuario) return;
     try {
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        console.warn('Nenhum token disponível para requisição');
-        return;
+      const resF = await axios.get(`${API_URL}/filiais`);
+      setFiliais(resF.data);
+
+      if (paginaAtual === 'assets' || paginaAtual === 'emails' || paginaAtual === 'softwares') {
+        const params = filiaisFiltro ? { filial: filiaisFiltro } : {};
+        const resA = await axios.get(`${API_URL}/assets`, { params });
+        setAssets(resA.data.filter(a => a.status !== 'Inativo'));
       }
+
+      // Busca dados secundários para popular as abas
+      const resC = await axios.get(`${API_URL}/celulares`);
+      setCelulares(resC.data.filter(c => c.status !== 'Inativo'));
+
+      const resE = await axios.get(`${API_URL}/emails`);
+      setEmails(resE.data.filter(e => e.status !== 'Inativo'));
+
+      const resS = await axios.get(`${API_URL}/softwares`);
+      setSoftwares(resS.data.filter(s => s.status !== 'Inativo'));
       
-      const headers = { Authorization: `Bearer ${token}` };
-      
-      const params = filialFiltro ? { filial: filialFiltro } : {};
-      const resAssets = await axios.get(`${API_URL}/assets`, { params, headers });
-      // Filtrar apenas ativos
-      const ativos = resAssets.data.filter(a => a.status !== 'Inativo');
-      setAssets(ativos);
-      
-      const resCelulares = await axios.get(`${API_URL}/celulares`, { params, headers });
-      const celularesAtivos = resCelulares.data.filter(c => c.status !== 'Inativo');
-      setCelulares(celularesAtivos);
-      
-      const resSoftwares = await axios.get(`${API_URL}/softwares`, { headers });
-      const softwaresAtivos = resSoftwares.data.filter(s => s.status !== 'Inativo');
-      setSoftwares(softwaresAtivos);
-      
-      const resFiliais = await axios.get(`${API_URL}/filiais`, { headers });
-      setFiliais(resFiliais.data);
-    } catch (error) { 
-      console.error('Erro ao carregar dados:', error.response?.status, error.message);
-      if (error.response?.status === 401 || error.response?.status === 422) {
-        handleLogout();
-      }
+      setLastUpdate(new Date());
+    } catch (error) {
+      if (error.response?.status === 401) handleLogout();
     }
   };
 
-  useEffect(() => { 
-    if (usuario) {
-      fetchData(); 
-    }
-  }, [filialFiltro]);
+  useEffect(() => {
+    fetchData();
+    const intervalId = setInterval(() => {
+      if (!isOpen && !modalFilialOpen) fetchData(true);
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [usuario, paginaAtual, filiaisFiltro, isOpen]);
 
-  const filtrarAssets = () => {
+  // Socket.IO removido - não implementado no backend
+  // Usando polling a cada 5 segundos como mecanismo de sincronização
+
+  const filteredAssets = useMemo(() => {
     return assets.filter(asset => {
       if (filtros.pat && !asset.patrimonio?.toLowerCase().includes(filtros.pat.toLowerCase())) return false;
       if (filtros.responsavel && !asset.responsavel?.toLowerCase().includes(filtros.responsavel.toLowerCase())) return false;
@@ -174,94 +151,38 @@ function App() {
       if (filtros.tipo && asset.tipo !== filtros.tipo) return false;
       return true;
     });
-  };
+  }, [assets, filtros]);
 
-  const limparFiltros = () => {
-    setFiltros({
-      pat: '',
-      responsavel: '',
-      setor: '',
-      equipamento: '',
-      anydesk: '',
-      tipo: ''
-    });
-  };
-
-  useEffect(() => {
-    if (formData.filial) {
-      const filialObj = filiais.find(f => f.nome === formData.filial);
-      if (filialObj && filialObj.tipo) {
-        let setores = SETORES_POR_TIPO[filialObj.tipo] || [];
-        
-        // Se o setor atual não está na lista predefinida, adicioná-lo
-        if (formData.setor && !setores.includes(formData.setor)) {
-          setores = [...setores, formData.setor].sort();
-        }
-        
-        setSetoresDisponiveis(setores);
-      } else {
-        setSetoresDisponiveis([]);
-      }
-      // Buscar responsáveis (funcionários) da filial selecionada
-      axios.get(`${API_URL}/funcionarios/${encodeURIComponent(formData.filial)}`)
-        .then(res => {
-          // Se tiver funcionários da API, usa eles
-          if (res.data && res.data.length > 0) {
-            setResponsaveisDisponiveis(res.data);
-          } else {
-            // Caso contrário, extrai responsáveis dos ativos dessa filial
-            const responsaveisUnicos = [...new Set(
-              assets
-                .filter(a => a.filial === formData.filial && a.responsavel && a.responsavel.trim() !== '')
-                .map(a => a.responsavel)
-            )].sort();
-            setResponsaveisDisponiveis(responsaveisUnicos);
-          }
-        })
-        .catch(err => { 
-          console.error(err); 
-          // Se erro na API, tenta extrair dos ativos
-          const responsaveisUnicos = [...new Set(
-            assets
-              .filter(a => a.filial === formData.filial && a.responsavel && a.responsavel.trim() !== '')
-              .map(a => a.responsavel)
-          )].sort();
-          setResponsaveisDisponiveis(responsaveisUnicos);
-        });
-    } else {
-      setSetoresDisponiveis([]);
-      setResponsaveisDisponiveis([]);
-    }
-  }, [formData.filial, filiais, assets, formData.setor]);
+  const responsaveisFiltrados = useMemo(() => {
+    const termo = (formData.responsavel || '').toLowerCase();
+    return responsaveisDisponiveis
+      .filter(r => r.toLowerCase().includes(termo))
+      .slice(0, 20);
+  }, [responsaveisDisponiveis, formData.responsavel]);
 
   const handleOpenCreate = () => { setFormData(initialFormState); setIsEditing(null); setIsOpen(true); };
-  const handleOpenEdit = (asset) => { setFormData({ ...initialFormState, ...asset }); setIsEditing(asset._id); setIsOpen(true); };
+  const handleOpenEdit = (asset) => { setFormData({ ...initialFormState, ...asset }); setIsEditing(asset.id); setIsOpen(true); };
   
   const handleSave = async () => {
     try {
-      if (isEditing) { await axios.put(`${API_URL}/assets/${isEditing}`, formData); } 
-      else { await axios.post(`${API_URL}/assets`, formData); }
-      toast({ title: 'Salvo com sucesso!', status: 'success' });
-      setIsOpen(false); fetchData();
+      if (isEditing) await axios.put(`${API_URL}/assets/${isEditing}`, formData);
+      else await axios.post(`${API_URL}/assets`, formData);
+      toast({ title: 'Salvo!', status: 'success', duration: 2000 });
+      setIsOpen(false); 
+      fetchData();
     } catch (error) { toast({ title: 'Erro', status: 'error' }); }
   };
 
-  const handleDelete = async (id, patrimonio) => {
-    if (window.confirm(`Tem certeza que deseja inativar o PAT ${patrimonio}?`)) {
-      try {
-        await axios.delete(`${API_URL}/assets/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
-        toast({ title: 'Ativo inativado com sucesso!', status: 'success' });
-        fetchData();
-      } catch (error) {
-        toast({ title: 'Erro ao inativar', status: 'error' });
-      }
-    }
+  const handleDelete = async (id, pat, forceHard = false) => {
+    if (!forceHard && !window.confirm(`Inativar ${pat}?`)) return;
+    const hard = forceHard || window.confirm('Deseja excluir definitivamente? OK = Excluir, Cancelar = Apenas inativar');
+    try {
+      const url = `${API_URL}/assets/${id}${hard ? '?hard=true' : ''}`;
+      await axios.delete(url);
+      toast({ title: hard ? 'Excluído' : 'Inativado', status: 'info', duration: 2000 });
+      fetchData();
+    } catch(e){ toast({ title: 'Erro ao excluir/inativar', status: 'error' }); }
   };
-
-  const handleChange = (f, v) => { setFormData(prev => ({ ...prev, [f]: v })); };
-  const togglePass = (f) => { setShowPassword(prev => ({...prev, [f]: !prev[f]})); };
 
   const handleSaveFilial = async () => {
     if (!novaFilial.nome) return;
@@ -269,177 +190,171 @@ function App() {
       await axios.post(`${API_URL}/filiais`, novaFilial);
       toast({ title: 'Unidade Criada!', status: 'success' });
       setNovaFilial({ nome: '', tipo: 'Loja' });
+      setModalFilialOpen(false);
       fetchData();
     } catch (error) { toast({ title: 'Erro - Talvez já exista?', status: 'error' }); }
   };
 
-  const handleDeleteFilial = async (id, nome) => {
-    if(!window.confirm(`Tem certeza que deseja excluir ${nome}?`)) return;
-    try {
-        await axios.delete(`${API_URL}/filiais/${id}`);
-        toast({ title: 'Unidade Removida!', status: 'info' });
-        fetchData();
-    } catch (error) { toast({ title: 'Erro ao excluir', status: 'error' }); }
-  };
+  const handleChange = (f, v) => setFormData(p => ({...p, [f]: v}));
+  const togglePass = (f) => setShowPassword(p => ({...p, [f]: !p[f]}));
+
+  useEffect(() => {
+    if (formData.filial) {
+      const fObj = filiais.find(f => f.nome === formData.filial);
+      if (fObj && fObj.tipo) {
+        let setores = SETORES_POR_TIPO[fObj.tipo] || [];
+        setSetoresDisponiveis(setores);
+      } else {
+        setSetoresDisponiveis([]);
+      }
+
+      const fetchResponsaveis = async () => {
+        try {
+          const encodedFilial = encodeURIComponent(formData.filial);
+          const res = await axios.get(`${API_URL}/funcionarios/${encodedFilial}`);
+          setResponsaveisDisponiveis(res.data);
+        } catch (error) {
+          const respsLocais = [...new Set(
+            assets.filter(a => a.filial === formData.filial).map(a => a.responsavel)
+          )].filter(Boolean).sort();
+          setResponsaveisDisponiveis(respsLocais);
+        }
+      };
+      fetchResponsaveis();
+      
+    } else {
+      setSetoresDisponiveis([]);
+      setResponsaveisDisponiveis([]);
+    }
+  }, [formData.filial, filiais]);
+
+  if (!usuario) return <Login onLoginSuccess={handleLoginSuccess} />;
 
   return (
-    <>
-      {!usuario ? (
-        <Login onLoginSuccess={handleLoginSuccess} />
-      ) : (
-        <Flex h="100vh" bg="gray.50">
-      <Box w="260px" bg="gray.900" color="white" p={5} display="flex" flexDirection="column">
-        <VStack align="stretch" spacing={4} flex="1">
-          <Box>
-            <Heading size="md" mb={2} color="teal.300">TI Manager 🛡️</Heading>
-            <Text fontSize="xs" color="gray.400">{usuario.nome}</Text>
-            <Text fontSize="xs" color="gray.500">{usuario.filial}</Text>
-          </Box>
-          
-          <Divider borderColor="gray.700" />
-          
-          <Button
-            w="full"
-            justifyContent="flex-start"
-            bg={paginaAtual === 'assets' ? 'teal.600' : 'transparent'}
-            _hover={{ bg: 'teal.700' }}
-            onClick={() => { setPaginaAtual('assets'); fetchData(); }}
-          >
-            Inventário
-          </Button>
-
-          <Button
-            w="full"
-            justifyContent="flex-start"
-            bg={paginaAtual === 'celulares' ? 'teal.600' : 'transparent'}
-            _hover={{ bg: 'teal.700' }}
-            onClick={() => setPaginaAtual('celulares')}
-          >
-            Celulares
-          </Button>
-
-          <Button
-            w="full"
-            justifyContent="flex-start"
-            bg={paginaAtual === 'softwares' ? 'teal.600' : 'transparent'}
-            _hover={{ bg: 'teal.700' }}
-            onClick={() => setPaginaAtual('softwares')}
-          >
-            Softwares
-          </Button>
-
-          <Button
-            w="full"
-            justifyContent="flex-start"
-            bg={paginaAtual === 'emails' ? 'teal.600' : 'transparent'}
-            _hover={{ bg: 'teal.700' }}
-            onClick={() => setPaginaAtual('emails')}
-          >
-            Emails
-          </Button>
-          
+    <Flex h="100vh" overflow="hidden">
+      <Box w="260px" bgGradient="linear(to-b, gray.900, gray.800)" color="white" display="flex" flexDirection="column" boxShadow="2xl" zIndex={10}>
+        <Flex p={6} align="center" borderBottom="1px solid" borderColor="whiteAlpha.100" mb={4}>
+          <Box p={2} bg="teal.500" borderRadius="md" mr={3}><SettingsIcon boxSize={5} color="white" /></Box>
+          <Box><Heading size="sm" letterSpacing="wide">TI MANAGER</Heading><Text fontSize="xs" color="gray.400">v2.1 • Online</Text></Box>
+        </Flex>
+        <VStack align="stretch" spacing={1} flex="1" px={3}>
+          <Text fontSize="xs" fontWeight="bold" color="gray.500" px={3} mb={2} mt={2}>GESTÃO</Text>
+          <SidebarBtn id="assets" label="Computadores" icon={<FaLaptop />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} />
+          <SidebarBtn id="celulares" label="Celulares" icon={<FaMobileAlt />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} />
+          <SidebarBtn id="softwares" label="Softwares" icon={<FaSave />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} />
+          <SidebarBtn id="emails" label="Emails" icon={<FaEnvelope />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} />
           {usuario.permissoes?.includes('admin') && (
             <>
-              <Button
-                w="full"
-                justifyContent="flex-start"
-                bg={paginaAtual === 'logs' ? 'teal.600' : 'transparent'}
-                _hover={{ bg: 'teal.700' }}
-                onClick={() => setPaginaAtual('logs')}
-              >
-                Auditoria
-              </Button>
-              
-              <Button
-                w="full"
-                justifyContent="flex-start"
-                bg={paginaAtual === 'usuarios' ? 'teal.600' : 'transparent'}
-                _hover={{ bg: 'teal.700' }}
-                onClick={() => setPaginaAtual('usuarios')}
-              >
-                Gerenciar Usuários
-              </Button>
+              <Text fontSize="xs" fontWeight="bold" color="gray.500" px={3} mb={2} mt={6}>ADMINISTRAÇÃO</Text>
+              <SidebarBtn id="logs" label="Auditoria" icon={<FaClipboardList />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} color="orange" />
+              <SidebarBtn id="usuarios" label="Usuários" icon={<FaUsers />} paginaAtual={paginaAtual} setPaginaAtual={setPaginaAtual} color="purple" />
             </>
           )}
-          
-          <Box>
-            <Text fontSize="xs" color="gray.500" fontWeight="bold" mb={1}>FILTRAR UNIDADE</Text>
-            <Select bg="gray.800" border="none" size="sm" value={filialFiltro} onChange={(e) => setFilialFiltro(e.target.value)} isDisabled={paginaAtual !== 'assets'}>
-              <option value="" style={{color:'black'}}>Todas</option>
-              {filiais.map(f => <option key={f._id} value={f.nome} style={{color:'black'}}>{f.nome}</option>)}
-            </Select>
-          </Box>
-          
-          {paginaAtual === 'assets' && (
-            <Button leftIcon={<SettingsIcon />} size="sm" variant="outline" colorScheme="teal" onClick={() => setModalFilialOpen(true)}>Gerenciar Unidades</Button>
-          )}
         </VStack>
-        
-        <Divider borderColor="gray.700" />
-        
-        <Button
-          w="full"
-          leftIcon={<SmallCloseIcon />}
-          colorScheme="red"
-          size="sm"
-          mt={4}
-          onClick={handleLogout}
-        >
-          Sair
-        </Button>
+        <Box p={4} bg="blackAlpha.300" borderTop="1px solid" borderColor="whiteAlpha.100">
+          <Flex align="center" mb={3}>
+            <Avatar size="sm" name={usuario.nome} bg="teal.500" mr={3} />
+            <Box flex="1"><Text fontSize="sm" fontWeight="bold" isTruncated>{usuario.nome}</Text><Badge colorScheme="teal" fontSize="xx-small">{usuario.filial}</Badge></Box>
+            <Tooltip label="Sair"><IconButton icon={<SmallCloseIcon />} size="xs" colorScheme="red" variant="ghost" onClick={handleLogout} /></Tooltip>
+          </Flex>
+          {paginaAtual === 'assets' && (
+             <Select size="xs" variant="filled" bg="gray.700" color="gray.300" _hover={{ bg: 'gray.600' }} value={filiaisFiltro} onChange={e => setFiliaisFiltro(e.target.value)}>
+                <option value="">Todas as Filiais</option>
+                {filiais.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
+             </Select>
+          )}
+        </Box>
       </Box>
 
-      <Box flex="1" p={8} overflowY="auto">
-        {paginaAtual === 'assets' ? (
-          <>
-            <Flex justify="space-between" align="center" mb={6}>
-              <Heading size="lg">Inventário</Heading>
-              <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={handleOpenCreate}>Novo Ativo</Button>
+      <Box flex="1" bg="gray.50" overflowY="auto" p={6}>
+        <Flex justify="space-between" align="center" mb={6}>
+          <Box>
+            <Heading size="lg" color="gray.700">
+              {paginaAtual === 'assets' && "Inventário de Ativos"}
+              {paginaAtual === 'celulares' && "Dispositivos Móveis"}
+              {paginaAtual === 'softwares' && "Gestão de Licenças"}
+              {paginaAtual === 'emails' && "Contas de E-mail"}
+              {paginaAtual === 'logs' && "Logs de Auditoria"}
+              {paginaAtual === 'usuarios' && "Controle de Acesso"}
+            </Heading>
+            <Text fontSize="xs" color="gray.400" mt={1}>Última atualização: {lastUpdate.toLocaleTimeString()} (Tempo Real)</Text>
+          </Box>
+          {paginaAtual === 'assets' && (
+             <HStack>
+               <Button leftIcon={<SettingsIcon />} variant="outline" onClick={() => setModalFilialOpen(true)}>Unidades</Button>
+               <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={handleOpenCreate}>Novo Ativo</Button>
+             </HStack>
+          )}
         </Flex>
 
-        <Box bg="white" shadow="sm" borderRadius="lg" p={4} mb={4}>
-          <Text fontWeight="bold" mb={3} fontSize="sm">Filtros</Text>
-          <VStack spacing={3}>
-            <HStack w="full" spacing={2}>
-              <FormControl><Input size="sm" placeholder="PAT" value={filtros.pat} onChange={e => setFiltros({...filtros, pat: e.target.value})} /></FormControl>
-              <FormControl><Input size="sm" placeholder="Responsável" value={filtros.responsavel} onChange={e => setFiltros({...filtros, responsavel: e.target.value})} /></FormControl>
-              <FormControl><Input size="sm" placeholder="Setor" value={filtros.setor} onChange={e => setFiltros({...filtros, setor: e.target.value})} /></FormControl>
-              <FormControl><Select size="sm" placeholder="Tipo" value={filtros.tipo} onChange={e => setFiltros({...filtros, tipo: e.target.value})}><option value="">Todos</option><option value="Notebook">Notebook</option><option value="Desktop">Desktop</option></Select></FormControl>
-            </HStack>
-            <HStack w="full" spacing={2}>
-              <FormControl><Input size="sm" placeholder="Equipamento/Hostname" value={filtros.equipamento} onChange={e => setFiltros({...filtros, equipamento: e.target.value})} /></FormControl>
-              <FormControl><Input size="sm" placeholder="AnyDesk" value={filtros.anydesk} onChange={e => setFiltros({...filtros, anydesk: e.target.value})} /></FormControl>
-              <Button size="sm" variant="outline" colorScheme="gray" onClick={limparFiltros}>Limpar Filtros</Button>
-            </HStack>
-          </VStack>
-          <Text fontSize="xs" color="gray.500" mt={2}>{filtrarAssets().length} de {assets.length} patrimonios</Text>
-        </Box>
-
-        <Box bg="white" shadow="sm" borderRadius="lg" overflow="hidden">
-          <Table variant="simple" size="sm">
-            <Thead bg="gray.100">
-              <Tr><Th>Ações</Th><Th>PAT</Th><Th>Colaborador</Th><Th>Setor</Th><Th>Equipamento</Th><Th>AnyDesk</Th><Th>Local</Th></Tr>
-            </Thead>
-            <Tbody>
-              {filtrarAssets().map((asset) => (
-                <Tr key={asset._id} _hover={{ bg: "gray.50" }}>
-                  <Td><HStack spacing={1}><IconButton icon={<EditIcon />} size="sm" colorScheme="blue" variant="ghost" onClick={() => handleOpenEdit(asset)} /><IconButton icon={<DeleteIcon />} size="sm" colorScheme="red" variant="ghost" onClick={() => handleDelete(asset._id, asset.patrimonio)} /></HStack></Td>
-                  <Td fontWeight="bold">{asset.patrimonio}</Td>
-                  <Td fontSize="sm">{asset.responsavel || '-'}</Td>
-                  <Td><Badge colorScheme="purple" fontSize="xs">{asset.setor || '-'}</Badge></Td>
-                  <Td fontSize="sm">{asset.hostname} <Text as="span" fontSize="xs" color="gray.500">({asset.tipo})</Text></Td>
-                  <Td fontSize="sm" fontFamily="monospace">{asset.anydesk || '-'}</Td>
-                  <Td fontSize="sm">{asset.filial}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </Box>
+        {paginaAtual === 'assets' ? (
+          <>
+            <Box bg="white" p={4} borderRadius="lg" shadow="sm" mb={6} border="1px solid" borderColor="gray.100">
+              <HStack spacing={3}>
+                <InputGroup size="sm">
+                  <InputRightElement pointerEvents="none"><SearchIcon color="gray.300" /></InputRightElement>
+                  <Input placeholder="Buscar PAT..." value={filtros.pat} onChange={e => setFiltros({...filtros, pat: e.target.value})} />
+                </InputGroup>
+                <Input size="sm" placeholder="Responsável" value={filtros.responsavel} onChange={e => setFiltros({...filtros, responsavel: e.target.value})} />
+                <Input size="sm" placeholder="Setor" value={filtros.setor} onChange={e => setFiltros({...filtros, setor: e.target.value})} />
+                <Select size="sm" placeholder="Tipo" value={filtros.tipo} onChange={e => setFiltros({...filtros, tipo: e.target.value})} w="150px">
+                   <option key="tipo-todos" value="">Todos</option>
+                   <option key="tipo-notebook" value="Notebook">Notebook</option>
+                   <option key="tipo-desktop" value="Desktop">Desktop</option>
+                </Select>
+                <IconButton aria-label="Limpar" icon={<RepeatIcon />} size="sm" onClick={() => setFiltros({pat: '', responsavel: '', setor: '', equipamento: '', anydesk: '', tipo: ''})} />
+              </HStack>
+            </Box>
+            <Box bg="white" shadow="sm" borderRadius="lg" overflow="hidden" border="1px solid" borderColor="gray.100">
+              <Table variant="simple" size="sm" sx={{'th': {fontSize: 'xs', textTransform: 'uppercase', color: 'gray.500'}}}>
+                <Thead bg="gray.50">
+                  <Tr><Th>Ações</Th><Th>PAT</Th><Th>Colaborador</Th><Th>Setor</Th><Th>Equipamento</Th><Th>AnyDesk</Th><Th>Local</Th></Tr>
+                </Thead>
+                <Tbody>
+                  {filteredAssets.map((asset) => (
+                    <Tr key={asset.id} _hover={{ bg: "teal.50", transition: "0.2s" }}>
+                      <Td>
+                        <HStack spacing={1}>
+                          <IconButton icon={<EditIcon />} size="xs" colorScheme="blue" variant="solid" onClick={() => handleOpenEdit(asset)} />
+                          <IconButton
+                            icon={<DeleteIcon />}
+                            size="xs"
+                            colorScheme="red"
+                            variant="ghost"
+                            onClick={() => handleDelete(asset.id, asset.patrimonio)}
+                            aria-label="Inativar ou excluir"
+                          />
+                          <IconButton
+                            icon={<WarningIcon />}
+                            size="xs"
+                            colorScheme="orange"
+                            variant="ghost"
+                            title="Excluir definitivamente"
+                            onClick={() => {
+                              const hard = window.confirm(`Excluir DEFINITIVAMENTE ${asset.patrimonio}? Esta ação não pode ser desfeita.`);
+                              if (!hard) return;
+                              handleDelete(asset.id, asset.patrimonio, true);
+                            }}
+                          />
+                        </HStack>
+                      </Td>
+                      <Td fontWeight="bold" color="teal.700">{asset.patrimonio}</Td>
+                      <Td fontWeight="medium">{asset.responsavel}</Td>
+                      <Td><Badge variant="subtle" colorScheme="purple">{asset.setor}</Badge></Td>
+                      <Td>{asset.hostname} <Text as="span" fontSize="xs" color="gray.400">({asset.tipo})</Text></Td>
+                      <Td fontFamily="monospace" fontSize="xs">{asset.anydesk || '-'}</Td>
+                      <Td fontSize="xs" color="gray.500">{asset.filial}</Td>
+                    </Tr>
+                  ))}
+                  {filteredAssets.length === 0 && <Tr><Td colSpan={7} textAlign="center" py={6} color="gray.400">Nenhum ativo encontrado.</Td></Tr>}
+                </Tbody>
+              </Table>
+            </Box>
           </>
         ) : paginaAtual === 'celulares' ? (
           <CelularesComponent usuario={usuario} filiais={filiais} assets={assets} />
         ) : paginaAtual === 'softwares' ? (
-          <SoftwaresComponent usuario={usuario} assets={assets} onSoftwareAdded={() => fetchData()} />
+          <SoftwaresComponent usuario={usuario} assets={assets} />
         ) : paginaAtual === 'emails' ? (
           <EmailsComponent usuario={usuario} assets={assets} celulares={celulares} />
         ) : paginaAtual === 'logs' ? (
@@ -449,177 +364,219 @@ function App() {
         ) : null}
       </Box>
 
+      {/* MODAL DE ATIVOS COMPLETO */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size="4xl" scrollBehavior="inside">
-        <ModalOverlay />
+        <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent>
-          <ModalHeader bg="teal.600" color="white">{isEditing ? `Editando ${formData.patrimonio}` : 'Novo Cadastro'}</ModalHeader>
+          <ModalHeader bg="teal.600" color="white" borderTopRadius="md">{isEditing ? `Editando ${formData.patrimonio}` : 'Novo Ativo'}</ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody bg="gray.50" p={0}>
-             <Tabs isFitted variant="enclosed">
-              <TabList bg="white" pt={2} px={2}>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Geral</Tab>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Rede & Senhas</Tab>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Comunicação</Tab>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Emails</Tab>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Softwares</Tab>
-                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'none' }}>Histórico</Tab>
+             <Tabs isFitted variant="enclosed" colorScheme="teal">
+              <TabList bg="white" pt={2} px={2} borderBottom="1px solid" borderColor="gray.200">
+                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Geral</Tab>
+                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Rede & Acesso</Tab>
+                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Comunicação</Tab>
+                {isEditing && <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Softwares</Tab>}
+                {isEditing && <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Emails</Tab>}
               </TabList>
               <TabPanels p={6}>
-                {/* ABA GERAL */}
                 <TabPanel>
-                  <VStack spacing={4}>
+                  <VStack spacing={5}>
                     <HStack w="full">
-                      <FormControl isRequired><FormLabel>Patrimônio</FormLabel><Input bg="white" value={formData.patrimonio} onChange={e => handleChange('patrimonio', e.target.value)} /></FormControl>
+                      <FormControl isRequired><FormLabel>Patrimônio</FormLabel><Input bg="white" value={formData.patrimonio} onChange={e => handleChange('patrimonio', e.target.value)} borderColor="gray.300" _hover={{borderColor: 'teal.400'}} /></FormControl>
                       <FormControl isRequired><FormLabel>Unidade</FormLabel>
                         <Select bg="white" value={formData.filial} onChange={e => handleChange('filial', e.target.value)}>
                           <option value="">Selecione...</option>
-                          {filiais.map(f => <option key={f._id} value={f.nome}>{f.nome}</option>)}
+                          {filiais.map(f => <option key={f.id} value={f.nome}>{f.nome}</option>)}
                         </Select>
                       </FormControl>
-                      <FormControl isRequired><FormLabel>Setor</FormLabel><Input bg="white" placeholder={formData.filial ? "Selecione ou digite um setor" : "Escolha a Unidade"} value={formData.setor} onChange={e => handleChange('setor', e.target.value)} list="setores-list" isDisabled={!formData.filial} /><datalist id="setores-list">{setoresDisponiveis.map(s => <option key={s} value={s} />)}</datalist></FormControl>
+                      <FormControl isRequired>
+                        <FormLabel>Setor</FormLabel>
+                        <Select bg="white" placeholder={formData.filial ? "Selecione o Setor" : "Selecione a Unidade primeiro"} value={formData.setor} onChange={e => handleChange('setor', e.target.value)} isDisabled={!formData.filial}>
+                          {setoresDisponiveis.map(s => <option key={s} value={s}>{s}</option>)}
+                        </Select>
+                      </FormControl>
                     </HStack>
                     <HStack w="full">
-                        <FormControl isRequired><FormLabel>Responsável</FormLabel><Input bg="white" placeholder={formData.filial ? "Nome do colaborador ou selecione" : "Escolha a Unidade primeiro"} value={formData.responsavel} onChange={e => handleChange('responsavel', e.target.value)} list="responsaveis-list" isDisabled={!formData.filial} /><datalist id="responsaveis-list">{responsaveisDisponiveis.map(r => <option key={r} value={r} />)}</datalist></FormControl>
-                        <FormControl><FormLabel>Status</FormLabel><Select bg="white" value={formData.status || 'Em Uso'} onChange={e => handleChange('status', e.target.value)}><option value="Em Uso">Em Uso</option><option value="Reserva">Reserva</option><option value="Manutenção">Manutenção</option></Select></FormControl>
+                        <FormControl isRequired position="relative">
+                          <FormLabel>Responsável</FormLabel>
+                          <Input
+                            bg="white"
+                            value={formData.responsavel}
+                            onChange={e => handleChange('responsavel', e.target.value)}
+                            onFocus={() => setRespMenuOpen(true)}
+                            onBlur={() => setTimeout(() => setRespMenuOpen(false), 120)}
+                            placeholder="Digite para filtrar"
+                          />
+                          {respMenuOpen && responsaveisFiltrados.length > 0 && (
+                            <Box
+                              position="absolute"
+                              zIndex={10}
+                              top="100%"
+                              left={0}
+                              right={0}
+                              bg="white"
+                              borderWidth="1px"
+                              borderRadius="md"
+                              shadow="md"
+                              mt={1}
+                              maxH="240px"
+                              overflowY="auto"
+                            >
+                              {responsaveisFiltrados.map(r => (
+                                <Box
+                                  as="button"
+                                  type="button"
+                                  key={r}
+                                  w="full"
+                                  textAlign="left"
+                                  px={3}
+                                  py={2}
+                                  _hover={{ bg: 'gray.100' }}
+                                  onMouseDown={() => {
+                                    handleChange('responsavel', r);
+                                    setRespMenuOpen(false);
+                                  }}
+                                >
+                                  {r}
+                                </Box>
+                              ))}
+                            </Box>
+                          )}
+                        </FormControl>
+                        <FormControl>
+                          <FormLabel>Status</FormLabel>
+                          <Select bg="white" value={formData.status || 'Em Uso'} onChange={e => handleChange('status', e.target.value)}>
+                            <option key="status-em-uso" value="Em Uso">Em Uso</option>
+                            <option key="status-reserva" value="Reserva">Reserva</option>
+                            <option key="status-manutencao" value="Manutenção">Manutenção</option>
+                          </Select>
+                        </FormControl>
                     </HStack>
+                    <Divider />
                     <HStack w="full">
                       <FormControl><FormLabel>Hostname</FormLabel><Input bg="white" value={formData.hostname} onChange={e => handleChange('hostname', e.target.value)} /></FormControl>
-                      <FormControl><FormLabel>Tipo</FormLabel><Select bg="white" value={formData.tipo} onChange={e => handleChange('tipo', e.target.value)}><option value="Notebook">Notebook</option><option value="Desktop">Desktop</option></Select></FormControl>
-                      <FormControl><FormLabel>Modelo Hardware</FormLabel><Input bg="white" value={formData.modelo} onChange={e => handleChange('modelo', e.target.value)} /></FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo</FormLabel>
+                        <Select bg="white" value={formData.tipo} onChange={e => handleChange('tipo', e.target.value)}>
+                          <option key="tipo-notebook" value="Notebook">Notebook</option>
+                          <option key="tipo-desktop" value="Desktop">Desktop</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl><FormLabel>Modelo</FormLabel><Input bg="white" value={formData.modelo} onChange={e => handleChange('modelo', e.target.value)} /></FormControl>
                     </HStack>
                     <FormControl><FormLabel>Observações</FormLabel><Textarea bg="white" value={formData.obs} onChange={e => handleChange('obs', e.target.value)} /></FormControl>
                   </VStack>
                 </TabPanel>
-
-                {/* ABA REDE */}
                 <TabPanel>
                   <VStack spacing={4}>
                      <HStack w="full">
                       <FormControl><FormLabel>IP Address</FormLabel><Input bg="white" value={formData.ip} onChange={e => handleChange('ip', e.target.value)} /></FormControl>
-                      <FormControl><FormLabel>ID AnyDesk</FormLabel><Input bg="white" value={formData.anydesk} onChange={e => handleChange('anydesk', e.target.value)} /></FormControl>
-                      <FormControl><FormLabel>Duapi</FormLabel><Input bg="white" value={formData.duapi} onChange={e => handleChange('duapi', e.target.value)} /></FormControl>
-                      <FormControl><FormLabel>Domínio?</FormLabel><Select bg="white" value={formData.dominio} onChange={e => handleChange('dominio', e.target.value)}><option value="Sim">Sim</option><option value="Não">Não</option></Select></FormControl>
+                      <FormControl><FormLabel>AnyDesk ID</FormLabel><Input bg="white" value={formData.anydesk} onChange={e => handleChange('anydesk', e.target.value)} /></FormControl>
+                      <FormControl>
+                        <FormLabel>Domínio?</FormLabel>
+                        <Select bg="white" value={formData.dominio} onChange={e => handleChange('dominio', e.target.value)}>
+                          <option key="dominio-sim" value="Sim">Sim</option>
+                          <option key="dominio-nao" value="Não">Não</option>
+                        </Select>
+                      </FormControl>
                     </HStack>
-                    <FormControl><FormLabel>GIX Remoto</FormLabel><Input bg="white" value={formData.gix_remoto} onChange={e => handleChange('gix_remoto', e.target.value)} /></FormControl>
                     <Divider />
                     <HStack w="full">
                         <FormControl><FormLabel>Senha BIOS</FormLabel><InputGroup><Input bg="white" type={showPassword.bios ? 'text' : 'password'} value={formData.senha_bios} onChange={e => handleChange('senha_bios', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.bios ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('bios')} /></InputRightElement></InputGroup></FormControl>
                         <FormControl><FormLabel>Senha Windows</FormLabel><InputGroup><Input bg="white" type={showPassword.win ? 'text' : 'password'} value={formData.senha_windows} onChange={e => handleChange('senha_windows', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.win ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('win')} /></InputRightElement></InputGroup></FormControl>
                     </HStack>
-                    <HStack w="full">
-                        <FormControl><FormLabel>Usuário VPN</FormLabel><Input bg="white" value={formData.vpn_login} onChange={e => handleChange('vpn_login', e.target.value)} /></FormControl>
-                        <FormControl><FormLabel>Senha VPN</FormLabel><InputGroup><Input bg="white" type={showPassword.vpn ? 'text' : 'password'} value={formData.senha_vpn} onChange={e => handleChange('senha_vpn', e.target.value)} /><InputRightElement><IconButton size="sm" variant="ghost" icon={showPassword.vpn ? <ViewOffIcon/> : <ViewIcon/>} onClick={() => togglePass('vpn')} /></InputRightElement></InputGroup></FormControl>
-                    </HStack>
                   </VStack>
                 </TabPanel>
-
-                {/* ABA COMUNICAÇÃO */}
                 <TabPanel>
                     <VStack spacing={4}>
-                        <FormControl><FormLabel>Email Google</FormLabel><Input bg="white" value={formData.email_google} onChange={e => handleChange('email_google', e.target.value)} /></FormControl>
-                        <FormControl><FormLabel>Email Zimbra</FormLabel><Input bg="white" value={formData.email_zimbra} onChange={e => handleChange('email_zimbra', e.target.value)} /></FormControl>
-                        
                         <HStack w="full" align="flex-end">
                             <FormControl>
                                 <FormLabel>Ramal <PhoneIcon ml={2} color="gray.400" /></FormLabel>
                                 <Input bg="white" placeholder="Ex: 2024" value={formData.ramal} onChange={e => handleChange('ramal', e.target.value)} />
                             </FormControl>
                             <FormControl w="auto" pb={2}>
-                                <Checkbox 
-                                    size="lg" 
-                                    colorScheme="teal" 
-                                    isChecked={formData.is_softphone} 
-                                    onChange={e => handleChange('is_softphone', e.target.checked)}
-                                >
-                                    Usa Softphone?
-                                </Checkbox>
+                                <Checkbox size="lg" colorScheme="teal" isChecked={formData.is_softphone} onChange={e => handleChange('is_softphone', e.target.checked)}>Usa Softphone?</Checkbox>
                             </FormControl>
                         </HStack>
                     </VStack>
                 </TabPanel>
+                
+                {/* --- ABAS VINCULADAS --- */}
+                {isEditing && (
+                  <TabPanel>
+                    <Table size="sm" variant="simple">
+                      <Thead><Tr><Th>Software</Th><Th>Licença</Th><Th>Vencimento</Th></Tr></Thead>
+                      <Tbody>
+                        {softwares.filter(s => s.asset_id === isEditing).map(s => (
+                          <Tr key={s.id}><Td>{s.nome}</Td><Td>{s.tipo_licenca}</Td><Td>{s.dt_vencimento ? new Date(s.dt_vencimento).toLocaleDateString() : '-'}</Td></Tr>
+                        ))}
+                        {softwares.filter(s => s.asset_id === isEditing).length === 0 && <Tr><Td colSpan={3}>Nenhum software vinculado.</Td></Tr>}
+                      </Tbody>
+                    </Table>
+                  </TabPanel>
+                )}
+                {isEditing && (
+                  <TabPanel>
+                    <List spacing={3}>
+                      {emails.filter(e => e.asset_id === isEditing).map(e => (
+                        <ListItem key={e.id} display="flex" alignItems="center">
+                          <ListIcon as={FaEnvelope} color="teal.500" />
+                          <Box>
+                            <Text fontWeight="bold">{e.endereco}</Text>
+                            <Badge fontSize="xs" colorScheme={e.tipo === 'google' ? 'red' : 'purple'}>{e.tipo}</Badge>
+                            <HStack spacing={2} mt={1} align="center">
+                              <Text fontSize="sm" color="gray.600">
+                                Senha: {showPassword[`email_${e.id}`] ? (e.senha || '—') : '••••••'}
+                              </Text>
+                              {e.senha && (
+                                <IconButton
+                                  aria-label="Ver senha"
+                                  size="xs"
+                                  variant="ghost"
+                                  icon={showPassword[`email_${e.id}`] ? <ViewOffIcon /> : <ViewIcon />}
+                                  onClick={() => togglePass(`email_${e.id}`)}
+                                />
+                              )}
+                            </HStack>
+                          </Box>
+                        </ListItem>
+                      ))}
+                      {emails.filter(e => e.asset_id === isEditing).length === 0 && <Text fontSize="sm" color="gray.500">Nenhum email vinculado.</Text>}
+                    </List>
+                  </TabPanel>
+                )}
 
-                {/* ABA EMAILS CORPORATIVOS */}
-                <TabPanel>
-                  {formData._id ? (
-                    <EmailsPatrimonioComponent assetId={formData._id} assetType="workstation" />
-                  ) : (
-                    <Box p={4} bg="blue.50" borderRadius="md" borderLeft="4px solid" borderLeftColor="blue.500">
-                      <Text fontSize="sm" color="blue.700">
-                        ℹ️ Salve o patrimônio primeiro para gerenciar os emails corporativos.
-                      </Text>
-                    </Box>
-                  )}
-                </TabPanel>
-
-                {/* ABA SOFTWARES VINCULADOS */}
-                <TabPanel>
-                  {formData._id ? (
-                    <SoftwaresPatrimonioComponent assetId={formData._id} onSoftwareAdded={() => fetchData()} />
-                  ) : (
-                    <Box p={4} bg="blue.50" borderRadius="md" borderLeft="4px solid" borderLeftColor="blue.500">
-                      <Text fontSize="sm" color="blue.700">
-                        ℹ️ Salve o patrimônio primeiro para vincular softwares.
-                      </Text>
-                    </Box>
-                  )}
-                </TabPanel>
-
-                {/* ABA HISTÓRICO DE ALTERAÇÕES */}
-                <TabPanel>
-                  <AssetDetail asset={formData} onClose={() => {}} onSave={() => {}} />
-                </TabPanel>
               </TabPanels>
              </Tabs>
-            <Box p={4} bg="gray.100" textAlign="right">
+            <Box p={4} bg="gray.100" textAlign="right" borderTop="1px solid" borderColor="gray.200">
                 <Button variant="ghost" mr={3} onClick={() => setIsOpen(false)}>Cancelar</Button>
-                <Button colorScheme="teal" onClick={handleSave}>Salvar</Button>
+                <Button colorScheme="teal" onClick={handleSave} leftIcon={<FaSave />}>Salvar Dados</Button>
             </Box>
           </ModalBody>
         </ModalContent>
       </Modal>
 
-      <Modal isOpen={modalFilialOpen} onClose={() => setModalFilialOpen(false)} size="lg">
+      <Modal isOpen={modalFilialOpen} onClose={() => setModalFilialOpen(false)}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Gerenciar Unidades</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            <Box bg="gray.50" p={4} borderRadius="md" mb={4}>
-                <Text fontWeight="bold" mb={2}>Adicionar Nova</Text>
-                <HStack>
-                    <Input placeholder="Nome (Ex: 01 - Matriz)" bg="white" value={novaFilial.nome} onChange={(e) => setNovaFilial({...novaFilial, nome: e.target.value})} />
-                    <Select bg="white" w="180px" value={novaFilial.tipo} onChange={(e) => setNovaFilial({...novaFilial, tipo: e.target.value})}>
-                        <option value="Loja">Loja</option>
-                        <option value="Administrativo">Administrativo</option>
-                        <option value="CD">CD</option>
-                    </Select>
-                    <Button colorScheme="teal" onClick={handleSaveFilial}>Add</Button>
-                </HStack>
-            </Box>
-            <Divider mb={4} />
-            <Text fontWeight="bold" mb={2}>Unidades Cadastradas</Text>
-            <Box maxH="300px" overflowY="auto" borderWidth="1px" borderRadius="md">
-                <List spacing={0}>
-                    {filiais.map((f, index) => (
-                        <ListItem key={f._id} display="flex" justifyContent="space-between" alignItems="center" p={2} borderBottom="1px solid #eee" bg={index % 2 === 0 ? "white" : "gray.50"}>
-                            <HStack>
-                                <ListIcon as={CheckCircleIcon} color="green.500" />
-                                <Box>
-                                    <Text fontWeight="bold" fontSize="sm">{f.nome}</Text>
-                                    <Badge fontSize="xs" colorScheme={f.tipo === 'Administrativo' ? 'purple' : 'gray'}>{f.tipo}</Badge>
-                                </Box>
-                            </HStack>
-                            <IconButton icon={<DeleteIcon />} size="xs" colorScheme="red" variant="ghost" onClick={() => handleDeleteFilial(f._id, f.nome)} />
-                        </ListItem>
-                    ))}
-                </List>
-            </Box>
+          <ModalBody>
+             <Text mb={2}>Adicionar nova unidade:</Text>
+             <HStack mb={4}>
+                <Input placeholder="Nome" value={novaFilial.nome} onChange={e => setNovaFilial({...novaFilial, nome: e.target.value})} />
+                <Select w="150px" value={novaFilial.tipo} onChange={e => setNovaFilial({...novaFilial, tipo: e.target.value})}>
+                    <option key="tipo-loja" value="Loja">Loja</option>
+                    <option key="tipo-admin" value="Administrativo">Admin</option>
+                    <option key="tipo-cd" value="CD">CD</option>
+                </Select>
+                <Button onClick={handleSaveFilial}>Add</Button>
+             </HStack>
           </ModalBody>
         </ModalContent>
       </Modal>
-        </Flex>
-      )}
-    </>
+    </Flex>
   );
 }
 

@@ -2,7 +2,7 @@ import csv
 import io
 import re
 from flask import Blueprint, request, jsonify
-from app import mongo
+from app.models import db, Asset, Celular, Software, Email
 from datetime import datetime
 
 bp_imports = Blueprint('imports', __name__)
@@ -19,10 +19,10 @@ def is_valid_email(text):
 
 @bp_imports.route('/api/import/celulares', methods=['POST'])
 def import_celulares():
-    # ... (Mantenha o código de celulares igual ou copie da versão anterior) ...
-    # Se quiser, posso mandar completo também, mas o foco é o erro dos emails agora.
-    # Vou resumir aqui para focar no fix:
-    if 'file' not in request.files: return jsonify({"erro": "Nenhum arquivo"}), 400
+    """Importar celulares: PAT, Filial, Em uso, AnyDesk, Senha, Cel. Princ., Cel. Sec., Conta Google, Sub Tipo, Marca, Modelo, Propriedade, Serial 1, IMEI 1, IMEI 2"""
+    if 'file' not in request.files: 
+        return jsonify({"erro": "Nenhum arquivo"}), 400
+    
     file = request.files['file']
     content = file.stream.read().decode("UTF8")
     delimiter = ';' if ';' in content.split('\n')[0] else ','
@@ -35,31 +35,53 @@ def import_celulares():
     
     for row in csv_input:
         linha += 1
-        # Normaliza chaves
-        row = {k.strip().lower(): v.strip() for k, v in row.items() if k}
-        patrimonio = row.get('patrimonio')
+        # Normaliza chaves (remove espaços, pontos e põe minúsculo)
+        row = {k.strip().lower().replace('º', 'o').replace('.', '').replace(' ', '_'): v.strip() for k, v in row.items() if k}
+        
+        # Campo obrigatório: PAT
+        patrimonio = row.get('pat') or row.get('patrimonio')
         if not patrimonio: 
             erros.append(f"Linha {linha}: Patrimônio vazio")
             continue
             
-        if mongo.db.celulares.find_one({"patrimonio": patrimonio}):
+        # Verifica duplicidade
+        if Celular.query.filter_by(patrimonio=patrimonio).first():
             erros.append(f"Linha {linha}: Celular {patrimonio} já existe")
             continue
-
-        mongo.db.celulares.insert_one({
-            "patrimonio": patrimonio,
-            "filial": row.get('filial', 'Matriz'),
-            "modelo": row.get('modelo', ''),
-            "imei": row.get('imei', ''),
-            "numero": row.get('numero', ''),
-            "responsavel": row.get('responsavel', ''),
-            "status": row.get('status', 'Em Uso'),
-            "obs": "Importado CSV",
-            "created_at": datetime.now()
-        })
+        
+        # Mapeia todos os campos do CSV
+        filial = row.get('filial', '')
+        em_uso = row.get('em_uso', '')
+        anydesk = row.get('anydesk', '')
+        senha = row.get('senha', '')
+        cel_princ = row.get('cel_princ', '') or row.get('numero_principal', '')
+        cel_sec = row.get('cel_sec', '') or row.get('numero_secundario', '')
+        conta_google = row.get('conta_google_principal', '') or row.get('conta_google', '')
+        sub_tipo = row.get('sub_tipo', '')
+        marca = row.get('marca', '')
+        modelo = row.get('modelo', '')
+        propriedade = row.get('propriedade', '')
+        serial_1 = row.get('serial_1', '')
+        imei_1 = row.get('imei_1', '') or row.get('imei', '')
+        imei_2 = row.get('imei_2', '')
+        
+        # Inserir celular com todos os campos
+        celular = Celular(
+            patrimonio=patrimonio,
+            filial=filial,
+            modelo=modelo,
+            imei=imei_1,
+            numero=cel_princ,
+            responsavel=em_uso,
+            status="Em Uso" if em_uso else row.get('status', 'Reserva'),
+            observacoes="Importado via CSV"
+        )
+        celular.atualizado_em = datetime.now()
+        db.session.add(celular)
+        db.session.commit()
         sucessos += 1
         
-    return jsonify({"msg": f"Processado! {sucessos} criados.", "erros": erros})
+    return jsonify({"msg": f"Processado! {sucessos} celulares criados.", "erros": erros})
 
 # --- IMPORTAÇÃO DE EMAILS CORRIGIDA E ROBUSTA ---
 @bp_imports.route('/api/import/emails', methods=['POST'])
@@ -94,17 +116,15 @@ def import_emails():
 
         # Busca o Asset no Banco
         asset_found = None
-        asset_type = 'workstation'
 
         if pat_pc:
-            asset_found = mongo.db.workstations.find_one({"patrimonio": pat_pc})
+            asset_found = Asset.query.filter_by(patrimonio=pat_pc).first()
             if not asset_found and not pat_cel:
                 erros.append(f"Linha {linha}: PC '{pat_pc}' não encontrado no sistema.")
                 continue
         
         if not asset_found and pat_cel:
-            asset_found = mongo.db.celulares.find_one({"patrimonio": pat_cel})
-            asset_type = 'cellphone' # Ajustado para bater com o frontend que espera 'cellphone' ou 'celular'
+            asset_found = Celular.query.filter_by(patrimonio=pat_cel).first()
             if not asset_found:
                 erros.append(f"Linha {linha}: Celular '{pat_cel}' não encontrado.")
                 continue
@@ -138,21 +158,22 @@ def import_emails():
             # Se achamos um e-mail válido para criar
             if email_final:
                 # Verifica duplicidade
-                if mongo.db.emails.find_one({"endereco": email_final, "tipo": tipo_db}):
+                if Email.query.filter_by(endereco=email_final, tipo=tipo_db).first():
                     erros.append(f"Linha {linha}: {email_final} ({tipo_db}) já existe.")
                     continue
 
-                mongo.db.emails.insert_one({
-                    "endereco": email_final,
-                    "tipo": tipo_db,
-                    "asset_id": asset_found['_id'],
-                    "asset_type": asset_type,
-                    "usuario": email_final.split('@')[0],
-                    "senha": valor_senha, # Salva a senha específica dessa conta
-                    "recuperacao": "",
-                    "status": "Ativo",
-                    "created_at": datetime.now()
-                })
+                email = Email(
+                    endereco=email_final,
+                    tipo=tipo_db,
+                    asset_id=asset_found.id,
+                    usuario=email_final.split('@')[0],
+                    senha=valor_senha, # Salva a senha específica dessa conta
+                    recuperacao="",
+                    ativo=True
+                )
+                email.atualizado_em = datetime.now()
+                db.session.add(email)
+                db.session.commit()
                 sucessos += 1
 
     return jsonify({"msg": f"Sucesso! {sucessos} contas importadas.", "erros": erros})
@@ -181,23 +202,25 @@ def import_softwares():
             erros.append(f"Linha {linha}: Nome ou PAT vazio")
             continue
 
-        pc = mongo.db.workstations.find_one({"patrimonio": pat_pc})
+        pc = Asset.query.filter_by(patrimonio=pat_pc).first()
         if not pc:
             erros.append(f"Linha {linha}: PC {pat_pc} não existe")
             continue
 
-        mongo.db.softwares.insert_one({
-            "nome": nome,
-            "asset_id": pc['_id'],
-            "versao": row.get('versao', ''),
-            "tipo_licenca": row.get('tipo_licenca', 'Individual'),
-            "chave_licenca": row.get('chave_licenca', ''),
-            "dt_instalacao": parse_date(row.get('dt_instalacao')),
-            "dt_vencimento": parse_date(row.get('dt_vencimento')),
-            "custo_anual": float(row.get('custo_anual', 0) or 0),
-            "status": "Ativo",
-            "created_at": datetime.now()
-        })
+        software = Software(
+            nome=nome,
+            asset_id=pc.id,
+            versao=row.get('versao', ''),
+            tipo_licenca=row.get('tipo_licenca', 'Individual'),
+            chave_licenca=row.get('chave_licenca', ''),
+            dt_instalacao=parse_date(row.get('dt_instalacao')),
+            dt_vencimento=parse_date(row.get('dt_vencimento')),
+            custo_anual=float(row.get('custo_anual', 0) or 0),
+            ativo=True
+        )
+        software.atualizado_em = datetime.now()
+        db.session.add(software)
+        db.session.commit()
         sucessos += 1
 
     return jsonify({"msg": f"Importado: {sucessos} softwares.", "erros": erros})

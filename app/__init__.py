@@ -1,20 +1,31 @@
 from flask import Flask
-from flask_pymongo import PyMongo
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager # <--- 1. Importar isso
+from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 from config import Config
+from app.models import db
 
-mongo = PyMongo()
-jwt = JWTManager() # <--- 2. Criar o objeto
+jwt = JWTManager()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
     # Inicializações
-    mongo.init_app(app)
-    CORS(app)
-    jwt.init_app(app) # <--- 3. Ligar o JWT ao App (Fundamental!)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    
+    # Configurar CORS para aceitar requisições do frontend
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": ["http://localhost:5173", "http://127.0.0.1:5173"],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
+        }
+    })
+    
+    jwt.init_app(app)
 
     # Importação dos Blueprints
     from app.routes.assets import bp_assets

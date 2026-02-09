@@ -51,7 +51,7 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
 
     try {
       const token = localStorage.getItem('token');
-      const software = softwaresDisponiveis.find(s => s._id === softwareSelected);
+      const software = softwaresDisponiveis.find(s => s.id === softwareSelected);
       
       if (!software) {
         toast({
@@ -63,7 +63,7 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
       }
 
       // Verificar se já está vinculado
-      if (softwares.find(s => s._id === softwareSelected)) {
+      if (softwares.find(s => s.id === softwareSelected)) {
         toast({
           title: 'Aviso',
           description: 'Este software já está vinculado',
@@ -96,7 +96,7 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
 
   const handleRemoverSoftware = (softwareId) => {
     if (window.confirm('Tem certeza que deseja remover este software?')) {
-      setSoftwares(softwares.filter(s => s._id !== softwareId));
+      setSoftwares(softwares.filter(s => s.id !== softwareId));
       toast({
         title: 'Software removido!',
         status: 'info'
@@ -132,9 +132,9 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
                   bg="white"
                 >
                   {softwaresDisponiveis
-                    .filter(s => !softwares.find(sf => sf._id === s._id))
+                    .filter(s => !softwares.find(sf => sf.id === s.id))
                     .map(s => (
-                      <option key={s._id} value={s._id}>
+                      <option key={s.id} value={s.id}>
                         {s.nome} - {s.versao || 'sem versão'}
                       </option>
                     ))}
@@ -173,7 +173,7 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
                 {softwares.map(software => {
                   const vencStatus = verificarVencimento(software.dt_vencimento);
                   return (
-                    <Tr key={software._id}>
+                    <Tr key={software.id}>
                       <Td fontSize="sm" fontWeight="500">{software.nome}</Td>
                       <Td fontSize="sm">{software.versao || '-'}</Td>
                       <Td fontSize="sm">
@@ -192,7 +192,7 @@ function SoftwaresPatrimonioComponent({ assetId, onSoftwareAdded }) {
                           size="xs"
                           colorScheme="red"
                           variant="ghost"
-                          onClick={() => handleRemoverSoftware(software._id)}
+                          onClick={() => handleRemoverSoftware(software.id)}
                         />
                       </Td>
                     </Tr>
