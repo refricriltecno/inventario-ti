@@ -376,8 +376,8 @@ function App() {
                 <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Geral</Tab>
                 <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Rede & Acesso</Tab>
                 <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Comunicação</Tab>
-                {isEditing && <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Softwares</Tab>}
-                {isEditing && <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Emails</Tab>}
+                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>E-mails</Tab>
+                <Tab _selected={{ color: 'teal.600', fontWeight:'bold', borderBottom:'2px solid teal' }}>Softwares</Tab>
               </TabList>
               <TabPanels p={6}>
                 <TabPanel>
@@ -502,22 +502,9 @@ function App() {
                     </VStack>
                 </TabPanel>
                 
-                {/* --- ABAS VINCULADAS --- */}
-                {isEditing && (
-                  <TabPanel>
-                    <Table size="sm" variant="simple">
-                      <Thead><Tr><Th>Software</Th><Th>Licença</Th><Th>Vencimento</Th></Tr></Thead>
-                      <Tbody>
-                        {softwares.filter(s => s.asset_id === isEditing).map(s => (
-                          <Tr key={s.id}><Td>{s.nome}</Td><Td>{s.tipo_licenca}</Td><Td>{s.dt_vencimento ? new Date(s.dt_vencimento).toLocaleDateString() : '-'}</Td></Tr>
-                        ))}
-                        {softwares.filter(s => s.asset_id === isEditing).length === 0 && <Tr><Td colSpan={3}>Nenhum software vinculado.</Td></Tr>}
-                      </Tbody>
-                    </Table>
-                  </TabPanel>
-                )}
-                {isEditing && (
-                  <TabPanel>
+                {/* --- ABA EMAILS --- */}
+                <TabPanel>
+                  {isEditing ? (
                     <List spacing={3}>
                       {emails.filter(e => e.asset_id === isEditing).map(e => (
                         <ListItem key={e.id} display="flex" alignItems="center">
@@ -544,8 +531,27 @@ function App() {
                       ))}
                       {emails.filter(e => e.asset_id === isEditing).length === 0 && <Text fontSize="sm" color="gray.500">Nenhum email vinculado.</Text>}
                     </List>
-                  </TabPanel>
-                )}
+                  ) : (
+                    <Text fontSize="sm" color="gray.500">Salve o ativo primeiro para visualizar e-mails vinculados.</Text>
+                  )}
+                </TabPanel>
+                
+                {/* --- ABA SOFTWARES --- */}
+                <TabPanel>
+                  {isEditing ? (
+                    <Table size="sm" variant="simple">
+                      <Thead><Tr><Th>Software</Th><Th>Licença</Th><Th>Vencimento</Th></Tr></Thead>
+                      <Tbody>
+                        {softwares.filter(s => s.asset_id === isEditing).map(s => (
+                          <Tr key={s.id}><Td>{s.nome}</Td><Td>{s.tipo_licenca}</Td><Td>{s.dt_vencimento ? new Date(s.dt_vencimento).toLocaleDateString() : '-'}</Td></Tr>
+                        ))}
+                        {softwares.filter(s => s.asset_id === isEditing).length === 0 && <Tr><Td colSpan={3}>Nenhum software vinculado.</Td></Tr>}
+                      </Tbody>
+                    </Table>
+                  ) : (
+                    <Text fontSize="sm" color="gray.500">Salve o ativo primeiro para visualizar softwares vinculados.</Text>
+                  )}
+                </TabPanel>
 
               </TabPanels>
              </Tabs>
