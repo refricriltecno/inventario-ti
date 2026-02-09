@@ -85,7 +85,7 @@ class Asset(db.Model):
     softwares = db.relationship('Software', back_populates='asset', cascade='all, delete-orphan')
     emails = db.relationship('Email', back_populates='asset', cascade='all, delete-orphan')
     
-    def to_dict(self):
+    def to_dict(self, include_relationships=False):
         data = {
             'id': str(self.id),
             'patrimonio': self.patrimonio,
@@ -103,6 +103,7 @@ class Asset(db.Model):
             'valor': float(self.valor) if self.valor else None,
             'fornecedor': self.fornecedor,
             'nota_fiscal': self.nota_fiscal,
+            'anydesk': self.anydesk,
             'criado_em': self.criado_em.isoformat() if self.criado_em else None,
             'atualizado_em': self.atualizado_em.isoformat() if self.atualizado_em else None
         }
@@ -110,6 +111,11 @@ class Asset(db.Model):
         # Adicionar especificações
         if self.especificacoes:
             data.update(self.especificacoes)
+        
+        # Adicionar relacionamentos se solicitado
+        if include_relationships:
+            data['softwares'] = [software.to_dict() for software in self.softwares] if self.softwares else []
+            data['emails'] = [email.to_dict() for email in self.emails] if self.emails else []
             
         return data
 

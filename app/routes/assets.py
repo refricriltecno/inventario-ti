@@ -82,7 +82,43 @@ def get_one_asset(id):
     asset = Asset.query.get(asset_id)
     if not asset:
         return jsonify({'erro': 'Ativo não encontrado'}), 404
-    return jsonify(asset.to_dict())
+    
+    # Retornar com relacionamentos aninhados
+    return jsonify(asset.to_dict(include_relationships=True))
+
+# --- NOVOS ENDPOINTS: Emails e Softwares de um Asset ---
+
+@bp_assets.route('/api/assets/<id>/emails', methods=['GET'])
+@jwt_required()
+def get_asset_emails(id):
+    """Listar todos os emails vinculados a um asset específico"""
+    try:
+        asset_id = int(id)
+    except ValueError:
+        return jsonify({'erro': 'ID inválido'}), 400
+
+    asset = Asset.query.get(asset_id)
+    if not asset:
+        return jsonify({'erro': 'Ativo não encontrado'}), 404
+    
+    emails = [email.to_dict() for email in asset.emails]
+    return jsonify(emails), 200
+
+@bp_assets.route('/api/assets/<id>/softwares', methods=['GET'])
+@jwt_required()
+def get_asset_softwares(id):
+    """Listar todos os softwares vinculados a um asset específico"""
+    try:
+        asset_id = int(id)
+    except ValueError:
+        return jsonify({'erro': 'ID inválido'}), 400
+
+    asset = Asset.query.get(asset_id)
+    if not asset:
+        return jsonify({'erro': 'Ativo não encontrado'}), 404
+    
+    softwares = [software.to_dict() for software in asset.softwares]
+    return jsonify(softwares), 200
 
 @bp_assets.route('/api/assets', methods=['POST'])
 @jwt_required()
